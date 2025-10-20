@@ -37,6 +37,8 @@
       width: 40px;
       height: 40px;
       object-fit: contain;
+      object-position: center;
+      flex-shrink: 0;
     }
 
     .logo-text {
@@ -87,6 +89,17 @@
 
       .nav-links {
         display: none;
+      }
+    }
+
+    .logo-section {
+      .logo {
+        width: 32px;
+        height: 32px;
+      }
+
+      .logo-text {
+        font-size: 14px;
       }
     }
   }
