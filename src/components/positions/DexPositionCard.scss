@@ -1,4 +1,5 @@
 @use '../../styles/variables' as *;
+@use 'sass:color';
 
 .dex-position-card {
   backdrop-filter: blur(10px);
@@ -13,11 +14,36 @@
   display: flex;
   flex-direction: column;
   gap: $spacing-sm;
-  transition: all $transition-normal;
+  transition: all $transition-normal, transform $transition-normal;
+  cursor: pointer;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 
   &:hover {
     background: $card-bg-hover;
     border-color: rgba(59, 59, 59, 0.7);
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+
+    .card-background {
+      opacity: 0.9;
+      transform: scale(1.05);
+    }
+
+    .pair-name {
+      color: rgba(255, 255, 255, 0.95);
+    }
+
+    .apy-value {
+      color: rgba(255, 255, 255, 0.95);
+    }
+  }
+
+  &:active {
+    transform: translateY(-2px);
+    transition: all 0.1s ease;
   }
 
   .card-background {
@@ -28,6 +54,7 @@
     height: 228px;
     opacity: 0.8;
     pointer-events: none;
+    transition: all $transition-normal;
 
     .uniswap-icon {
       width: 100%;
@@ -54,6 +81,7 @@
         font-weight: 400;
         letter-spacing: $letter-spacing-tight;
         color: $text-primary;
+        transition: color $transition-fast;
       }
 
       .pair-meta {
@@ -61,6 +89,7 @@
         font-weight: 400;
         letter-spacing: $letter-spacing-tight;
         color: $text-primary;
+        transition: color $transition-fast;
       }
     }
 
@@ -74,6 +103,7 @@
         font-weight: 400;
         letter-spacing: $letter-spacing-tight;
         color: $text-secondary;
+        transition: color $transition-fast;
       }
 
       .apy-value {
@@ -81,6 +111,7 @@
         font-weight: 400;
         letter-spacing: $letter-spacing-tight;
         color: $text-primary;
+        transition: color $transition-fast;
       }
     }
   }
@@ -134,17 +165,95 @@
         letter-spacing: $letter-spacing-tight;
         cursor: pointer;
         transition: all $transition-fast;
+        position: relative;
+        overflow: hidden;
+
+        // Ripple effect base
+        &::before {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 0;
+          height: 0;
+          border-radius: 50%;
+          background: rgba(255, 255, 255, 0.1);
+          transform: translate(-50%, -50%);
+          transition: width 0.6s, height 0.6s;
+        }
 
         &.borrow-button {
           background: $borrow-button-gradient;
+          box-shadow: 0 1px 3px rgba(56, 130, 98, 0.12);
+          font-weight: 500;
+          position: relative;
+          overflow: hidden;
+
+          // Animated gradient shimmer
+          &::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+              45deg,
+              transparent 30%,
+              rgba(255, 255, 255, 0.1) 50%,
+              transparent 70%
+            );
+            transform: translateX(-100%) translateY(-100%) rotate(45deg);
+            transition: transform 0.6s ease;
+          }
+
+          &:hover {
+            box-shadow: 
+              0 2px 8px rgba(56, 130, 98, 0.2),
+              inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transform: translateY(-3px) scale(1.01);
+            background: radial-gradient(276.97% 180.37% at 16.4% 132.95%, 
+              color.adjust($green-dark, $lightness: 5%) 0%, 
+              color.adjust($green-accent, $lightness: 8%) 100%);
+
+            &::after {
+              transform: translateX(100%) translateY(100%) rotate(45deg);
+            }
+
+            &::before {
+              width: 300px;
+              height: 300px;
+              background: rgba(255, 255, 255, 0.08);
+            }
+          }
+
+          &:active {
+            transform: translateY(-1px) scale(1.0);
+            box-shadow: 0 1px 4px rgba(56, 130, 98, 0.15);
+          }
         }
 
         &:hover {
-          transform: translateY(-1px);
+          transform: translateY(-2px);
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+          background: $button-bg-hover;
+
+          &::before {
+            width: 300px;
+            height: 300px;
+          }
         }
 
         &:active {
           transform: translateY(0);
+          box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+          transition: all 0.1s ease;
+        }
+
+        // Focus state for accessibility
+        &:focus-visible {
+          outline: 2px solid rgba(255, 255, 255, 0.5);
+          outline-offset: 2px;
         }
       }
     }

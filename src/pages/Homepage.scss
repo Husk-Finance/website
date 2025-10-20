@@ -6,6 +6,9 @@
   min-height: 100vh;
   color: $text-primary;
   font-family: $font-family;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 
   // Exact gradient background from Figma - three layered radial gradients
   &::before {
@@ -49,6 +52,9 @@
       max-width: 600px;
       margin: 0;
       word-wrap: break-word;
+      text-rendering: optimizeLegibility;
+      -webkit-font-smoothing: antialiased;
+      font-feature-settings: 'liga' 1, 'kern' 1;
     }
 
     p {
@@ -57,6 +63,7 @@
       line-height: 1.5;
       margin: 0;
       color: rgba(255, 255, 255, 0.9);
+      text-rendering: optimizeLegibility;
     }
   }
 
