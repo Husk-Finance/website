@@ -7,7 +7,12 @@ export default function DexPositionCard({ position }) {
   return (
     <div className="dex-position-card">
       <div className="card-background">
-        <img src={uniswapIcon} alt="Uniswap" className="uniswap-icon" />
+        <img 
+          src={uniswapIcon} 
+          alt="Uniswap" 
+          className="uniswap-icon"
+          loading="lazy"
+        />
       </div>
 
       <div className="card-header">

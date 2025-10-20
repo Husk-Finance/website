@@ -7,7 +7,11 @@ export default function Header() {
     <header className="header">
       <div className="header-content">
         <div className="logo-section">
-          <img src={logoGradient} alt="Husk Finance" className="logo" />
+          <img 
+            src={logoGradient} 
+            alt="Husk Finance" 
+            className="logo"
+          />
           <span className="logo-text">Husk Finance</span>
         </div>
 
