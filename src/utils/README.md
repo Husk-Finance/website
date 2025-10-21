@@ -101,13 +101,13 @@ const processed = processDexPositions(mockPositions)
 
 ## Data Format
 
-Both DEX and DeFi positions should include a `createdAt` field:
+Both DEX and DeFi positions should include a `createdAt` field as a Unix timestamp (milliseconds):
 
 ```javascript
 {
   id: 101,
   protocol: 'Aethir Gaming Pool',
-  createdAt: '2025-10-18T10:00:00Z', // ISO 8601 format
+  createdAt: 1729245600000, // Unix timestamp in milliseconds
   tags: [
     { label: 'RWA', bg: '#2485c7', color: '#000000' }
   ],
@@ -132,7 +132,7 @@ export default function Homepage() {
 
 ## Notes
 
-- The 7-day threshold is calculated from the current date/time
-- All date comparisons use JavaScript's `Date` object
-- Positions without a `createdAt` field default to epoch (1970-01-01)
+- The 7-day threshold is calculated from the current timestamp
+- All date comparisons use Unix timestamps (milliseconds)
+- Positions without a `createdAt` field default to 0 (epoch)
 - The utility functions do not mutate the original data; they return new arrays

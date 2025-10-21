@@ -1,5 +1,6 @@
 import './Homepage.scss'
 import Header from '../components/layout/Header'
+import Footer from '../components/layout/Footer'
 import { DexPositionCard } from '../components/positions'
 import { mockPositions } from '../data/mockPositions'
 import { mockDeFiPositions } from '../data/mockDeFiPositions'
@@ -38,6 +39,8 @@ export default function Homepage() {
           ))}
         </div>
       </section>
+
+      <Footer />
     </div>
   )
 }
