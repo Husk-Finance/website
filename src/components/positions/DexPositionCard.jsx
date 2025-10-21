@@ -68,7 +68,7 @@ DexPositionCard.propTypes = {
     pair: PropTypes.string.isRequired,
     version: PropTypes.string.isRequired,
     fee: PropTypes.string.isRequired,
-    createdAt: PropTypes.string,
+    createdAt: PropTypes.number,
     huskAPY: PropTypes.string.isRequired,
     tvl: PropTypes.string.isRequired,
     revenue24h: PropTypes.string.isRequired,

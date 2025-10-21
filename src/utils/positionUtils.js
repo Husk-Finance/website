@@ -9,8 +9,8 @@
  */
 export function sortByCreationTime(positions) {
   return [...positions].sort((a, b) => {
-    const dateA = a.createdAt ? new Date(a.createdAt) : new Date(0)
-    const dateB = b.createdAt ? new Date(b.createdAt) : new Date(0)
+    const dateA = a.createdAt ? a.createdAt : 0
+    const dateB = b.createdAt ? b.createdAt : 0
     return dateB - dateA // Descending order (newest first)
   })
 }
@@ -21,11 +21,12 @@ export function sortByCreationTime(positions) {
  * @returns {Array} Positions with updated tags
  */
 export function autoTagNewPositions(positions) {
-  const now = new Date()
-  const sevenDaysAgo = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000)
+  const now = Date.now()
+  const sevenDaysInMs = 7 * 24 * 60 * 60 * 1000
+  const sevenDaysAgo = now - sevenDaysInMs
 
   return positions.map(position => {
-    const createdAt = position.createdAt ? new Date(position.createdAt) : new Date(0)
+    const createdAt = position.createdAt || 0
     const isNew = createdAt >= sevenDaysAgo
     
     // Clone the position to avoid mutation

@@ -9,7 +9,7 @@ export const mockPositions = [
     pair: 'XAUT/USDC',
     version: 'v3',
     fee: '0.3%',
-    createdAt: '2025-10-15T12:00:00Z',
+    createdAt: 1728993600000, // Oct 15, 2025 12:00:00
     huskAPY: '80.65%',
     tvl: '$15.77k',
     revenue24h: '$850',
@@ -23,7 +23,7 @@ export const mockPositions = [
     pair: 'WBTC/USDC',
     version: 'v4',
     fee: '0.3%',
-    createdAt: '2025-10-19T09:30:00Z',
+    createdAt: 1729330200000, // Oct 19, 2025 09:30:00
     huskAPY: '56.65%',
     tvl: '$2.4M',
     revenue24h: '$12.3k',
@@ -37,7 +37,7 @@ export const mockPositions = [
     pair: 'ETH/USDC',
     version: 'v3',
     fee: '0.05%',
-    createdAt: '2025-10-20T14:15:00Z',
+    createdAt: 1729433700000, // Oct 20, 2025 14:15:00
     huskAPY: '92.34%',
     tvl: '$1.2M',
     revenue24h: '$8.5k',
@@ -51,7 +51,7 @@ export const mockPositions = [
     pair: 'USDT/DAI',
     version: 'v3',
     fee: '0.01%',
-    createdAt: '2025-09-10T11:00:00Z',
+    createdAt: 1725962400000, // Sep 10, 2025 11:00:00
     huskAPY: '12.45%',
     tvl: '$856k',
     revenue24h: '$1.2k',
@@ -65,7 +65,7 @@ export const mockPositions = [
     pair: 'WBTC/ETH',
     version: 'v4',
     fee: '0.3%',
-    createdAt: '2025-10-12T08:20:00Z',
+    createdAt: 1728721200000, // Oct 12, 2025 08:20:00
     huskAPY: '64.89%',
     tvl: '$3.1M',
     revenue24h: '$18.6k',
@@ -79,7 +79,7 @@ export const mockPositions = [
     pair: 'MATIC/USDC',
     version: 'v3',
     fee: '0.3%',
-    createdAt: '2025-10-17T13:45:00Z',
+    createdAt: 1729169100000, // Oct 17, 2025 13:45:00
     huskAPY: '73.21%',
     tvl: '$487k',
     revenue24h: '$3.8k',
@@ -93,7 +93,7 @@ export const mockPositions = [
     pair: 'LINK/ETH',
     version: 'v3',
     fee: '0.3%',
-    createdAt: '2025-09-25T16:00:00Z',
+    createdAt: 1727280000000, // Sep 25, 2025 16:00:00
     huskAPY: '58.92%',
     tvl: '$672k',
     revenue24h: '$5.1k',
@@ -107,7 +107,7 @@ export const mockPositions = [
     pair: 'UNI/USDC',
     version: 'v4',
     fee: '0.3%',
-    createdAt: '2025-10-18T10:30:00Z',
+    createdAt: 1729247400000, // Oct 18, 2025 10:30:00
     huskAPY: '45.67%',
     tvl: '$923k',
     revenue24h: '$6.7k',
