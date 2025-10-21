@@ -9,7 +9,7 @@ export default function Footer() {
         <div className="footer-section">
           <h3 className="footer-section-title">COMMUNITY</h3>
           <ul className="footer-links">
-            <li><a href="https://x.com/huskfinance" target="_blank" rel="noopener noreferrer">𝕏 (Twitter)</a></li>
+            <li><a href="https://x.com/huskfinancex" target="_blank" rel="noopener noreferrer">𝕏 (Twitter)</a></li>
             <li><a href="https://discord.gg/aheQKSdD7m" target="_blank" rel="noopener noreferrer">Discord</a></li>
           </ul>
         </div>
