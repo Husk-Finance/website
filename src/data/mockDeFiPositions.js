@@ -6,8 +6,8 @@ export const mockDeFiPositions = [
   {
     id: 101,
     protocol: 'Aethir Gaming Pool',
+    createdAt: '2025-10-18T10:00:00Z', // 3 days ago - should get NEW tag
     tags: [
-      { label: 'NEW', bg: '#a6c724', color: '#000000' },
       { label: 'RWA', bg: '#2485c7', color: '#000000' },
       { label: 'AutoC', bg: '#0d9aa2', color: '#ffffff' },
     ],
@@ -23,6 +23,7 @@ export const mockDeFiPositions = [
   {
     id: 102,
     protocol: 'Compound USDC Market',
+    createdAt: '2025-10-10T14:30:00Z', // 11 days ago - no NEW tag
     tags: [
       { label: 'AutoC', bg: '#0d9aa2', color: '#ffffff' },
     ],
@@ -38,6 +39,7 @@ export const mockDeFiPositions = [
   {
     id: 103,
     protocol: 'Maker DAI Savings',
+    createdAt: '2025-09-15T08:00:00Z', // 36 days ago - no NEW tag
     tags: [],
   huskAPY: '8.1%',
   distribution: 'Monthly',
@@ -51,9 +53,8 @@ export const mockDeFiPositions = [
   {
     id: 104,
     protocol: 'Euler ETH Borrow',
-    tags: [
-      { label: 'NEW', bg: '#a6c724', color: '#000000' }
-    ],
+    createdAt: '2025-10-20T16:45:00Z', // 1 day ago - should get NEW tag
+    tags: [],
     huskAPY: '7.2%',
     distribution: 'Daily',
     nextDistribution: 'in 12 hours',

@@ -5,8 +5,13 @@ import { mockPositions } from '../data/mockPositions'
 import { mockDeFiPositions } from '../data/mockDeFiPositions'
 import DeFiPositionCard from '../components/positions/DeFiPositionCard'
 import { HERO_CONTENT, SECTION_TITLES } from '../constants'
+import { processDexPositions, processDeFiPositions } from '../utils/positionUtils'
 
 export default function Homepage() {
+  // Process positions: sort by creation time and auto-tag NEW for DeFi positions
+  const sortedDexPositions = processDexPositions(mockPositions)
+  const sortedDeFiPositions = processDeFiPositions(mockDeFiPositions)
+
   return (
     <div className="homepage">
       <Header />
@@ -19,7 +24,7 @@ export default function Homepage() {
       <section className="positions-section">
         <h2>{SECTION_TITLES.dexPositionMarket}</h2>
         <div className="positions-grid">
-          {mockPositions.map((position) => (
+          {sortedDexPositions.map((position) => (
             <DexPositionCard key={position.id} position={position} />
           ))}
         </div>
@@ -28,7 +33,7 @@ export default function Homepage() {
       <section className="positions-section">
         <h2>{SECTION_TITLES.defiPositionMarket}</h2>
         <div className="positions-grid">
-          {mockDeFiPositions.map((position) => (
+          {sortedDeFiPositions.map((position) => (
             <DeFiPositionCard key={position.id} position={position} />
           ))}
         </div>

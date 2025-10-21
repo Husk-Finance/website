@@ -77,6 +77,7 @@ DeFiPositionCard.propTypes = {
   position: PropTypes.shape({
     id: PropTypes.number.isRequired,
     protocol: PropTypes.string.isRequired,
+    createdAt: PropTypes.string,
     tags: PropTypes.array,
     huskAPY: PropTypes.string,
     supplyAPY: PropTypes.string.isRequired,
