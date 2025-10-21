@@ -19,6 +19,7 @@ export const HERO_CONTENT = {
 // Section Titles
 export const SECTION_TITLES = {
   dexPositionMarket: 'DEX Position Market',
+  defiPositionMarket: 'DeFi Position Market',
 }
 
 // Button Labels
@@ -35,7 +36,7 @@ export const GRID_LABELS = {
   liquidationLow: 'Liqd. Low Price',
   liquidationHigh: 'Liqd. High Price',
   supplyAPY: 'Supply APY',
-  borrowRisk: 'Borrow Risk',
+  borrowRisk: 'Participation Risk',
   huskAPY: 'Husk APY',
 }
 

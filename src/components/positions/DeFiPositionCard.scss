@@ -1,0 +1,74 @@
+@use '../../styles/variables' as *;
+
+// Import base Dex styles so we can reuse them via extend. Using !optional
+// to avoid hard failure if the source selector isn't available in some build
+@import './DexPositionCard.scss';
+
+.defi-position-card {
+  @extend .dex-position-card !optional;
+
+  // Override header layout for DeFi cards
+  .card-header {
+    .protocol-info {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-xs;
+    }
+
+    .protocol-name {
+      font-size: $font-size-base;
+      font-weight: 400;
+      color: $text-primary;
+      letter-spacing: $letter-spacing-tight;
+    }
+
+    .tag-row {
+      display: flex;
+      gap: $spacing-xs;
+      align-items: center;
+
+      .tag-pill {
+        padding: 2px $spacing-xs;
+        border-radius: $border-radius-sm;
+        font-size: 10px;
+        line-height: normal;
+        font-weight: 400;
+        letter-spacing: -0.2px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+      }
+    }
+
+    .rate-info {
+      display: flex;
+      flex-direction: column;
+      gap: $spacing-xs;
+      text-align: left;
+
+      .rate-label {
+        font-size: $font-size-base;
+        font-weight: 400;
+        letter-spacing: $letter-spacing-tight;
+        color: $text-secondary;
+      }
+
+      .rate-value {
+        font-size: $font-size-base;
+        font-weight: 400;
+        letter-spacing: $letter-spacing-tight;
+        color: $text-primary;
+      }
+    }
+  }
+
+  .card-grid {
+    height: 202px;
+  }
+}
+
+@media (max-width: 768px) {
+  .defi-position-card {
+    .card-grid { height: auto; }
+  }
+}
