@@ -2,9 +2,63 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App'
 import './styles/main.scss'
+import '@rainbow-me/rainbowkit/styles.css';
+import { getDefaultConfig, RainbowKitProvider, darkTheme } from '@rainbow-me/rainbowkit';
+import { WagmiProvider } from 'wagmi';
+import { custom } from '@wagmi/core';
+import { mainnet, base } from 'wagmi/chains';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+
+const queryClient = new QueryClient();
+
+const config = getDefaultConfig({
+  appName: 'Husk Finance',
+  projectId: 'cd660e6d5a6c12fe81c7f640dc8b779f',
+  ssr: false,
+  chains: [mainnet, base],
+  transports: {
+    [mainnet.id]: custom({
+      async request({ method, params }) {
+        const response = await fetch('https://api.zan.top/node/v1/eth/mainnet/ec4222a8484d4691bcd963692272a8de', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ method, params }),
+        });
+        return response.json();
+      },
+    }),
+    [base.id]: custom({
+      async request({ method, params }) {
+        const response = await fetch('https://api.zan.top/node/v1/base/mainnet/ec4222a8484d4691bcd963692272a8de', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ method, params }),
+        });
+        return response.json();
+      },
+    }),
+  },
+});
+
+const myDarkTheme = {
+  ...darkTheme(),
+  colors: {
+    ...darkTheme().colors,
+    accentColor: '#388262', // Custom accent color
+    accentColorForeground: '#ffffff',
+    modalBackground: '#1a1a1a',
+    modalText: '#ffffff',
+  },
+};
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <App />
+    <WagmiProvider config={config}>
+      <QueryClientProvider client={queryClient}>
+        <RainbowKitProvider theme={myDarkTheme}>
+          <App />
+        </RainbowKitProvider>
+      </QueryClientProvider>
+    </WagmiProvider>
   </React.StrictMode>
 )

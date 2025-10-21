@@ -1,6 +1,9 @@
-import './Header.scss'
-import logoGradient from '../../assets/logo-gradient.svg'
-import { NAV_LINKS, BUTTON_LABELS } from '../../constants'
+import '@rainbow-me/rainbowkit/styles.css';
+import './Header.scss';
+
+import logoGradient from '../../assets/logo-gradient.svg';
+import { NAV_LINKS } from '../../constants';
+import { ConnectButton } from '@rainbow-me/rainbowkit';
 
 export default function Header() {
   return (
@@ -23,7 +26,9 @@ export default function Header() {
           ))}
         </nav>
 
-        <button className="connect-button">{BUTTON_LABELS.connect}</button>
+        <nav className="connect-button">
+          <ConnectButton />
+        </nav>
       </div>
     </header>
   )
