@@ -6,7 +6,7 @@ export const mockDeFiPositions = [
   {
     id: 101,
     protocol: 'Aethir Gaming Pool',
-    createdAt: 1729245600000, // Oct 18, 2025 10:00:00 - 3 days ago - should get NEW tag
+    createdAt: 1761022597000, //should get NEW tag
     tags: [
       { label: 'RWA', bg: '#2485c7', color: '#000000' },
       { label: 'AutoC', bg: '#0d9aa2', color: '#ffffff' },
@@ -53,7 +53,7 @@ export const mockDeFiPositions = [
   {
     id: 104,
     protocol: 'Euler ETH Borrow',
-    createdAt: 1729443900000, // Oct 20, 2025 16:45:00 - 1 day ago - should get NEW tag
+    createdAt: 1761022590000, // should get NEW tag
     tags: [],
     huskAPY: '7.2%',
     distribution: 'Daily',
