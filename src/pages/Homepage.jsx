@@ -62,30 +62,44 @@ export default function Homepage() {
 
       <section className="positions-section">
         <h2>{SECTION_TITLES.dexPositionMarket}</h2>
-        <div className="positions-grid">
-          {sortedDexPositions.map((position) => (
-            <DexPositionCard 
-              key={position.id} 
-              position={position} 
-              onSupplyClick={() => openModal(position, 'supply')}
-              onBorrowClick={() => openModal(position, 'borrow')}
-            />
-          ))}
-        </div>
+        {sortedDexPositions.length > 0 ? (
+          <div className="positions-grid">
+            {sortedDexPositions.map((position) => (
+              <DexPositionCard 
+                key={position.id} 
+                position={position} 
+                onSupplyClick={() => openModal(position, 'supply')}
+                onBorrowClick={() => openModal(position, 'borrow')}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="empty-state">
+            <p>No DEX positions available on this network.</p>
+            {isConnected && <p className="empty-state-hint">Try switching to a different network or disconnect to see all positions.</p>}
+          </div>
+        )}
       </section>
 
       <section className="positions-section">
         <h2>{SECTION_TITLES.defiPositionMarket}</h2>
-        <div className="positions-grid">
-          {sortedDeFiPositions.map((position) => (
-            <DeFiPositionCard 
-              key={position.id} 
-              position={position} 
-              onSupplyClick={() => openModal(position, 'supply')}
-              onBorrowClick={() => openModal(position, 'borrow')}
-            />
-          ))}
-        </div>
+        {sortedDeFiPositions.length > 0 ? (
+          <div className="positions-grid">
+            {sortedDeFiPositions.map((position) => (
+              <DeFiPositionCard 
+                key={position.id} 
+                position={position} 
+                onSupplyClick={() => openModal(position, 'supply')}
+                onBorrowClick={() => openModal(position, 'borrow')}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="empty-state">
+            <p>No DeFi positions available on this network.</p>
+            {isConnected && <p className="empty-state-hint">Try switching to a different network or disconnect to see all positions.</p>}
+          </div>
+        )}
       </section>
 
       <Footer />

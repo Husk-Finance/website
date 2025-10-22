@@ -85,6 +85,30 @@
       grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
       gap: $spacing-md;
     }
+
+    .empty-state {
+      padding: $spacing-lg;
+      text-align: center;
+      color: rgba(255, 255, 255, 0.6);
+      background: rgba(255, 255, 255, 0.02);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 8px;
+
+      p {
+        margin: 0 0 $spacing-sm 0;
+        font-size: $font-size-base;
+        letter-spacing: $letter-spacing-tight;
+
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+
+      .empty-state-hint {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.4);
+      }
+    }
   }
 }
 
