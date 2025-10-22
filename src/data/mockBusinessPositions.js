@@ -9,7 +9,7 @@ export const mockBusinessPositions = [
   {
     id: 1,
     chainId: 1, // Ethereum Mainnet
-    businessName: 'Frigate Ships (FRIG)',
+    businessName: 'Finding Nemo Live Action',
     businessImage: 'https://images.unsplash.com/photo-1544552866-d3ed42536cfd?w=800&q=80',
     network: 'Onyx',
     createdAt: 1729416600000, // Oct 20, 2025 09:30:00
@@ -24,7 +24,7 @@ export const mockBusinessPositions = [
   {
     id: 2,
     chainId: 1,
-    businessName: 'Luxury Yacht Rentals',
+    businessName: 'Fishing Ship Rentals',
     businessImage: 'https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=800&q=80',
     network: 'Onyx',
     createdAt: 1729330200000, // Oct 19, 2025 09:30:00
