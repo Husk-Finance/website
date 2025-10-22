@@ -8,6 +8,7 @@ import { WagmiProvider } from 'wagmi';
 import { custom } from '@wagmi/core';
 import { mainnet, base } from 'wagmi/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { http } from 'viem';
 
 const queryClient = new QueryClient();
 
@@ -17,26 +18,8 @@ const config = getDefaultConfig({
   ssr: false,
   chains: [mainnet, base],
   transports: {
-    [mainnet.id]: custom({
-      async request({ method, params }) {
-        const response = await fetch('https://api.zan.top/node/v1/eth/mainnet/ec4222a8484d4691bcd963692272a8de', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ method, params }),
-        });
-        return response.json();
-      },
-    }),
-    [base.id]: custom({
-      async request({ method, params }) {
-        const response = await fetch('https://api.zan.top/node/v1/base/mainnet/ec4222a8484d4691bcd963692272a8de', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ method, params }),
-        });
-        return response.json();
-      },
-    }),
+    [mainnet.id]: http('https://lb.drpc.live/ethereum/ApV7qFFPZUNojcZQujPHrTH9b6q7rvcR8LoqQrxF2MGT'),
+    [base.id]: http('https://lb.drpc.live/base/ApV7qFFPZUNojcZQujPHrTH9b6q7rvcR8LoqQrxF2MGT'),
   },
 });
 

@@ -31,12 +31,17 @@ function PositionOfferingModal({ isOpen, onClose, action, position, positionType
   }
 
   const currentAssetAddress = getAssetAddressForAction()
-  const userBalance = tokenBalance ? parseFloat(tokenBalance) : 0
+  // Check if balance is numeric or a placeholder message
+  const isBalanceNumeric = tokenBalance && !isNaN(parseFloat(tokenBalance))
+  const userBalance = isBalanceNumeric ? parseFloat(tokenBalance) : 0
+  const balanceDisplay = isBalanceNumeric 
+    ? `${userBalance.toLocaleString(undefined, { maximumFractionDigits: 6 })} ${tokenSymbol}` 
+    : tokenBalance || '0'
 
   // Fetch token data when modal opens or dependencies change
   useEffect(() => {
     const loadTokenData = async () => {
-      if (!isOpen || !publicClient || !address || !isConnected) {
+      if (!isOpen) {
         setIsLoadingToken(false)
         return
       }
@@ -49,14 +54,19 @@ function PositionOfferingModal({ isOpen, onClose, action, position, positionType
 
       setIsLoadingToken(true)
       try {
-        const data = await fetchTokenData(assetAddress, address, publicClient)
+        // Pass address and publicClient even if not connected - fetchTokenData will handle it
+        const data = await fetchTokenData(
+          assetAddress, 
+          isConnected ? address : null, 
+          publicClient
+        )
         setTokenSymbol(data.symbol)
         setTokenBalance(data.balance)
         setTokenDecimals(data.decimals)
       } catch (error) {
         console.error('Failed to fetch token data:', error)
         setTokenSymbol('UNKNOWN')
-        setTokenBalance('0')
+        setTokenBalance(isConnected ? '0' : 'Please connect wallet first')
         setTokenDecimals(18)
       } finally {
         setIsLoadingToken(false)
@@ -232,7 +242,7 @@ function PositionOfferingModal({ isOpen, onClose, action, position, positionType
                     {isLoadingToken ? 'Loading...' : tokenSymbol || 'UNKNOWN'}
                   </span>
                   <span className="balance-value">
-                    Balance: {userBalance.toLocaleString(undefined, { maximumFractionDigits: 6 })} {tokenSymbol}
+                    Balance: {balanceDisplay}
                   </span>
                 </div>
 
