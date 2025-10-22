@@ -1,6 +1,7 @@
 import { createPublicClient, http, formatUnits, encodeFunctionData, decodeFunctionResult } from 'viem'
-import { mainnet } from 'viem/chains'
+import { mainnet, base } from 'viem/chains'
 import { ERC20_ABI } from '../constants/contracts'
+import { CHAIN_IDS } from '../constants/networks'
 
 // EIP-7528: ETH native asset address convention
 // https://ethereum-magicians.org/t/eip-7528-eth-native-asset-address-convention/15989
@@ -136,14 +137,47 @@ export { ETH_NATIVE_ADDRESS }
 export { isNativeETH }
 
 /**
- * Create a public client for reading blockchain data
- * @param {object} chain - viem chain object (default: mainnet)
+ * Get the viem chain configuration by chainId
+ * @param {number} chainId - The chain ID
+ * @returns {object} viem chain configuration
+ */
+function getChainConfig(chainId) {
+  switch (chainId) {
+    case CHAIN_IDS.BASE:
+      return base
+    case CHAIN_IDS.MAINNET:
+    default:
+      return mainnet
+  }
+}
+
+/**
+ * Get the RPC URL for a specific chain
+ * @param {number} chainId - The chain ID
+ * @returns {string} RPC URL
+ */
+function getRpcUrl(chainId) {
+  switch (chainId) {
+    case CHAIN_IDS.BASE:
+      return 'https://mainnet.base.org'
+    case CHAIN_IDS.MAINNET:
+    default:
+      return 'https://eth.meowrpc.com'
+  }
+}
+
+/**
+ * Create a public client for reading blockchain data for a specific chain
+ * @param {number} chainId - The chain ID (1 for Mainnet, 8453 for Base)
  * @returns {object} viem public client
  */
-export function createViemPublicClient(chain = mainnet) {
+export function createViemPublicClient(chainId = CHAIN_IDS.MAINNET) {
+  const chain = getChainConfig(chainId)
+  const rpcUrl = getRpcUrl(chainId)
+  
   return createPublicClient({
     chain,
-    transport: http('https://eth.meowrpc.com'), // MeowRPC Ethereum endpoint
+    transport: http(rpcUrl),
   })
 }
 
@@ -158,8 +192,9 @@ export function createViemPublicClient(chain = mainnet) {
  */
 export async function fetchTokenData(tokenAddress, userAddress, publicClient, chainId = 1) {
   try {
-    // Create a public client if not provided
-    const client = publicClient || createViemPublicClient()
+    // Always create a chain-specific client if chainId is provided
+    // This ensures we use the correct RPC endpoint for the token's network
+    const client = chainId ? createViemPublicClient(chainId) : (publicClient || createViemPublicClient(1))
     
     if (!tokenAddress) {
       return { symbol: 'UNKNOWN', decimals: 18, balance: '0', needsWallet: false }
