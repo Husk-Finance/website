@@ -2,11 +2,24 @@ import { createPublicClient, http, formatUnits, encodeFunctionData, decodeFuncti
 import { mainnet } from 'viem/chains'
 import { ERC20_ABI } from '../constants/contracts'
 
+// EIP-7528: ETH native asset address convention
+// https://ethereum-magicians.org/t/eip-7528-eth-native-asset-address-convention/15989
+const ETH_NATIVE_ADDRESS = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE'
+
 // Cache key prefix for sessionStorage
 const TOKEN_CACHE_PREFIX = 'husk_token_'
 const BALANCE_CACHE_PREFIX = 'husk_balance_'
 const CACHE_DURATION = 5 * 60 * 1000 // 5 minutes for balance cache
 const TOKEN_INFO_CACHE_DURATION = 24 * 60 * 60 * 1000 // 24 hours for token info (symbol, decimals)
+
+/**
+ * Check if the address is the native ETH address (EIP-7528)
+ * @param {string} address - Token address
+ * @returns {boolean} True if it's the native ETH address
+ */
+function isNativeETH(address) {
+  return address && address.toLowerCase() === ETH_NATIVE_ADDRESS.toLowerCase()
+}
 
 /**
  * Get cached token info from sessionStorage
@@ -107,6 +120,18 @@ function setCachedBalance(tokenAddress, userAddress, balance) {
 }
 
 /**
+ * Export ETH native address constant (EIP-7528)
+ */
+export { ETH_NATIVE_ADDRESS }
+
+/**
+ * Check if an address is the native ETH address
+ * @param {string} address - Token address
+ * @returns {boolean} True if it's native ETH
+ */
+export { isNativeETH }
+
+/**
  * Create a public client for reading blockchain data
  * @param {object} chain - viem chain object (default: mainnet)
  * @returns {object} viem public client
@@ -133,6 +158,41 @@ export async function fetchTokenData(tokenAddress, userAddress, publicClient) {
     
     if (!tokenAddress) {
       return { symbol: 'UNKNOWN', decimals: 18, balance: '0', needsWallet: false }
+    }
+
+    // Handle native ETH (EIP-7528)
+    if (isNativeETH(tokenAddress)) {
+      const symbol = 'ETH'
+      const decimals = 18
+
+      // If no user address, return placeholder for balance
+      if (!userAddress) {
+        return {
+          symbol,
+          decimals,
+          balance: 'Please connect wallet first',
+          needsWallet: true,
+        }
+      }
+
+      // Fetch ETH balance directly
+      try {
+        const balanceRaw = await client.getBalance({ address: userAddress })
+        const balance = formatUnits(balanceRaw, decimals)
+        
+        // Cache the balance
+        setCachedBalance(tokenAddress, userAddress, balance)
+
+        return {
+          symbol,
+          decimals,
+          balance,
+          needsWallet: false,
+        }
+      } catch (error) {
+        console.error('Error fetching ETH balance:', error)
+        return { symbol, decimals, balance: '0', needsWallet: false }
+      }
     }
 
     // Try to get cached token info (symbol, decimals)

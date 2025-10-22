@@ -49,6 +49,7 @@ export const mockPositions = [
     liquidationLow: '3,200 USDC',
     liquidationHigh: '3,800 USDC',
     borrowRisk: '0.31',
+    // Note: Using WETH. For native ETH, use EIP-7528 address: 0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE
     liquidityProviderAsset: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2', // WETH
     liquiditySupplierAsset: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // USDC
   },
