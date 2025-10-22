@@ -21,6 +21,7 @@ export const mockBusinessPositions = [
     tvl: '10620', // $10.62k
     mcap: '10000000', // $10M
     revenue30d: '850', // $850
+    liqdLowPrice: '5000', // $5k
     distribution: 'Biquarter',
     nextDistribution: '21/12/2025',
     supplyAPY: '2500', // 25%
@@ -43,6 +44,7 @@ export const mockBusinessPositions = [
     tvl: '25300', // $25.3k
     mcap: '15000000', // $15M
     revenue30d: '1250', // $1,250
+    liqdLowPrice: '7500', // $7.5k
     distribution: 'Quarter',
     nextDistribution: '01/01/2026',
     supplyAPY: '2200', // 22%
@@ -67,6 +69,7 @@ export const mockBusinessPositions = [
     tvl: '45800', // $45.8k
     mcap: '22000000', // $22M
     revenue30d: '2100', // $2,100
+    liqdLowPrice: '11000', // $11k
     distribution: 'Biquarter',
     nextDistribution: '15/01/2026',
     supplyAPY: '3000', // 30%
@@ -89,6 +92,7 @@ export const mockBusinessPositions = [
     tvl: '18500', // $18.5k
     mcap: '12000000', // $12M
     revenue30d: '980', // $980
+    liqdLowPrice: '6000', // $6k
     distribution: 'Quarter',
     nextDistribution: '10/01/2026',
     supplyAPY: '2800', // 28%
@@ -113,6 +117,7 @@ export const mockBusinessPositions = [
     tvl: '32400', // $32.4k
     mcap: '18000000', // $18M
     revenue30d: '1650', // $1,650
+    liqdLowPrice: '9000', // $9k
     distribution: 'Biquarter',
     nextDistribution: '25/12/2025',
     supplyAPY: '3200', // 32%
@@ -135,6 +140,7 @@ export const mockBusinessPositions = [
     tvl: '15200', // $15.2k
     mcap: '9000000', // $9M
     revenue30d: '720', // $720
+    liqdLowPrice: '4500', // $4.5k
     distribution: 'Quarter',
     nextDistribution: '05/01/2026',
     supplyAPY: '2400', // 24%
@@ -158,6 +164,7 @@ export const mockBusinessPositions = [
     tvl: '28700', // $28.7k
     mcap: '16000000', // $16M
     revenue30d: '1350', // $1,350
+    liqdLowPrice: '8000', // $8k
     distribution: 'Biquarter',
     nextDistribution: '30/12/2025',
     supplyAPY: '2300', // 23%
@@ -180,6 +187,7 @@ export const mockBusinessPositions = [
     tvl: '52100', // $52.1k
     mcap: '25000000', // $25M
     revenue30d: '2450', // $2,450
+    liqdLowPrice: '12500', // $12.5k
     distribution: 'Quarter',
     nextDistribution: '15/01/2026',
     supplyAPY: '2900', // 29%

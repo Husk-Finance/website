@@ -100,6 +100,7 @@ BusinessPositionCard.propTypes = {
     tvl: PropTypes.string.isRequired, // Integer string (e.g., "10620" for $10.62k)
     mcap: PropTypes.string.isRequired, // Integer string (e.g., "10000000" for $10M)
     revenue30d: PropTypes.string.isRequired, // Integer string (e.g., "850" for $850)
+    liqdLowPrice: PropTypes.string.isRequired, // Integer string (e.g., "5000" for $5k)
     distribution: PropTypes.string.isRequired,
     nextDistribution: PropTypes.string.isRequired,
     supplyAPY: PropTypes.string.isRequired, // Integer string (e.g., "2500" for 25%)

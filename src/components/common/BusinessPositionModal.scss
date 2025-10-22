@@ -402,6 +402,34 @@
         border: none;
       }
 
+      &.liquidation-price {
+        background: rgba(255, 165, 0, 0.15);
+        border: 1px solid rgba(255, 165, 0, 0.3);
+        border-radius: $border-radius-sm;
+        padding: 10px;
+        margin: $spacing-xs 0;
+
+        .summary-label {
+          font-weight: 600;
+          color: rgba(255, 165, 0, 1);
+          font-size: 15px;
+          display: flex;
+          align-items: center;
+          gap: 6px;
+
+          &::before {
+            content: "⚠️";
+            font-size: 16px;
+          }
+        }
+
+        .summary-value {
+          font-weight: 700;
+          color: rgba(255, 165, 0, 1);
+          font-size: 16px;
+        }
+      }
+
       .summary-label {
         font-size: 14px;
         color: $text-secondary;

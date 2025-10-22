@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { useAccount, usePublicClient } from 'wagmi'
 import './BusinessPositionModal.scss'
 import { fetchTokenData } from '../../utils/tokenUtils'
+import { formatCompactNumber, formatPercent } from '../../utils/positionUtils'
 
 function BusinessPositionModal({ isOpen, onClose, action, position }) {
   // Wagmi hooks for wallet connection
@@ -248,18 +249,20 @@ function BusinessPositionModal({ isOpen, onClose, action, position }) {
                 </div>
                 <div className="husk-apy">
                   <p className="label">Husk APY</p>
-                  <p className="value">{position.huskAPY}</p>
+                  <p className="value">{formatPercent(position.huskAPY)}</p>
                 </div>
               </div>
 
               <div className="info-grid">
                 <div className="info-item">
                   <p className="label">TVL / MCap</p>
-                  <p className="value">{position.tvlMcap}</p>
+                  <p className="value">
+                    ${formatCompactNumber(position.tvl)} / ${formatCompactNumber(position.mcap)}
+                  </p>
                 </div>
                 <div className="info-item">
                   <p className="label">30d rev.</p>
-                  <p className="value">{position.revenue30d}</p>
+                  <p className="value">${formatCompactNumber(position.revenue30d)}</p>
                 </div>
                 <div className="info-item">
                   <p className="label">Distribution</p>
@@ -271,7 +274,7 @@ function BusinessPositionModal({ isOpen, onClose, action, position }) {
                 </div>
                 <div className="info-item">
                   <p className="label">Supply APY</p>
-                  <p className="value">{position.supplyAPY}</p>
+                  <p className="value">{formatPercent(position.supplyAPY)}</p>
                 </div>
                 <div className="info-item">
                   <p className="label">Participation Risk</p>
@@ -354,7 +357,7 @@ function BusinessPositionModal({ isOpen, onClose, action, position }) {
               </div>
               <div className="summary-row">
                 <span className="summary-label">Expected APY</span>
-                <span className="summary-value">{position.huskAPY}</span>
+                <span className="summary-value">{formatPercent(position.huskAPY)}</span>
               </div>
               <div className="summary-row">
                 <span className="summary-label">Distribution</span>
@@ -363,6 +366,15 @@ function BusinessPositionModal({ isOpen, onClose, action, position }) {
               <div className="summary-row highlight">
                 <span className="summary-label">Next Distribution</span>
                 <span className="summary-value">{position.nextDistribution}</span>
+              </div>
+            </div>
+
+            <div className="transaction-summary">
+              <div className="summary-row liquidation-price">
+                <span className="summary-label">Liqd. Low Price</span>
+                <span className="summary-value">
+                  {action === 'supply' ? 'None' : `$${position.liqdLowPrice}`}
+                </span>
               </div>
             </div>
 
@@ -416,12 +428,14 @@ BusinessPositionModal.propTypes = {
       bg: PropTypes.string.isRequired,
       color: PropTypes.string.isRequired,
     })),
-    huskAPY: PropTypes.string.isRequired,
-    tvlMcap: PropTypes.string.isRequired,
-    revenue30d: PropTypes.string.isRequired,
+    huskAPY: PropTypes.string.isRequired, // Integer string (e.g., "4325" for 43.25%)
+    tvl: PropTypes.string.isRequired, // Integer string (e.g., "10620" for $10.62k)
+    mcap: PropTypes.string.isRequired, // Integer string (e.g., "10000000" for $10M)
+    revenue30d: PropTypes.string.isRequired, // Integer string (e.g., "850" for $850)
+    liqdLowPrice: PropTypes.string.isRequired, // Integer string (e.g., "5000" for $5k)
     distribution: PropTypes.string.isRequired,
     nextDistribution: PropTypes.string.isRequired,
-    supplyAPY: PropTypes.string.isRequired,
+    supplyAPY: PropTypes.string.isRequired, // Integer string (e.g., "2500" for 25%)
     participationRisk: PropTypes.string.isRequired,
     liquidityProviderAsset: PropTypes.string.isRequired, // ERC20 token address (RWA Business Token)
     liquiditySupplierAsset: PropTypes.string.isRequired, // ERC20 token address (typically USDC)
