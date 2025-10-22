@@ -21,6 +21,7 @@ export const HERO_CONTENT = {
 
 // Section Titles
 export const SECTION_TITLES = {
+  businessPositionMarket: 'Business Position Market',
   dexPositionMarket: 'DEX Position Market',
   defiPositionMarket: 'DeFi Position Market',
 }

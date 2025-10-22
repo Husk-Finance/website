@@ -1,0 +1,272 @@
+@use '../../styles/variables' as *;
+
+.business-position-card {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: $card-bg;
+  border: 1px solid $border-color;
+  border-radius: $border-radius-md;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  transition: all 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  height: 295px;
+
+  &:hover {
+    background: $card-bg-hover;
+    border-color: rgba(59, 59, 59, 0.7);
+    transform: translateY(-4px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+
+    .business-image {
+      transform: scale(1.05);
+    }
+
+    .business-name {
+      color: rgba(255, 255, 255, 0.95);
+    }
+
+    .apy-value {
+      color: rgba(255, 255, 255, 0.95);
+    }
+  }
+
+  &:active {
+    transform: translateY(-2px);
+    transition: all 0.1s ease;
+  }
+
+  .business-image-container {
+    position: relative;
+    flex: 1;
+    min-width: 0;
+    height: 295px;
+    overflow: hidden;
+
+    .business-image {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transition: transform 0.3s ease;
+    }
+
+    .image-overlay {
+      position: absolute;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      background: linear-gradient(to left, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+      pointer-events: none;
+    }
+  }
+
+  .business-info {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-sm;
+    padding: $spacing-md;
+
+    .business-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: $spacing-sm;
+
+      .business-details {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-xs;
+        flex: 1;
+        min-width: 0;
+
+        .business-name {
+          font-size: $font-size-base;
+          letter-spacing: $letter-spacing-tight;
+          color: $text-primary;
+          line-height: normal;
+          transition: color 0.3s ease;
+          word-wrap: break-word;
+          overflow-wrap: break-word;
+        }
+
+        .business-tags {
+          display: flex;
+          gap: $spacing-xs;
+          align-items: center;
+          flex-wrap: wrap;
+
+          .network-tag {
+            background: #1e442a;
+            color: #fdb85b;
+            font-size: 10px;
+            padding: 2px $spacing-xs;
+            border-radius: $border-radius-sm;
+            letter-spacing: -0.2px;
+            line-height: normal;
+          }
+
+          .rwa-tag {
+            background: #2485c7;
+            color: #000000;
+            font-size: 10px;
+            padding: 2px $spacing-xs;
+            border-radius: $border-radius-sm;
+            letter-spacing: -0.2px;
+            line-height: normal;
+          }
+        }
+      }
+
+      .apy-info {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-xs;
+        align-items: flex-start;
+        flex-shrink: 0;
+
+        .apy-label {
+          font-size: $font-size-base;
+          letter-spacing: $letter-spacing-tight;
+          color: $text-secondary;
+          line-height: normal;
+        }
+
+        .apy-value {
+          font-size: $font-size-base;
+          letter-spacing: $letter-spacing-tight;
+          color: $text-primary;
+          line-height: normal;
+          transition: color 0.3s ease;
+        }
+      }
+    }
+
+    .business-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      grid-template-rows: repeat(4, auto);
+      gap: $spacing-sm;
+      flex: 1;
+
+      .grid-item {
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-xs;
+        justify-content: flex-start;
+
+        .grid-label {
+          font-size: $font-size-base;
+          letter-spacing: $letter-spacing-tight;
+          color: $text-secondary;
+          line-height: normal;
+        }
+
+        .grid-value {
+          font-size: $font-size-base;
+          letter-spacing: $letter-spacing-tight;
+          color: $text-primary;
+          line-height: normal;
+          word-wrap: break-word;
+          overflow-wrap: break-word;
+        }
+      }
+
+      .button-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        .action-button {
+          width: 100%;
+          padding: $spacing-sm;
+          font-size: $font-size-base;
+          letter-spacing: $letter-spacing-tight;
+          color: $text-primary;
+          background: $button-bg;
+          border: none;
+          border-radius: $border-radius-sm;
+          cursor: pointer;
+          transition: all 0.3s ease;
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+          font-family: $font-family;
+          -webkit-font-smoothing: antialiased;
+          -moz-osx-font-smoothing: grayscale;
+          text-rendering: optimizeLegibility;
+
+          &:hover {
+            background: $button-bg-hover;
+            transform: translateY(-1px);
+          }
+
+          &:active {
+            transform: translateY(0);
+          }
+
+          &.borrow-button {
+            background: $borrow-button-gradient;
+
+            &:hover {
+              opacity: 0.9;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Responsive adjustments
+  @media (max-width: 1200px) {
+    flex-direction: column;
+    height: auto;
+
+    .business-image-container {
+      height: 200px;
+
+      .image-overlay {
+        background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
+      }
+    }
+
+    .business-info {
+      .business-grid {
+        grid-template-rows: repeat(4, auto);
+      }
+    }
+  }
+
+  @media (max-width: 768px) {
+    .business-info {
+      .business-header {
+        flex-direction: column;
+        gap: $spacing-sm;
+
+        .apy-info {
+          width: 100%;
+          flex-direction: row;
+          justify-content: space-between;
+          align-items: center;
+        }
+      }
+
+      .business-grid {
+        grid-template-columns: 1fr;
+        
+        .button-item {
+          .action-button {
+            padding: $spacing-md;
+          }
+        }
+      }
+    }
+  }
+}

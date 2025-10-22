@@ -5,9 +5,10 @@ import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
 import { DexPositionCard } from '../components/positions'
 import DeFiPositionCard from '../components/positions/DeFiPositionCard'
+import BusinessPositionCard from '../components/positions/BusinessPositionCard'
 import { HERO_CONTENT, SECTION_TITLES } from '../constants'
-import { processDexPositions, processDeFiPositions } from '../utils/positionUtils'
-import { getDexPositionsByChain, getDeFiPositionsByChain, getAllDexPositions, getAllDeFiPositions } from '../utils/networkUtils'
+import { processDexPositions, processDeFiPositions, processBusinessPositions } from '../utils/positionUtils'
+import { getDexPositionsByChain, getDeFiPositionsByChain, getBusinessPositionsByChain, getAllDexPositions, getAllDeFiPositions, getAllBusinessPositions } from '../utils/networkUtils'
 import PositionOfferingModal from '../components/common/PositionOfferingModal'
 
 export default function Homepage() {
@@ -24,9 +25,14 @@ export default function Homepage() {
     ? getDeFiPositionsByChain(walletChainId)
     : getAllDeFiPositions()
 
+  const networkBusinessPositions = isConnected && walletChainId
+    ? getBusinessPositionsByChain(walletChainId)
+    : getAllBusinessPositions()
+
   // Process positions: sort by creation time and auto-tag NEW for DeFi positions
   const sortedDexPositions = processDexPositions(networkDexPositions)
   const sortedDeFiPositions = processDeFiPositions(networkDeFiPositions)
+  const sortedBusinessPositions = processBusinessPositions(networkBusinessPositions)
 
   // Modal state
   const [modalState, setModalState] = useState({
@@ -58,6 +64,27 @@ export default function Homepage() {
       <section className="hero-section">
         <h1>{HERO_CONTENT.title}</h1>
         <p>{HERO_CONTENT.subtitle}</p>
+      </section>
+
+      <section className="positions-section">
+        <h2>{SECTION_TITLES.businessPositionMarket}</h2>
+        {sortedBusinessPositions.length > 0 ? (
+          <div className="business-positions-grid">
+            {sortedBusinessPositions.map((position) => (
+              <BusinessPositionCard 
+                key={position.id} 
+                position={position} 
+                onSupplyClick={() => openModal(position, 'supply')}
+                onBorrowClick={() => openModal(position, 'borrow')}
+              />
+            ))}
+          </div>
+        ) : (
+          <div className="empty-state">
+            <p>No business positions available on this network.</p>
+            {isConnected && <p className="empty-state-hint">Try switching to a different network or disconnect to see all positions.</p>}
+          </div>
+        )}
       </section>
 
       <section className="positions-section">

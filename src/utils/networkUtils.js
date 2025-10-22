@@ -4,6 +4,7 @@
 
 import { mockPositions } from '../data/mockPositions'
 import { mockDeFiPositions } from '../data/mockDeFiPositions'
+import { mockBusinessPositions } from '../data/mockBusinessPositions'
 import { CHAIN_IDS } from '../constants/networks'
 
 /**
@@ -41,14 +42,32 @@ export function getAllDeFiPositions() {
 }
 
 /**
- * Get all positions (both DEX and DeFi) for a specific chain
+ * Get Business positions for a specific chain
+ * @param {number} chainId - The chain ID (1 for Mainnet, 8453 for Base)
+ * @returns {Array} Business positions for the specified chain
+ */
+export function getBusinessPositionsByChain(chainId) {
+  return mockBusinessPositions.filter(position => position.chainId === chainId)
+}
+
+/**
+ * Get all Business positions from all chains
+ * @returns {Array} All Business positions
+ */
+export function getAllBusinessPositions() {
+  return mockBusinessPositions
+}
+
+/**
+ * Get all positions (DEX, DeFi, and Business) for a specific chain
  * @param {number} chainId - The chain ID
- * @returns {object} Object with dex and defi position arrays
+ * @returns {object} Object with dex, defi, and business position arrays
  */
 export function getAllPositionsByChain(chainId) {
   return {
     dex: getDexPositionsByChain(chainId),
     defi: getDeFiPositionsByChain(chainId),
+    business: getBusinessPositionsByChain(chainId),
   }
 }
 

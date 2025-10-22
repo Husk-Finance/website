@@ -79,6 +79,15 @@ export function processDexPositions(positions) {
 }
 
 /**
+ * Processes Business positions: sorts by creation time
+ * @param {Array} positions - Array of Business position objects
+ * @returns {Array} Processed positions
+ */
+export function processBusinessPositions(positions) {
+  return sortByCreationTime(positions)
+}
+
+/**
  * Extracts the quoted token symbol from a position (what you're supplying/borrowing)
  * For DEX positions: extracts from pair name (e.g., "WBTC/USDC" → "USDC")
  * For DeFi positions: uses the quotedAsset property (e.g., "USDC", "WETH", "DAI")

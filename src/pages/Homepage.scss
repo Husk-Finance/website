@@ -86,6 +86,12 @@
       gap: $spacing-md;
     }
 
+    .business-positions-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(600px, 1fr));
+      gap: $spacing-md;
+    }
+
     .empty-state {
       padding: $spacing-lg;
       text-align: center;
@@ -137,6 +143,10 @@
       padding: 40px 20px;
 
       .positions-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .business-positions-grid {
         grid-template-columns: 1fr;
       }
     }
