@@ -74,11 +74,15 @@ function PositionOfferingModal({ isOpen, onClose, action, position, positionType
 
       setIsLoadingToken(true)
       try {
-        // Pass address and publicClient even if not connected - fetchTokenData will handle it
+        // Get chainId from position, pass to fetchTokenData for network-aware caching
+        const chainId = position?.chainId || 1
+        
+        // Pass address, publicClient, and chainId
         const data = await fetchTokenData(
           assetAddress, 
           isConnected ? address : null, 
-          publicClient
+          publicClient,
+          chainId
         )
         setTokenSymbol(data.symbol)
         setTokenBalance(data.balance)
@@ -112,11 +116,15 @@ function PositionOfferingModal({ isOpen, onClose, action, position, positionType
 
       setIsLoadingActionToken(true)
       try {
+        // Get chainId from position for network-aware caching
+        const chainId = position?.chainId || 1
+        
         // Only need symbol, no need for balance
         const data = await fetchTokenData(
           assetAddress, 
           null, // No user address needed, we only want the symbol
-          publicClient
+          publicClient,
+          chainId
         )
         setActionTokenSymbol(data.symbol)
       } catch (error) {

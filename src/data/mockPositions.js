@@ -1,11 +1,14 @@
 /**
  * Mock position data for testing and development.
  * This data simulates DEX position information for the Husk Finance platform.
+ * Contains positions from multiple networks - filter by chainId as needed.
  */
 
 export const mockPositions = [
+  // Ethereum Mainnet Positions (chainId: 1)
   {
     id: 1,
+    chainId: 1, // Ethereum Mainnet
     pair: 'XAUT/USDC',
     version: 'v3',
     fee: '0.3%',
@@ -22,6 +25,7 @@ export const mockPositions = [
   },
   {
     id: 2,
+    chainId: 1,
     pair: 'WBTC/USDC',
     version: 'v4',
     fee: '0.3%',
@@ -38,6 +42,7 @@ export const mockPositions = [
   },
   {
     id: 3,
+    chainId: 1,
     pair: 'ETH/USDC',
     version: 'v3',
     fee: '0.05%',
@@ -55,6 +60,7 @@ export const mockPositions = [
   },
   {
     id: 4,
+    chainId: 1,
     pair: 'USDT/DAI',
     version: 'v3',
     fee: '0.01%',
@@ -71,6 +77,7 @@ export const mockPositions = [
   },
   {
     id: 5,
+    chainId: 1,
     pair: 'WBTC/ETH',
     version: 'v4',
     fee: '0.3%',
@@ -87,6 +94,7 @@ export const mockPositions = [
   },
   {
     id: 6,
+    chainId: 1,
     pair: 'MATIC/USDC',
     version: 'v3',
     fee: '0.3%',
@@ -103,6 +111,7 @@ export const mockPositions = [
   },
   {
     id: 7,
+    chainId: 1,
     pair: 'LINK/ETH',
     version: 'v3',
     fee: '0.3%',
@@ -119,6 +128,7 @@ export const mockPositions = [
   },
   {
     id: 8,
+    chainId: 1,
     pair: 'UNI/USDC',
     version: 'v4',
     fee: '0.3%',
@@ -132,5 +142,75 @@ export const mockPositions = [
     borrowRisk: '0.33',
     liquidityProviderAsset: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984', // UNI
     liquiditySupplierAsset: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // USDC
-  }
-]
+  },
+  
+  // Base Network Positions (chainId: 8453)
+  {
+    id: 101,
+    chainId: 8453, // Base
+    pair: 'ETH/USDbC',
+    version: 'v3',
+    fee: '0.05%',
+    createdAt: 1729433700000, // Oct 20, 2025 14:15:00
+    huskAPY: '88.34%',
+    tvl: '$890k',
+    revenue24h: '$6.2k',
+    supplyAPY: '26.5%',
+    liquidationLow: '3,100 USDbC',
+    liquidationHigh: '3,900 USDbC',
+    borrowRisk: '0.28',
+    liquidityProviderAsset: '0x4200000000000000000000000000000000000006', // WETH on Base
+    liquiditySupplierAsset: '0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA', // USDbC on Base
+  },
+  {
+    id: 102,
+    chainId: 8453,
+    pair: 'cbBTC/USDbC',
+    version: 'v3',
+    fee: '0.3%',
+    createdAt: 1729330200000, // Oct 19, 2025 09:30:00
+    huskAPY: '52.45%',
+    tvl: '$1.8M',
+    revenue24h: '$9.8k',
+    supplyAPY: '12.84%',
+    liquidationLow: '94,000 USDbC',
+    liquidationHigh: '106,000 USDbC',
+    borrowRisk: '0.64',
+    liquidityProviderAsset: '0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf', // cbBTC on Base
+    liquiditySupplierAsset: '0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA', // USDbC on Base
+  },
+  {
+    id: 103,
+    chainId: 8453,
+    pair: 'USDC/USDbC',
+    version: 'v3',
+    fee: '0.01%',
+    createdAt: 1729169100000, // Oct 17, 2025 13:45:00
+    huskAPY: '8.45%',
+    tvl: '$2.1M',
+    revenue24h: '$1.5k',
+    supplyAPY: '3.2%',
+    liquidationLow: '0.998 USDbC',
+    liquidationHigh: '1.002 USDbC',
+    borrowRisk: '0.03',
+    liquidityProviderAsset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913', // USDC on Base
+    liquiditySupplierAsset: '0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA', // USDbC on Base
+  },
+  {
+    id: 104,
+    chainId: 8453,
+    pair: 'DEGEN/ETH',
+    version: 'v3',
+    fee: '1%',
+    createdAt: 1728993600000, // Oct 15, 2025 12:00:00
+    huskAPY: '125.67%',
+    tvl: '$340k',
+    revenue24h: '$4.2k',
+    supplyAPY: '42.5%',
+    liquidationLow: '0.000085 ETH',
+    liquidationHigh: '0.000095 ETH',
+    borrowRisk: '0.72',
+    liquidityProviderAsset: '0x4ed4E862860beD51a9570b96d89aF5E1B0Efefed', // DEGEN on Base
+    liquiditySupplierAsset: '0x4200000000000000000000000000000000000006', // WETH on Base
+  },
+];

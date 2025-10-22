@@ -3,6 +3,9 @@
  * Centralized location for magic numbers, strings, and configuration values.
  */
 
+// Re-export network constants
+export * from './networks'
+
 // Navigation Links
 export const NAV_LINKS = [
   { label: 'Docs', href: '#docs' },

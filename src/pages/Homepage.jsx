@@ -1,19 +1,32 @@
 import { useState } from 'react'
+import { useChainId, useAccount } from 'wagmi'
 import './Homepage.scss'
 import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
 import { DexPositionCard } from '../components/positions'
-import { mockPositions } from '../data/mockPositions'
-import { mockDeFiPositions } from '../data/mockDeFiPositions'
 import DeFiPositionCard from '../components/positions/DeFiPositionCard'
 import { HERO_CONTENT, SECTION_TITLES } from '../constants'
 import { processDexPositions, processDeFiPositions } from '../utils/positionUtils'
+import { getDexPositionsByChain, getDeFiPositionsByChain, getAllDexPositions, getAllDeFiPositions } from '../utils/networkUtils'
 import PositionOfferingModal from '../components/common/PositionOfferingModal'
 
 export default function Homepage() {
+  // Get wallet connection status and chain ID
+  const { isConnected } = useAccount()
+  const walletChainId = useChainId()
+
+  // If wallet is connected, filter by network; otherwise show all positions
+  const networkDexPositions = isConnected && walletChainId
+    ? getDexPositionsByChain(walletChainId)
+    : getAllDexPositions()
+  
+  const networkDeFiPositions = isConnected && walletChainId
+    ? getDeFiPositionsByChain(walletChainId)
+    : getAllDeFiPositions()
+
   // Process positions: sort by creation time and auto-tag NEW for DeFi positions
-  const sortedDexPositions = processDexPositions(mockPositions)
-  const sortedDeFiPositions = processDeFiPositions(mockDeFiPositions)
+  const sortedDexPositions = processDexPositions(networkDexPositions)
+  const sortedDeFiPositions = processDeFiPositions(networkDeFiPositions)
 
   // Modal state
   const [modalState, setModalState] = useState({

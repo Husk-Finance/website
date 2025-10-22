@@ -24,11 +24,12 @@ function isNativeETH(address) {
 /**
  * Get cached token info from sessionStorage
  * @param {string} tokenAddress - The token contract address
+ * @param {number} chainId - The chain ID (optional, defaults to 1 for mainnet)
  * @returns {object|null} Cached token info or null if not found/expired
  */
-function getCachedTokenInfo(tokenAddress) {
+function getCachedTokenInfo(tokenAddress, chainId = 1) {
   try {
-    const cacheKey = TOKEN_CACHE_PREFIX + tokenAddress.toLowerCase()
+    const cacheKey = TOKEN_CACHE_PREFIX + chainId + '_' + tokenAddress.toLowerCase()
     const cached = sessionStorage.getItem(cacheKey)
     if (!cached) return null
     
@@ -53,10 +54,11 @@ function getCachedTokenInfo(tokenAddress) {
  * Save token info to sessionStorage
  * @param {string} tokenAddress - The token contract address
  * @param {object} tokenInfo - Token info to cache (symbol, decimals)
+ * @param {number} chainId - The chain ID (optional, defaults to 1 for mainnet)
  */
-function setCachedTokenInfo(tokenAddress, tokenInfo) {
+function setCachedTokenInfo(tokenAddress, tokenInfo, chainId = 1) {
   try {
-    const cacheKey = TOKEN_CACHE_PREFIX + tokenAddress.toLowerCase()
+    const cacheKey = TOKEN_CACHE_PREFIX + chainId + '_' + tokenAddress.toLowerCase()
     const cacheData = {
       data: tokenInfo,
       timestamp: Date.now()
@@ -71,13 +73,14 @@ function setCachedTokenInfo(tokenAddress, tokenInfo) {
  * Get cached balance from sessionStorage
  * @param {string} tokenAddress - The token contract address
  * @param {string} userAddress - The user's wallet address
+ * @param {number} chainId - The chain ID (optional, defaults to 1 for mainnet)
  * @returns {string|null} Cached balance or null if not found/expired
  */
-function getCachedBalance(tokenAddress, userAddress) {
+function getCachedBalance(tokenAddress, userAddress, chainId = 1) {
   try {
     if (!userAddress) return null
     
-    const cacheKey = BALANCE_CACHE_PREFIX + tokenAddress.toLowerCase() + '_' + userAddress.toLowerCase()
+    const cacheKey = BALANCE_CACHE_PREFIX + chainId + '_' + tokenAddress.toLowerCase() + '_' + userAddress.toLowerCase()
     const cached = sessionStorage.getItem(cacheKey)
     if (!cached) return null
     
@@ -103,12 +106,13 @@ function getCachedBalance(tokenAddress, userAddress) {
  * @param {string} tokenAddress - The token contract address
  * @param {string} userAddress - The user's wallet address
  * @param {string} balance - Balance to cache
+ * @param {number} chainId - The chain ID (optional, defaults to 1 for mainnet)
  */
-function setCachedBalance(tokenAddress, userAddress, balance) {
+function setCachedBalance(tokenAddress, userAddress, balance, chainId = 1) {
   try {
     if (!userAddress) return
     
-    const cacheKey = BALANCE_CACHE_PREFIX + tokenAddress.toLowerCase() + '_' + userAddress.toLowerCase()
+    const cacheKey = BALANCE_CACHE_PREFIX + chainId + '_' + tokenAddress.toLowerCase() + '_' + userAddress.toLowerCase()
     const cacheData = {
       balance,
       timestamp: Date.now()
@@ -149,9 +153,10 @@ export function createViemPublicClient(chain = mainnet) {
  * @param {string} tokenAddress - The token contract address
  * @param {string} userAddress - The user's wallet address (optional)
  * @param {object} publicClient - viem public client instance (optional)
+ * @param {number} chainId - The chain ID (optional, defaults to 1 for mainnet)
  * @returns {Promise<{symbol: string, decimals: number, balance: string, needsWallet: boolean}>}
  */
-export async function fetchTokenData(tokenAddress, userAddress, publicClient) {
+export async function fetchTokenData(tokenAddress, userAddress, publicClient, chainId = 1) {
   try {
     // Create a public client if not provided
     const client = publicClient || createViemPublicClient()
@@ -180,8 +185,8 @@ export async function fetchTokenData(tokenAddress, userAddress, publicClient) {
         const balanceRaw = await client.getBalance({ address: userAddress })
         const balance = formatUnits(balanceRaw, decimals)
         
-        // Cache the balance
-        setCachedBalance(tokenAddress, userAddress, balance)
+        // Cache the balance with chainId
+        setCachedBalance(tokenAddress, userAddress, balance, chainId)
 
         return {
           symbol,
@@ -195,8 +200,8 @@ export async function fetchTokenData(tokenAddress, userAddress, publicClient) {
       }
     }
 
-    // Try to get cached token info (symbol, decimals)
-    let cachedTokenInfo = getCachedTokenInfo(tokenAddress)
+    // Try to get cached token info (symbol, decimals) with chainId
+    let cachedTokenInfo = getCachedTokenInfo(tokenAddress, chainId)
     let symbol, decimals
 
     if (cachedTokenInfo) {
@@ -240,8 +245,8 @@ export async function fetchTokenData(tokenAddress, userAddress, publicClient) {
         data: decimalsResult.data,
       })
 
-      // Cache the token info
-      setCachedTokenInfo(tokenAddress, { symbol, decimals: Number(decimals) })
+      // Cache the token info with chainId
+      setCachedTokenInfo(tokenAddress, { symbol, decimals: Number(decimals) }, chainId)
     }
 
     // If no user address, return placeholder for balance
@@ -254,8 +259,8 @@ export async function fetchTokenData(tokenAddress, userAddress, publicClient) {
       }
     }
 
-    // Try to get cached balance
-    let balance = getCachedBalance(tokenAddress, userAddress)
+    // Try to get cached balance with chainId
+    let balance = getCachedBalance(tokenAddress, userAddress, chainId)
 
     if (balance === null) {
       // Fetch balance from blockchain
@@ -279,8 +284,8 @@ export async function fetchTokenData(tokenAddress, userAddress, publicClient) {
       // Format balance
       balance = formatUnits(balanceRaw, decimals)
 
-      // Cache the balance
-      setCachedBalance(tokenAddress, userAddress, balance)
+      // Cache the balance with chainId
+      setCachedBalance(tokenAddress, userAddress, balance, chainId)
     }
 
     return {
