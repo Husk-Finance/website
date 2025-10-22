@@ -164,4 +164,26 @@ export const mockDeFiPositions = [
     liquiditySupplierAsset: '0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA', // USDbC on Base
     quotedAsset: 'USDbC', // Token symbol for button labels
   },
+
+  // HyperEVM DeFi Positions (chainId: 999)
+  {
+    id: 301,
+    chainId: 999,
+    protocol: 'StakedHYPE stHYPE',
+    createdAt: 1727280000000,
+    tags: [
+      { label: 'LST', bg: '#8b5cf6', color: '#ffffff' },
+    ],
+    huskAPY: '2.1%',
+    distribution: 'Daily',
+    nextDistribution: 'in 6 hours',
+    supplyAPY: '0.43%',
+    tvl: '$44k',
+    revenue24h: '$40',
+    liquidationLow: '',
+    participationRisk: '0.01',
+    liquidityProviderAsset: '0xfFaa4a3D97fE9107Cef8a3F48c069F577Ff76cC1', // stHYPE
+    liquiditySupplierAsset: '0xb88339CB7199b77E23DB6E890353E22632Ba630f', // USDC
+    quotedAsset: 'USDC'
+  }
 ];
