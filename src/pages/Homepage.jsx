@@ -81,7 +81,7 @@ export default function Homepage() {
         isOpen={modalState.isOpen}
         onClose={closeModal}
         position={modalState.position}
-        actionType={modalState.actionType}
+        action={modalState.actionType}
       />
     </div>
   )

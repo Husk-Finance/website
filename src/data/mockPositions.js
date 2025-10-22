@@ -17,8 +17,8 @@ export const mockPositions = [
     liquidationLow: '4,000 USDC',
     liquidationHigh: '5,000 USDC',
     borrowRisk: '0.24',
-    liquidityProviderAsset: 'XAUT',
-    liquiditySupplierAsset: 'USDC',
+    liquidityProviderAsset: '0x68749665FF8D2d112Fa859AA293F07A622782F38', // XAUT
+    liquiditySupplierAsset: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // USDC
   },
   {
     id: 2,
@@ -33,8 +33,8 @@ export const mockPositions = [
     liquidationLow: '95,000 USDC',
     liquidationHigh: '105,000 USDC',
     borrowRisk: '0.67',
-    liquidityProviderAsset: 'WBTC',
-    liquiditySupplierAsset: 'USDC',
+    liquidityProviderAsset: '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599', // WBTC
+    liquiditySupplierAsset: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // USDC
   },
   {
     id: 3,
@@ -49,8 +49,8 @@ export const mockPositions = [
     liquidationLow: '3,200 USDC',
     liquidationHigh: '3,800 USDC',
     borrowRisk: '0.31',
-    liquidityProviderAsset: 'ETH',
-    liquiditySupplierAsset: 'USDC',
+    liquidityProviderAsset: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2', // WETH
+    liquiditySupplierAsset: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // USDC
   },
   {
     id: 4,
@@ -65,8 +65,8 @@ export const mockPositions = [
     liquidationLow: '0.998 USDC',
     liquidationHigh: '1.002 USDC',
     borrowRisk: '0.05',
-    liquidityProviderAsset: 'USDT',
-    liquiditySupplierAsset: 'DAI',
+    liquidityProviderAsset: '0xdAC17F958D2ee523a2206206994597C13D831ec7', // USDT
+    liquiditySupplierAsset: '0x6B175474E89094C44Da98b954EedeAC495271d0F', // DAI
   },
   {
     id: 5,
@@ -81,8 +81,8 @@ export const mockPositions = [
     liquidationLow: '16.5 ETH',
     liquidationHigh: '18.2 ETH',
     borrowRisk: '0.42',
-    liquidityProviderAsset: 'WBTC',
-    liquiditySupplierAsset: 'ETH',
+    liquidityProviderAsset: '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599', // WBTC
+    liquiditySupplierAsset: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2', // WETH
   },
   {
     id: 6,
@@ -97,8 +97,8 @@ export const mockPositions = [
     liquidationLow: '0.85 USDC',
     liquidationHigh: '0.95 USDC',
     borrowRisk: '0.38',
-    liquidityProviderAsset: 'MATIC',
-    liquiditySupplierAsset: 'USDC',
+    liquidityProviderAsset: '0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0', // MATIC
+    liquiditySupplierAsset: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // USDC
   },
   {
     id: 7,
@@ -113,8 +113,8 @@ export const mockPositions = [
     liquidationLow: '0.0048 ETH',
     liquidationHigh: '0.0052 ETH',
     borrowRisk: '0.29',
-    liquidityProviderAsset: 'LINK',
-    liquiditySupplierAsset: 'ETH',
+    liquidityProviderAsset: '0x514910771AF9Ca656af840dff83E8264EcF986CA', // LINK
+    liquiditySupplierAsset: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2', // WETH
   },
   {
     id: 8,
@@ -129,7 +129,7 @@ export const mockPositions = [
     liquidationLow: '8.5 USDC',
     liquidationHigh: '9.5 USDC',
     borrowRisk: '0.33',
-    liquidityProviderAsset: 'UNI',
-    liquiditySupplierAsset: 'USDC',
+    liquidityProviderAsset: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984', // UNI
+    liquiditySupplierAsset: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // USDC
   }
 ]

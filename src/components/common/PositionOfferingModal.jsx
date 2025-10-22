@@ -1,50 +1,78 @@
-import { useEffect, useState } from 'react'
+import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
+import { useAccount, usePublicClient } from 'wagmi'
 import './PositionOfferingModal.scss'
+import { fetchTokenData } from '../../utils/tokenUtils'
 
-export default function PositionOfferingModal({ isOpen, onClose, position, actionType }) {
-  // Mock user balances (in a real app, these would come from wallet connection)
-  const [userBalances] = useState({
-    XAUT: 2.5,
-    WBTC: 0.15,
-    ETH: 5.2,
-    USDC: 15000,
-    USDT: 8000,
-    DAI: 12000,
-    MATIC: 5000,
-    LINK: 500,
-    UNI: 250,
-    AETHIR: 1000,
-    COMP: 50,
-    MKR: 3,
-    EUL: 100,
-  })
-
+function PositionOfferingModal({ isOpen, onClose, action, position, positionType }) {
+  // Wagmi hooks for wallet connection and blockchain data
+  const { address, isConnected } = useAccount()
+  const publicClient = usePublicClient()
+  
+  // Token data state
+  const [tokenSymbol, setTokenSymbol] = useState('')
+  const [tokenBalance, setTokenBalance] = useState('0')
+  const [tokenDecimals, setTokenDecimals] = useState(18)
+  const [isLoadingToken, setIsLoadingToken] = useState(false)
+  
   // Input state
-  const [inputAmount, setInputAmount] = useState('')
-  const [percentageSlider, setPercentageSlider] = useState(0)
+  const [amount, setAmount] = useState('')
+  const [percentage, setPercentage] = useState(0)
 
   // Determine which asset to use based on action type
-  const getAssetForAction = () => {
+  const getAssetAddressForAction = () => {
     if (!position) return null
     
-    if (actionType === 'supply') {
-      return position.liquiditySupplierAsset || 'USDC'
+    if (action === 'supply') {
+      return position.liquiditySupplierAsset
     } else {
-      return position.liquidityProviderAsset || position.liquiditySupplierAsset || 'USDC'
+      return position.liquidityProviderAsset || position.liquiditySupplierAsset
     }
   }
 
-  const currentAsset = getAssetForAction()
-  const userBalance = currentAsset ? (userBalances[currentAsset] || 0) : 0
+  const currentAssetAddress = getAssetAddressForAction()
+  const userBalance = tokenBalance ? parseFloat(tokenBalance) : 0
+
+  // Fetch token data when modal opens or dependencies change
+  useEffect(() => {
+    const loadTokenData = async () => {
+      if (!isOpen || !publicClient || !address || !isConnected) {
+        setIsLoadingToken(false)
+        return
+      }
+
+      const assetAddress = getAssetAddressForAction()
+      if (!assetAddress) {
+        setIsLoadingToken(false)
+        return
+      }
+
+      setIsLoadingToken(true)
+      try {
+        const data = await fetchTokenData(assetAddress, address, publicClient)
+        setTokenSymbol(data.symbol)
+        setTokenBalance(data.balance)
+        setTokenDecimals(data.decimals)
+      } catch (error) {
+        console.error('Failed to fetch token data:', error)
+        setTokenSymbol('UNKNOWN')
+        setTokenBalance('0')
+        setTokenDecimals(18)
+      } finally {
+        setIsLoadingToken(false)
+      }
+    }
+
+    loadTokenData()
+  }, [isOpen, address, isConnected, publicClient, action, position, positionType])
 
   // Reset input when modal opens/closes or action type changes
   useEffect(() => {
     if (isOpen) {
-      setInputAmount('')
-      setPercentageSlider(0)
+      setAmount('')
+      setPercentage(0)
     }
-  }, [isOpen, actionType])
+  }, [isOpen, action])
 
   // Handle amount input change
   const handleAmountChange = (e) => {
@@ -52,27 +80,27 @@ export default function PositionOfferingModal({ isOpen, onClose, position, actio
     
     // Allow empty string or valid numbers (including decimals)
     if (value === '' || /^\d*\.?\d*$/.test(value)) {
-      setInputAmount(value)
+      setAmount(value)
       
       // Update slider percentage
       if (value === '' || parseFloat(value) === 0) {
-        setPercentageSlider(0)
+        setPercentage(0)
       } else {
         const numValue = parseFloat(value)
-        const percentage = Math.min((numValue / userBalance) * 100, 100)
-        setPercentageSlider(Math.round(percentage))
+        const pct = Math.min((numValue / userBalance) * 100, 100)
+        setPercentage(Math.round(pct))
       }
     }
   }
 
   // Handle slider change
   const handleSliderChange = (e) => {
-    const percentage = parseInt(e.target.value)
-    setPercentageSlider(percentage)
+    const pct = parseInt(e.target.value)
+    setPercentage(pct)
     
     // Update input amount
-    const amount = (userBalance * percentage) / 100
-    setInputAmount(amount > 0 ? amount.toFixed(6) : '')
+    const amt = (userBalance * pct) / 100
+    setAmount(amt > 0 ? amt.toFixed(6) : '')
   }
 
   // Handle percentage input change
@@ -80,12 +108,12 @@ export default function PositionOfferingModal({ isOpen, onClose, position, actio
     const value = e.target.value
     
     if (value === '' || /^\d*$/.test(value)) {
-      const percentage = value === '' ? 0 : Math.min(parseInt(value), 100)
-      setPercentageSlider(percentage)
+      const pct = value === '' ? 0 : Math.min(parseInt(value), 100)
+      setPercentage(pct)
       
       // Update input amount
-      const amount = (userBalance * percentage) / 100
-      setInputAmount(amount > 0 ? amount.toFixed(6) : '')
+      const amt = (userBalance * pct) / 100
+      setAmount(amt > 0 ? amt.toFixed(6) : '')
     }
   }
   // Handle ESC key to close modal
@@ -200,9 +228,11 @@ export default function PositionOfferingModal({ isOpen, onClose, position, actio
               {/* Asset Balance and Input Section */}
               <div className="input-section">
                 <div className="asset-balance">
-                  <span className="asset-name">{currentAsset}</span>
+                  <span className="asset-name">
+                    {isLoadingToken ? 'Loading...' : tokenSymbol || 'UNKNOWN'}
+                  </span>
                   <span className="balance-value">
-                    Balance: {userBalance.toLocaleString()} {currentAsset}
+                    Balance: {userBalance.toLocaleString(undefined, { maximumFractionDigits: 6 })} {tokenSymbol}
                   </span>
                 </div>
 
@@ -210,8 +240,9 @@ export default function PositionOfferingModal({ isOpen, onClose, position, actio
                   type="text"
                   className="amount-input"
                   placeholder="0.00"
-                  value={inputAmount}
+                  value={amount}
                   onChange={handleAmountChange}
+                  disabled={isLoadingToken}
                 />
 
                 <div className="percentage-control">
@@ -220,18 +251,20 @@ export default function PositionOfferingModal({ isOpen, onClose, position, actio
                     className="percentage-slider"
                     min="0"
                     max="100"
-                    value={percentageSlider}
+                    value={percentage}
                     onChange={handleSliderChange}
+                    disabled={isLoadingToken}
                     style={{
-                      background: `linear-gradient(to right, #388262 0%, #388262 ${percentageSlider}%, rgba(59, 59, 59, 0.5) ${percentageSlider}%, rgba(59, 59, 59, 0.5) 100%)`
+                      background: `linear-gradient(to right, #388262 0%, #388262 ${percentage}%, rgba(59, 59, 59, 0.5) ${percentage}%, rgba(59, 59, 59, 0.5) 100%)`
                     }}
                   />
                   <input
                     type="text"
                     className="percentage-input"
                     placeholder="0"
-                    value={percentageSlider}
+                    value={percentage}
                     onChange={handlePercentageInputChange}
+                    disabled={isLoadingToken}
                   />
                   <span className="percentage-label">%</span>
                 </div>
@@ -239,12 +272,12 @@ export default function PositionOfferingModal({ isOpen, onClose, position, actio
 
               <div className="action-buttons">
                 <button 
-                  className={`action-btn supply-btn ${actionType === 'supply' ? 'active' : ''}`}
+                  className={`action-btn supply-btn ${action === 'supply' ? 'active' : ''}`}
                 >
                   Supply USDC
                 </button>
                 <button 
-                  className={`action-btn borrow-btn ${actionType === 'borrow' ? 'active' : ''}`}
+                  className={`action-btn borrow-btn ${action === 'borrow' ? 'active' : ''}`}
                 >
                   Borrow USDC
                 </button>
@@ -297,9 +330,11 @@ PositionOfferingModal.propTypes = {
     revenue24h: PropTypes.string,
     supplyAPY: PropTypes.string,
     borrowRisk: PropTypes.string,
-    // Asset fields
-    liquidityProviderAsset: PropTypes.string,
-    liquiditySupplierAsset: PropTypes.string,
+    // Asset fields (token addresses)
+    liquidityProviderAsset: PropTypes.string, // ERC20 token address
+    liquiditySupplierAsset: PropTypes.string, // ERC20 token address
   }),
-  actionType: PropTypes.oneOf(['supply', 'borrow']),
+  action: PropTypes.oneOf(['supply', 'borrow']),
 }
+
+export default PositionOfferingModal

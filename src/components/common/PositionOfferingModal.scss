@@ -233,7 +233,7 @@
       opacity: 0.5;
     }
 
-    &:hover {
+    &:hover:not(:disabled) {
       border-color: rgba(59, 59, 59, 0.7);
       background: rgba(59, 59, 59, 0.4);
     }
@@ -242,6 +242,11 @@
       border-color: $green-accent;
       background: rgba(59, 59, 59, 0.5);
       box-shadow: 0 0 0 2px rgba(56, 130, 98, 0.1);
+    }
+
+    &:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
   }
 
@@ -348,6 +353,11 @@
         border-color: $green-accent;
         box-shadow: 0 0 0 2px rgba(56, 130, 98, 0.1);
       }
+
+      &:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+      }
     }
 
     .percentage-label {
@@ -355,6 +365,11 @@
       font-weight: 400;
       color: $text-secondary;
       min-width: 15px;
+    }
+
+    .percentage-slider:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
     }
   }
 }
@@ -392,7 +407,12 @@
   .supply-btn {
     background: $button-bg;
 
-    &.active,
+    &.active {
+      background: $button-bg-hover;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+    }
+
     &:hover {
       background: $button-bg-hover;
     }
@@ -413,9 +433,18 @@
       opacity: 0;
       transition: opacity $transition-fast;
       z-index: -1;
+      border-radius: $border-radius-sm;
     }
 
-    &.active::before,
+    &.active {
+      box-shadow: 0 0 10px rgba(56, 130, 98, 0.15);
+      border: 1px solid rgba(56, 130, 98, 0.4);
+      
+      &::before {
+        opacity: 0.6;
+      }
+    }
+
     &:hover::before {
       opacity: 1;
     }
