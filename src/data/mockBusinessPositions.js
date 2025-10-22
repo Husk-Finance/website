@@ -43,7 +43,7 @@ export const mockBusinessPositions = [
     chainId: 8453, // Base
     businessName: 'Maritime Cargo Fleet',
     businessImage: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800&q=80',
-    network: 'Base',
+    network: 'Onyx',
     createdAt: 1729243800000, // Oct 18, 2025 09:30:00
     huskAPY: '52.75%',
     tvlMcap: '$45.8k / $22M',
@@ -58,7 +58,7 @@ export const mockBusinessPositions = [
     chainId: 8453,
     businessName: 'Commercial Fishing Fleet',
     businessImage: 'https://images.unsplash.com/photo-1589182337358-2cb63099350c?w=800&q=80',
-    network: 'Base',
+    network: 'Onyx',
     createdAt: 1729157400000, // Oct 17, 2025 09:30:00
     huskAPY: '46.20%',
     tvlMcap: '$18.5k / $12M',
@@ -69,13 +69,13 @@ export const mockBusinessPositions = [
     participationRisk: '0.15',
   },
   
-  // Arbitrum Mainnet Positions (chainId: 42161)
+  // HyperEVM Mainnet Positions (chainId: 999)
   {
     id: 5,
-    chainId: 42161, // Arbitrum
+    chainId: 999, // HyperEVM
     businessName: 'Naval Defense Systems',
     businessImage: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800&q=80',
-    network: 'Arbitrum',
+    network: 'Onyx',
     createdAt: 1729071000000, // Oct 16, 2025 09:30:00
     huskAPY: '55.80%',
     tvlMcap: '$32.4k / $18M',
@@ -87,10 +87,10 @@ export const mockBusinessPositions = [
   },
   {
     id: 6,
-    chainId: 42161,
+    chainId: 999,
     businessName: 'Ocean Research Vessels',
-    businessImage: 'https://images.unsplash.com/photo-1566050278910-0584f06aa762?w=800&q=80',
-    network: 'Arbitrum',
+    businessImage: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800&q=80',
+    network: 'Onyx',
     createdAt: 1728984600000, // Oct 15, 2025 09:30:00
     huskAPY: '41.30%',
     tvlMcap: '$15.2k / $9M',
@@ -101,13 +101,12 @@ export const mockBusinessPositions = [
     participationRisk: '0.16',
   },
   
-  // Optimism Mainnet Positions (chainId: 10)
   {
     id: 7,
-    chainId: 10, // Optimism
+    chainId: 999,
     businessName: 'Cruise Line Operations',
     businessImage: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800&q=80',
-    network: 'Optimism',
+    network: 'Onyx',
     createdAt: 1728898200000, // Oct 14, 2025 09:30:00
     huskAPY: '39.90%',
     tvlMcap: '$28.7k / $16M',
@@ -119,10 +118,10 @@ export const mockBusinessPositions = [
   },
   {
     id: 8,
-    chainId: 10,
+    chainId: 999,
     businessName: 'Port Infrastructure',
-    businessImage: 'https://images.unsplash.com/photo-1605128726695-cff18f4f0e6c?w=800&q=80',
-    network: 'Optimism',
+    businessImage: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800&q=80',
+    network: 'Onyx',
     createdAt: 1728811800000, // Oct 13, 2025 09:30:00
     huskAPY: '48.60%',
     tvlMcap: '$52.1k / $25M',

@@ -10,6 +10,7 @@ import { HERO_CONTENT, SECTION_TITLES } from '../constants'
 import { processDexPositions, processDeFiPositions, processBusinessPositions } from '../utils/positionUtils'
 import { getDexPositionsByChain, getDeFiPositionsByChain, getBusinessPositionsByChain, getAllDexPositions, getAllDeFiPositions, getAllBusinessPositions } from '../utils/networkUtils'
 import PositionOfferingModal from '../components/common/PositionOfferingModal'
+import BusinessPositionModal from '../components/common/BusinessPositionModal'
 
 export default function Homepage() {
   // Get wallet connection status and chain ID
@@ -34,8 +35,15 @@ export default function Homepage() {
   const sortedDeFiPositions = processDeFiPositions(networkDeFiPositions)
   const sortedBusinessPositions = processBusinessPositions(networkBusinessPositions)
 
-  // Modal state
+  // Modal state for DEX/DeFi positions
   const [modalState, setModalState] = useState({
+    isOpen: false,
+    position: null,
+    actionType: null, // 'supply' or 'borrow'
+  })
+
+  // Modal state for Business positions
+  const [businessModalState, setBusinessModalState] = useState({
     isOpen: false,
     position: null,
     actionType: null, // 'supply' or 'borrow'
@@ -51,6 +59,22 @@ export default function Homepage() {
 
   const closeModal = () => {
     setModalState({
+      isOpen: false,
+      position: null,
+      actionType: null,
+    })
+  }
+
+  const openBusinessModal = (position, actionType) => {
+    setBusinessModalState({
+      isOpen: true,
+      position,
+      actionType,
+    })
+  }
+
+  const closeBusinessModal = () => {
+    setBusinessModalState({
       isOpen: false,
       position: null,
       actionType: null,
@@ -74,8 +98,8 @@ export default function Homepage() {
               <BusinessPositionCard 
                 key={position.id} 
                 position={position} 
-                onSupplyClick={() => openModal(position, 'supply')}
-                onBorrowClick={() => openModal(position, 'borrow')}
+                onSupplyClick={() => openBusinessModal(position, 'supply')}
+                onBorrowClick={() => openBusinessModal(position, 'borrow')}
               />
             ))}
           </div>
@@ -136,6 +160,13 @@ export default function Homepage() {
         onClose={closeModal}
         position={modalState.position}
         action={modalState.actionType}
+      />
+
+      <BusinessPositionModal
+        isOpen={businessModalState.isOpen}
+        onClose={closeBusinessModal}
+        position={businessModalState.position}
+        action={businessModalState.actionType}
       />
     </div>
   )
