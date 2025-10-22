@@ -1,8 +1,11 @@
 import PropTypes from 'prop-types'
 import './DeFiPositionCard.scss'
-import { GRID_LABELS, BUTTON_LABELS } from '../../constants'
+import { GRID_LABELS } from '../../constants'
+import { getQuotedTokenSymbol } from '../../utils/positionUtils'
 
 export default function DeFiPositionCard({ position, onSupplyClick, onBorrowClick }) {
+  const quotedToken = getQuotedTokenSymbol(position, 'supply')
+  
   return (
     <div className="defi-position-card">
       <div className="card-header">
@@ -63,13 +66,13 @@ export default function DeFiPositionCard({ position, onSupplyClick, onBorrowClic
 
         <div className="button-item">
           <button className="action-button" onClick={onSupplyClick}>
-            {BUTTON_LABELS.supply}
+            Supply {quotedToken}
           </button>
         </div>
 
         <div className="button-item">
           <button className="action-button borrow-button" onClick={onBorrowClick}>
-            {BUTTON_LABELS.borrow}
+            Borrow {quotedToken}
           </button>
         </div>
       </div>
@@ -91,6 +94,7 @@ DeFiPositionCard.propTypes = {
     nextDistribution: PropTypes.string,
     liquidationLow: PropTypes.string,
     borrowRisk: PropTypes.string,
+    quotedAsset: PropTypes.string, // Token symbol for button labels (e.g., "USDC", "WETH", "DAI")
   }).isRequired,
   onSupplyClick: PropTypes.func,
   onBorrowClick: PropTypes.func,

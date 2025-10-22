@@ -1,9 +1,12 @@
 import PropTypes from 'prop-types'
 import './DexPositionCard.scss'
 import uniswapIcon from '../../assets/uniswap-icon.svg'
-import { GRID_LABELS, BUTTON_LABELS } from '../../constants'
+import { GRID_LABELS } from '../../constants'
+import { getQuotedTokenSymbol } from '../../utils/positionUtils'
 
 export default function DexPositionCard({ position, onSupplyClick, onBorrowClick }) {
+  const quotedToken = getQuotedTokenSymbol(position, 'supply')
+  
   return (
     <div className="dex-position-card">
       <div className="card-background">
@@ -53,12 +56,12 @@ export default function DexPositionCard({ position, onSupplyClick, onBorrowClick
         </div>
         <div className="button-item">
           <button className="action-button" onClick={onSupplyClick}>
-            {BUTTON_LABELS.supply}
+            Supply {quotedToken}
           </button>
         </div>
         <div className="button-item">
           <button className="action-button borrow-button" onClick={onBorrowClick}>
-            {BUTTON_LABELS.borrow}
+            Borrow {quotedToken}
           </button>
         </div>
       </div>

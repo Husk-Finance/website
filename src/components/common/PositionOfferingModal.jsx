@@ -23,11 +23,9 @@ function PositionOfferingModal({ isOpen, onClose, action, position, positionType
   const getAssetAddressForAction = () => {
     if (!position) return null
     
-    if (action === 'supply') {
-      return position.liquiditySupplierAsset
-    } else {
-      return position.liquidityProviderAsset || position.liquiditySupplierAsset
-    }
+    // Both supply and borrow use the liquiditySupplierAsset
+    // This is the asset that users interact with (e.g., WETH for Euler ETH Borrow)
+    return position.liquiditySupplierAsset
   }
 
   const currentAssetAddress = getAssetAddressForAction()
@@ -281,16 +279,15 @@ function PositionOfferingModal({ isOpen, onClose, action, position, positionType
               </div>
 
               <div className="action-buttons">
-                <button 
-                  className={`action-btn supply-btn ${action === 'supply' ? 'active' : ''}`}
-                >
-                  Supply USDC
-                </button>
-                <button 
-                  className={`action-btn borrow-btn ${action === 'borrow' ? 'active' : ''}`}
-                >
-                  Borrow USDC
-                </button>
+                {action === 'supply' ? (
+                  <button className="action-btn supply-btn active">
+                    Supply {isLoadingToken ? '...' : (tokenSymbol || 'USDC')}
+                  </button>
+                ) : (
+                  <button className="action-btn borrow-btn active">
+                    Borrow {isLoadingToken ? '...' : (tokenSymbol || 'USDC')}
+                  </button>
+                )}
               </div>
             </div>
           </div>

@@ -21,6 +21,7 @@ export const mockDeFiPositions = [
     borrowRisk: '0.13',
     liquidityProviderAsset: '0x0000000000000000000000000000000000000001', // Mock AETHIR address
     liquiditySupplierAsset: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // USDC
+    quotedAsset: 'USDC', // Token symbol for button labels
   },
   {
     id: 102,
@@ -39,6 +40,7 @@ export const mockDeFiPositions = [
     borrowRisk: '0.08',
     liquidityProviderAsset: '0xc00e94Cb662C3520282E6f5717214004A7f26888', // COMP
     liquiditySupplierAsset: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // USDC
+    quotedAsset: 'USDC', // Token symbol for button labels
   },
   {
     id: 103,
@@ -55,6 +57,7 @@ export const mockDeFiPositions = [
     borrowRisk: '0.04',
     liquidityProviderAsset: '0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2', // MKR
     liquiditySupplierAsset: '0x6B175474E89094C44Da98b954EedeAC495271d0F', // DAI
+    quotedAsset: 'DAI', // Token symbol for button labels
   },
   {
     id: 104,
@@ -71,5 +74,6 @@ export const mockDeFiPositions = [
     borrowRisk: '0.35',
     liquidityProviderAsset: '0xd9Fcd98c322942075A5C3860693e9f4f03AAE07b', // EUL
     liquiditySupplierAsset: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2', // WETH
+    quotedAsset: 'WETH', // Token symbol for button labels
   },
 ]
