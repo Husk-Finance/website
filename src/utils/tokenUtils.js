@@ -1,7 +1,7 @@
 import { createPublicClient, http, formatUnits, encodeFunctionData, decodeFunctionResult } from 'viem'
 import { mainnet, base } from 'viem/chains'
 import { ERC20_ABI } from '../constants/contracts'
-import { CHAIN_IDS } from '../constants/networks'
+import { CHAIN_IDS, getNetworkByChainId } from '../constants/networks'
 
 // EIP-7528: ETH native asset address convention
 // https://ethereum-magicians.org/t/eip-7528-eth-native-asset-address-convention/15989
@@ -152,18 +152,14 @@ function getChainConfig(chainId) {
 }
 
 /**
- * Get the RPC URL for a specific chain
+ * Get the RPC URL for a specific chain from the NETWORKS configuration
  * @param {number} chainId - The chain ID
  * @returns {string} RPC URL
  */
 function getRpcUrl(chainId) {
-  switch (chainId) {
-    case CHAIN_IDS.BASE:
-      return 'https://mainnet.base.org'
-    case CHAIN_IDS.MAINNET:
-    default:
-      return 'https://eth.meowrpc.com'
-  }
+  const network = getNetworkByChainId(chainId)
+  // Fallback to Ethereum mainnet RPC if network not found
+  return network?.rpcUrl || getNetworkByChainId(CHAIN_IDS.MAINNET)?.rpcUrl
 }
 
 /**
