@@ -3,7 +3,7 @@ import './DexPositionCard.scss'
 import uniswapIcon from '../../assets/uniswap-icon.svg'
 import { GRID_LABELS, BUTTON_LABELS } from '../../constants'
 
-export default function DexPositionCard({ position }) {
+export default function DexPositionCard({ position, onSupplyClick, onBorrowClick }) {
   return (
     <div className="dex-position-card">
       <div className="card-background">
@@ -52,10 +52,14 @@ export default function DexPositionCard({ position }) {
           <div className="grid-value">{position.borrowRisk}</div>
         </div>
         <div className="button-item">
-          <button className="action-button">{BUTTON_LABELS.supply}</button>
+          <button className="action-button" onClick={onSupplyClick}>
+            {BUTTON_LABELS.supply}
+          </button>
         </div>
         <div className="button-item">
-          <button className="action-button borrow-button">{BUTTON_LABELS.borrow}</button>
+          <button className="action-button borrow-button" onClick={onBorrowClick}>
+            {BUTTON_LABELS.borrow}
+          </button>
         </div>
       </div>
     </div>
@@ -77,4 +81,6 @@ DexPositionCard.propTypes = {
     liquidationHigh: PropTypes.string.isRequired,
     borrowRisk: PropTypes.string.isRequired,
   }).isRequired,
+  onSupplyClick: PropTypes.func,
+  onBorrowClick: PropTypes.func,
 }

@@ -1,0 +1,505 @@
+@use '../../styles/variables' as *;
+
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: $spacing-md;
+}
+
+.modal-container {
+  background: rgba(0, 0, 0, 0.05);
+  backdrop-filter: blur(32px);
+  -webkit-backdrop-filter: blur(32px);
+  border: 1px solid $border-color;
+  border-radius: $border-radius-md;
+  max-width: 55%;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+  position: relative;
+
+  /* Custom scrollbar styling */
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: rgba(59, 59, 59, 0.1);
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(59, 59, 59, 0.5);
+    border-radius: 4px;
+
+    &:hover {
+      background: rgba(59, 59, 59, 0.7);
+    }
+  }
+}
+
+.modal-content {
+  display: flex;
+  gap: $spacing-md;
+  padding: 30px;
+  min-height: 500px;
+}
+
+.modal-left {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: $spacing-md;
+
+  .protocol-info {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+
+    .protocol-title {
+      display: flex;
+      align-items: center;
+      gap: $spacing-xs;
+
+      .protocol-name {
+        font-size: $font-size-base;
+        font-weight: 400;
+        color: $text-primary;
+        letter-spacing: $letter-spacing-tight;
+        margin: 0;
+      }
+    }
+
+    .pair-meta {
+      p {
+        font-size: $font-size-sm;
+        font-weight: 400;
+        color: $text-secondary;
+        letter-spacing: $letter-spacing-tight;
+        margin: 0;
+      }
+    }
+
+    .tag-row {
+      display: flex;
+      gap: $spacing-xs;
+      align-items: center;
+
+      .tag-pill {
+        padding: 2px $spacing-xs;
+        border-radius: $border-radius-sm;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        p {
+          font-size: 10px;
+          font-weight: 400;
+          letter-spacing: -0.2px;
+          margin: 0;
+        }
+      }
+    }
+  }
+
+  .husk-apy {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+    text-align: left;
+
+    .label {
+      font-size: $font-size-base;
+      font-weight: 400;
+      letter-spacing: $letter-spacing-tight;
+      color: $text-secondary;
+      margin: 0;
+    }
+
+    .value {
+      font-size: $font-size-base;
+      font-weight: 400;
+      letter-spacing: $letter-spacing-tight;
+      color: $text-primary;
+      margin: 0;
+    }
+  }
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(4, auto);
+  gap: $spacing-sm;
+  height: 202px;
+
+  .info-item {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+    justify-content: center;
+
+    .label {
+      font-size: $font-size-base;
+      font-weight: 400;
+      letter-spacing: $letter-spacing-tight;
+      color: $text-secondary;
+      margin: 0;
+    }
+
+    .value {
+      font-size: $font-size-base;
+      font-weight: 400;
+      letter-spacing: $letter-spacing-tight;
+      color: $text-primary;
+      margin: 0;
+    }
+  }
+}
+
+.input-section {
+  display: flex;
+  flex-direction: column;
+  gap: $spacing-sm;
+  width: 100%;
+  margin-top: $spacing-sm;
+
+  .asset-balance {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: $font-size-base;
+    font-weight: 400;
+    letter-spacing: $letter-spacing-tight;
+
+    .asset-name {
+      color: $text-primary;
+      font-weight: 500;
+    }
+
+    .balance-value {
+      color: $text-secondary;
+    }
+  }
+
+  .amount-input {
+    width: 100%;
+    padding: 12px 15px;
+    font-size: $font-size-base;
+    font-weight: 400;
+    letter-spacing: $letter-spacing-tight;
+    color: $text-primary;
+    background: rgba(59, 59, 59, 0.3);
+    border: 1px solid $border-color;
+    border-radius: $border-radius-sm;
+    outline: none;
+    transition: all $transition-fast;
+    font-family: $font-family;
+
+    // Remove default number input arrows
+    appearance: none;
+    -moz-appearance: textfield;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    &::placeholder {
+      color: $text-secondary;
+      opacity: 0.5;
+    }
+
+    &:hover {
+      border-color: rgba(59, 59, 59, 0.7);
+      background: rgba(59, 59, 59, 0.4);
+    }
+
+    &:focus {
+      border-color: $green-accent;
+      background: rgba(59, 59, 59, 0.5);
+      box-shadow: 0 0 0 2px rgba(56, 130, 98, 0.1);
+    }
+  }
+
+  .percentage-control {
+    display: flex;
+    align-items: center;
+    gap: $spacing-sm;
+
+    .percentage-slider {
+      flex: 1;
+      height: 6px;
+      border-radius: 3px;
+      outline: none;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      margin: 5px 0; // Add vertical margin for thumb space
+
+      &::-webkit-slider-thumb {
+        appearance: none;
+        -webkit-appearance: none;
+        width: 16px;
+        height: 16px;
+        background: $green-accent;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all $transition-fast;
+        margin-top: -5px; // Center the thumb vertically
+
+        &:hover {
+          transform: scale(1.2);
+          box-shadow: 0 0 8px rgba(56, 130, 98, 0.5);
+        }
+      }
+
+      &::-moz-range-thumb {
+        width: 16px;
+        height: 16px;
+        background: $green-accent;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        transition: all $transition-fast;
+
+        &:hover {
+          transform: scale(1.2);
+          box-shadow: 0 0 8px rgba(56, 130, 98, 0.5);
+        }
+      }
+
+      &::-webkit-slider-runnable-track {
+        height: 6px;
+        border-radius: 3px;
+      }
+
+      &::-moz-range-track {
+        height: 6px;
+        background: rgba(59, 59, 59, 0.5);
+        border-radius: 3px;
+      }
+
+      &::-moz-range-progress {
+        height: 6px;
+        background: $green-accent;
+        border-radius: 3px;
+      }
+    }
+
+    .percentage-input {
+      width: 50px;
+      padding: 6px 8px;
+      font-size: $font-size-sm;
+      font-weight: 400;
+      letter-spacing: $letter-spacing-tight;
+      color: $text-primary;
+      background: rgba(59, 59, 59, 0.3);
+      border: 1px solid $border-color;
+      border-radius: $border-radius-sm;
+      outline: none;
+      text-align: center;
+      transition: all $transition-fast;
+      font-family: $font-family;
+
+      // Remove default number input arrows
+      appearance: none;
+      -moz-appearance: textfield;
+
+      &::-webkit-outer-spin-button,
+      &::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+
+      &::placeholder {
+        color: $text-secondary;
+        opacity: 0.5;
+      }
+
+      &:hover {
+        border-color: rgba(59, 59, 59, 0.7);
+      }
+
+      &:focus {
+        border-color: $green-accent;
+        box-shadow: 0 0 0 2px rgba(56, 130, 98, 0.1);
+      }
+    }
+
+    .percentage-label {
+      font-size: $font-size-base;
+      font-weight: 400;
+      color: $text-secondary;
+      min-width: 15px;
+    }
+  }
+}
+
+.action-buttons {
+  display: flex;
+  gap: $spacing-md;
+  width: 100%;
+
+  .action-btn {
+    flex: 1;
+    padding: 15px 0;
+    border-radius: $border-radius-sm;
+    font-size: $font-size-base;
+    font-weight: 400;
+    letter-spacing: $letter-spacing-tight;
+    color: $text-primary;
+    border: none;
+    cursor: pointer;
+    transition: all $transition-fast;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    overflow: hidden;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    }
+
+    &:active {
+      transform: translateY(0);
+    }
+  }
+
+  .supply-btn {
+    background: $button-bg;
+
+    &.active,
+    &:hover {
+      background: $button-bg-hover;
+    }
+  }
+
+  .borrow-btn {
+    background: transparent;
+    position: relative;
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: $borrow-button-gradient;
+      opacity: 0;
+      transition: opacity $transition-fast;
+      z-index: -1;
+    }
+
+    &.active::before,
+    &:hover::before {
+      opacity: 1;
+    }
+
+    &:not(.active):not(:hover) {
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+  }
+}
+
+.modal-right {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+
+  .description-content {
+    font-size: $font-size-base;
+    font-weight: 400;
+    line-height: normal;
+    letter-spacing: $letter-spacing-tight;
+    color: $text-primary;
+    opacity: 0.8;
+    text-align: justify;
+    white-space: pre-wrap;
+    overflow-y: auto;
+
+    p {
+      margin: 0;
+      text-indent: 2em;
+    }
+  }
+}
+
+/* Responsive styles */
+@media (max-width: $breakpoint-lg) {
+  .modal-container {
+    max-width: 90%;
+  }
+
+  .modal-content {
+    flex-direction: column;
+    padding: $spacing-md;
+  }
+
+  .modal-left,
+  .modal-right {
+    min-width: 100%;
+  }
+
+  .info-grid {
+    height: auto;
+  }
+
+  .action-buttons {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: $breakpoint-md) {
+  .modal-container {
+    max-width: 95%;
+  }
+
+  .modal-overlay {
+    padding: $spacing-sm;
+  }
+
+  .modal-content {
+    padding: $spacing-md;
+  }
+
+  .modal-header {
+    flex-direction: column;
+    gap: $spacing-sm;
+
+    .husk-apy {
+      align-self: flex-start;
+    }
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+    gap: $spacing-sm;
+  }
+}

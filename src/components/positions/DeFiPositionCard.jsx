@@ -2,7 +2,7 @@ import PropTypes from 'prop-types'
 import './DeFiPositionCard.scss'
 import { GRID_LABELS, BUTTON_LABELS } from '../../constants'
 
-export default function DeFiPositionCard({ position }) {
+export default function DeFiPositionCard({ position, onSupplyClick, onBorrowClick }) {
   return (
     <div className="defi-position-card">
       <div className="card-header">
@@ -62,11 +62,15 @@ export default function DeFiPositionCard({ position }) {
         </div>
 
         <div className="button-item">
-          <button className="action-button">{BUTTON_LABELS.supply}</button>
+          <button className="action-button" onClick={onSupplyClick}>
+            {BUTTON_LABELS.supply}
+          </button>
         </div>
 
         <div className="button-item">
-          <button className="action-button borrow-button">{BUTTON_LABELS.borrow}</button>
+          <button className="action-button borrow-button" onClick={onBorrowClick}>
+            {BUTTON_LABELS.borrow}
+          </button>
         </div>
       </div>
     </div>
@@ -88,4 +92,6 @@ DeFiPositionCard.propTypes = {
     liquidationLow: PropTypes.string,
     borrowRisk: PropTypes.string,
   }).isRequired,
+  onSupplyClick: PropTypes.func,
+  onBorrowClick: PropTypes.func,
 }

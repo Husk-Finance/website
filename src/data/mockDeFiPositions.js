@@ -19,6 +19,8 @@ export const mockDeFiPositions = [
     revenue24h: '$850',
     liquidationLow: '0.99 USDC',
     borrowRisk: '0.13',
+    liquidityProviderAsset: 'AETHIR',
+    liquiditySupplierAsset: 'USDC',
   },
   {
     id: 102,
@@ -35,6 +37,8 @@ export const mockDeFiPositions = [
     revenue24h: '$310',
     liquidationLow: '0.997 USDC',
     borrowRisk: '0.08',
+    liquidityProviderAsset: 'COMP',
+    liquiditySupplierAsset: 'USDC',
   },
   {
     id: 103,
@@ -49,6 +53,8 @@ export const mockDeFiPositions = [
     revenue24h: '$940',
     liquidationLow: '0.995 USDC',
     borrowRisk: '0.04',
+    liquidityProviderAsset: 'MKR',
+    liquiditySupplierAsset: 'DAI',
   },
   {
     id: 104,
@@ -63,5 +69,7 @@ export const mockDeFiPositions = [
     revenue24h: '$120',
     liquidationLow: '2,800 USDC',
     borrowRisk: '0.35',
+    liquidityProviderAsset: 'EUL',
+    liquiditySupplierAsset: 'ETH',
   },
 ]

@@ -16,7 +16,9 @@ export const mockPositions = [
     supplyAPY: '25%',
     liquidationLow: '4,000 USDC',
     liquidationHigh: '5,000 USDC',
-    borrowRisk: '0.24'
+    borrowRisk: '0.24',
+    liquidityProviderAsset: 'XAUT',
+    liquiditySupplierAsset: 'USDC',
   },
   {
     id: 2,
@@ -30,7 +32,9 @@ export const mockPositions = [
     supplyAPY: '13.44%',
     liquidationLow: '95,000 USDC',
     liquidationHigh: '105,000 USDC',
-    borrowRisk: '0.67'
+    borrowRisk: '0.67',
+    liquidityProviderAsset: 'WBTC',
+    liquiditySupplierAsset: 'USDC',
   },
   {
     id: 3,
@@ -44,7 +48,9 @@ export const mockPositions = [
     supplyAPY: '28.7%',
     liquidationLow: '3,200 USDC',
     liquidationHigh: '3,800 USDC',
-    borrowRisk: '0.31'
+    borrowRisk: '0.31',
+    liquidityProviderAsset: 'ETH',
+    liquiditySupplierAsset: 'USDC',
   },
   {
     id: 4,
@@ -58,7 +64,9 @@ export const mockPositions = [
     supplyAPY: '8.2%',
     liquidationLow: '0.998 USDC',
     liquidationHigh: '1.002 USDC',
-    borrowRisk: '0.05'
+    borrowRisk: '0.05',
+    liquidityProviderAsset: 'USDT',
+    liquiditySupplierAsset: 'DAI',
   },
   {
     id: 5,
@@ -72,7 +80,9 @@ export const mockPositions = [
     supplyAPY: '19.3%',
     liquidationLow: '16.5 ETH',
     liquidationHigh: '18.2 ETH',
-    borrowRisk: '0.42'
+    borrowRisk: '0.42',
+    liquidityProviderAsset: 'WBTC',
+    liquiditySupplierAsset: 'ETH',
   },
   {
     id: 6,
@@ -86,7 +96,9 @@ export const mockPositions = [
     supplyAPY: '22.1%',
     liquidationLow: '0.85 USDC',
     liquidationHigh: '0.95 USDC',
-    borrowRisk: '0.38'
+    borrowRisk: '0.38',
+    liquidityProviderAsset: 'MATIC',
+    liquiditySupplierAsset: 'USDC',
   },
   {
     id: 7,
@@ -100,7 +112,9 @@ export const mockPositions = [
     supplyAPY: '17.8%',
     liquidationLow: '0.0048 ETH',
     liquidationHigh: '0.0052 ETH',
-    borrowRisk: '0.29'
+    borrowRisk: '0.29',
+    liquidityProviderAsset: 'LINK',
+    liquiditySupplierAsset: 'ETH',
   },
   {
     id: 8,
@@ -114,6 +128,8 @@ export const mockPositions = [
     supplyAPY: '14.5%',
     liquidationLow: '8.5 USDC',
     liquidationHigh: '9.5 USDC',
-    borrowRisk: '0.33'
+    borrowRisk: '0.33',
+    liquidityProviderAsset: 'UNI',
+    liquiditySupplierAsset: 'USDC',
   }
 ]
