@@ -5,6 +5,7 @@ import { GRID_LABELS } from '../../constants'
 import { getQuotedTokenSymbol } from '../../utils/positionUtils'
 
 export default function DexPositionCard({ position, onSupplyClick, onBorrowClick }) {
+  // Both buttons show the quote asset (what you're getting/depositing)
   const quotedToken = getQuotedTokenSymbol(position, 'supply')
   
   return (

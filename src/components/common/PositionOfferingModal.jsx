@@ -9,26 +9,48 @@ function PositionOfferingModal({ isOpen, onClose, action, position, positionType
   const { address, isConnected } = useAccount()
   const publicClient = usePublicClient()
   
-  // Token data state
+  // Token data state for the input form (collateral/deposit asset)
   const [tokenSymbol, setTokenSymbol] = useState('')
   const [tokenBalance, setTokenBalance] = useState('0')
   const [tokenDecimals, setTokenDecimals] = useState(18)
   const [isLoadingToken, setIsLoadingToken] = useState(false)
   
+  // Token data for the action (what you're getting/borrowing)
+  const [actionTokenSymbol, setActionTokenSymbol] = useState('')
+  const [isLoadingActionToken, setIsLoadingActionToken] = useState(false)
+  
   // Input state
   const [amount, setAmount] = useState('')
   const [percentage, setPercentage] = useState(0)
 
-  // Determine which asset to use based on action type
-  const getAssetAddressForAction = () => {
+  // Determine which asset to use for the input form (what you're providing)
+  const getCollateralAssetAddress = () => {
     if (!position) return null
     
-    // Both supply and borrow use the liquiditySupplierAsset
-    // This is the asset that users interact with (e.g., WETH for Euler ETH Borrow)
-    return position.liquiditySupplierAsset
+    if (action === 'supply') {
+      // Supply action: user deposits the quote asset (e.g., USDC in WBTC/USDC)
+      return position.liquiditySupplierAsset
+    } else {
+      // Borrow action: user supplies collateral (base asset, e.g., WBTC in WBTC/USDC)
+      return position.liquidityProviderAsset || position.liquiditySupplierAsset
+    }
   }
 
-  const currentAssetAddress = getAssetAddressForAction()
+  // Determine which asset represents the action (what you're getting)
+  const getActionAssetAddress = () => {
+    if (!position) return null
+    
+    if (action === 'supply') {
+      // Supply action: you're supplying the same asset you input
+      return position.liquiditySupplierAsset
+    } else {
+      // Borrow action: you're borrowing the quote asset (e.g., USDC in WBTC/USDC)
+      return position.liquiditySupplierAsset
+    }
+  }
+
+  const currentAssetAddress = getCollateralAssetAddress()
+  const actionAssetAddress = getActionAssetAddress()
   // Check if balance is numeric or a placeholder message
   const isBalanceNumeric = tokenBalance && !isNaN(parseFloat(tokenBalance))
   const userBalance = isBalanceNumeric ? parseFloat(tokenBalance) : 0
@@ -36,7 +58,7 @@ function PositionOfferingModal({ isOpen, onClose, action, position, positionType
     ? `${userBalance.toLocaleString(undefined, { maximumFractionDigits: 6 })} ${tokenSymbol}` 
     : tokenBalance || '0'
 
-  // Fetch token data when modal opens or dependencies change
+  // Fetch collateral token data (for input form - what you're providing)
   useEffect(() => {
     const loadTokenData = async () => {
       if (!isOpen) {
@@ -44,7 +66,7 @@ function PositionOfferingModal({ isOpen, onClose, action, position, positionType
         return
       }
 
-      const assetAddress = getAssetAddressForAction()
+      const assetAddress = getCollateralAssetAddress()
       if (!assetAddress) {
         setIsLoadingToken(false)
         return
@@ -62,7 +84,7 @@ function PositionOfferingModal({ isOpen, onClose, action, position, positionType
         setTokenBalance(data.balance)
         setTokenDecimals(data.decimals)
       } catch (error) {
-        console.error('Failed to fetch token data:', error)
+        console.error('Failed to fetch collateral token data:', error)
         setTokenSymbol('UNKNOWN')
         setTokenBalance(isConnected ? '0' : 'Please connect wallet first')
         setTokenDecimals(18)
@@ -73,6 +95,40 @@ function PositionOfferingModal({ isOpen, onClose, action, position, positionType
 
     loadTokenData()
   }, [isOpen, address, isConnected, publicClient, action, position, positionType])
+
+  // Fetch action token symbol (for button - what you're getting)
+  useEffect(() => {
+    const loadActionTokenData = async () => {
+      if (!isOpen) {
+        setIsLoadingActionToken(false)
+        return
+      }
+
+      const assetAddress = getActionAssetAddress()
+      if (!assetAddress) {
+        setIsLoadingActionToken(false)
+        return
+      }
+
+      setIsLoadingActionToken(true)
+      try {
+        // Only need symbol, no need for balance
+        const data = await fetchTokenData(
+          assetAddress, 
+          null, // No user address needed, we only want the symbol
+          publicClient
+        )
+        setActionTokenSymbol(data.symbol)
+      } catch (error) {
+        console.error('Failed to fetch action token data:', error)
+        setActionTokenSymbol('USDC')
+      } finally {
+        setIsLoadingActionToken(false)
+      }
+    }
+
+    loadActionTokenData()
+  }, [isOpen, publicClient, action, position, positionType])
 
   // Reset input when modal opens/closes or action type changes
   useEffect(() => {
@@ -281,11 +337,11 @@ function PositionOfferingModal({ isOpen, onClose, action, position, positionType
               <div className="action-buttons">
                 {action === 'supply' ? (
                   <button className="action-btn supply-btn active">
-                    Supply {isLoadingToken ? '...' : (tokenSymbol || 'USDC')}
+                    Supply {isLoadingActionToken ? '...' : (actionTokenSymbol || 'USDC')}
                   </button>
                 ) : (
                   <button className="action-btn borrow-btn active">
-                    Borrow {isLoadingToken ? '...' : (tokenSymbol || 'USDC')}
+                    Borrow {isLoadingActionToken ? '...' : (actionTokenSymbol || 'USDC')}
                   </button>
                 )}
               </div>

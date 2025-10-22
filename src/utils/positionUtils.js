@@ -79,11 +79,11 @@ export function processDexPositions(positions) {
 }
 
 /**
- * Extracts the quoted token symbol from a position
+ * Extracts the quoted token symbol from a position (what you're supplying/borrowing)
  * For DEX positions: extracts from pair name (e.g., "WBTC/USDC" → "USDC")
  * For DeFi positions: uses the quotedAsset property (e.g., "USDC", "WETH", "DAI")
  * @param {Object} position - Position object
- * @param {string} action - Action type ('supply' or 'borrow')
+ * @param {string} action - Action type ('supply' or 'borrow') - not used but kept for compatibility
  * @returns {string} Token symbol
  */
 export function getQuotedTokenSymbol(position, action) {
@@ -92,12 +92,11 @@ export function getQuotedTokenSymbol(position, action) {
     return position.quotedAsset
   }
   
-  // For DEX positions, extract from pair name
+  // For DEX positions, extract from pair name (always return quote asset)
   if (position.pair) {
     const tokens = position.pair.split('/')
     if (tokens.length === 2) {
-      // For supply action, return the second token (quoted asset)
-      // For borrow action, also return the second token (what you borrow)
+      // Return the second token (quote asset, e.g., "USDC" in "WBTC/USDC")
       return tokens[1].trim()
     }
   }

@@ -4,6 +4,7 @@ import { GRID_LABELS } from '../../constants'
 import { getQuotedTokenSymbol } from '../../utils/positionUtils'
 
 export default function DeFiPositionCard({ position, onSupplyClick, onBorrowClick }) {
+  // Both buttons show the same token for DeFi positions
   const quotedToken = getQuotedTokenSymbol(position, 'supply')
   
   return (
