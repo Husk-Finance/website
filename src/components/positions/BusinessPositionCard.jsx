@@ -1,6 +1,7 @@
 import PropTypes from 'prop-types'
 import './BusinessPositionCard.scss'
 import { GRID_LABELS } from '../../constants'
+import { formatCompactNumber, formatPercent } from '../../utils/positionUtils'
 
 export default function BusinessPositionCard({ position, onSupplyClick, onBorrowClick }) {
   return (
@@ -35,18 +36,20 @@ export default function BusinessPositionCard({ position, onSupplyClick, onBorrow
           </div>
           <div className="apy-info">
             <div className="apy-label">{GRID_LABELS.huskAPY}</div>
-            <div className="apy-value">{position.huskAPY}</div>
+            <div className="apy-value">{formatPercent(position.huskAPY)}</div>
           </div>
         </div>
 
         <div className="business-grid">
           <div className="grid-item">
             <div className="grid-label">TVL / MCap</div>
-            <div className="grid-value">{position.tvlMcap}</div>
+            <div className="grid-value">
+              ${formatCompactNumber(position.tvl)} / ${formatCompactNumber(position.mcap)}
+            </div>
           </div>
           <div className="grid-item">
             <div className="grid-label">30d rev.</div>
-            <div className="grid-value">{position.revenue30d}</div>
+            <div className="grid-value">${formatCompactNumber(position.revenue30d)}</div>
           </div>
           <div className="grid-item">
             <div className="grid-label">Distribution</div>
@@ -58,7 +61,7 @@ export default function BusinessPositionCard({ position, onSupplyClick, onBorrow
           </div>
           <div className="grid-item">
             <div className="grid-label">{GRID_LABELS.supplyAPY}</div>
-            <div className="grid-value">{position.supplyAPY}</div>
+            <div className="grid-value">{formatPercent(position.supplyAPY)}</div>
           </div>
           <div className="grid-item">
             <div className="grid-label">{GRID_LABELS.participationRisk}</div>
@@ -93,12 +96,13 @@ BusinessPositionCard.propTypes = {
       color: PropTypes.string.isRequired,
     })),
     createdAt: PropTypes.number,
-    huskAPY: PropTypes.string.isRequired,
-    tvlMcap: PropTypes.string.isRequired,
-    revenue30d: PropTypes.string.isRequired,
+    huskAPY: PropTypes.string.isRequired, // Integer string (e.g., "4325" for 43.25%)
+    tvl: PropTypes.string.isRequired, // Integer string (e.g., "10620" for $10.62k)
+    mcap: PropTypes.string.isRequired, // Integer string (e.g., "10000000" for $10M)
+    revenue30d: PropTypes.string.isRequired, // Integer string (e.g., "850" for $850)
     distribution: PropTypes.string.isRequired,
     nextDistribution: PropTypes.string.isRequired,
-    supplyAPY: PropTypes.string.isRequired,
+    supplyAPY: PropTypes.string.isRequired, // Integer string (e.g., "2500" for 25%)
     participationRisk: PropTypes.string.isRequired,
     liquidityProviderAsset: PropTypes.string.isRequired, // ERC20 token address (RWA Business Token)
     liquiditySupplierAsset: PropTypes.string.isRequired, // ERC20 token address (typically USDC)

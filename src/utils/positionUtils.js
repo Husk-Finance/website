@@ -3,6 +3,44 @@
  */
 
 /**
+ * Formats a number string to compact notation (K, M, B)
+ * @param {string|number} value - Number value as string or number
+ * @returns {string} Formatted value (e.g., "1.23K", "4.56M", "7.89B")
+ */
+export function formatCompactNumber(value) {
+  const num = typeof value === 'string' ? parseInt(value, 10) : value
+  
+  if (isNaN(num)) return '0'
+  
+  const absNum = Math.abs(num)
+  
+  if (absNum >= 1e9) {
+    return (num / 1e9).toFixed(2) + 'B'
+  }
+  if (absNum >= 1e6) {
+    return (num / 1e6).toFixed(2) + 'M'
+  }
+  if (absNum >= 1e3) {
+    return (num / 1e3).toFixed(2) + 'K'
+  }
+  
+  return num.toFixed(2)
+}
+
+/**
+ * Formats a percentage string to 2 decimal places with % symbol
+ * @param {string|number} value - Percentage value as string or number (e.g., "4325" for 43.25%)
+ * @returns {string} Formatted percentage (e.g., "43.25%")
+ */
+export function formatPercent(value) {
+  const num = typeof value === 'string' ? parseInt(value, 10) : value
+  
+  if (isNaN(num)) return '0.00%'
+  
+  return (num / 100).toFixed(2) + '%'
+}
+
+/**
  * Sorts positions by creation time (newest first)
  * @param {Array} positions - Array of position objects
  * @returns {Array} Sorted array of positions
