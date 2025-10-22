@@ -9,6 +9,7 @@ import { custom } from '@wagmi/core';
 import { mainnet, base } from 'wagmi/chains';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { http } from 'viem';
+import { hyperevm } from './constants/chains';
 
 const queryClient = new QueryClient();
 
@@ -16,10 +17,11 @@ const config = getDefaultConfig({
   appName: 'Husk Finance',
   projectId: 'cd660e6d5a6c12fe81c7f640dc8b779f',
   ssr: false,
-  chains: [mainnet, base],
+  chains: [mainnet, base, hyperevm],
   transports: {
     [mainnet.id]: http('https://lb.drpc.live/ethereum/ApV7qFFPZUNojcZQujPHrTH9b6q7rvcR8LoqQrxF2MGT'),
     [base.id]: http('https://lb.drpc.live/base/ApV7qFFPZUNojcZQujPHrTH9b6q7rvcR8LoqQrxF2MGT'),
+    [hyperevm.id]: http('https://lb.drpc.live/hyperliquid/ApV7qFFPZUNojcZQujPHrTH9b6q7rvcR8LoqQrxF2MGT')
   },
 });
 

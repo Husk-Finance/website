@@ -28,12 +28,25 @@ export const NETWORKS = {
     rpcUrl: 'https://mainnet.base.org',
     blockExplorer: 'https://basescan.org',
   },
+  HYPEREVM: {
+    id: 999,
+    name: 'HyperEVM',
+    shortName: 'HyperEVM',
+    nativeCurrency: {
+      name: 'Hype',
+      symbol: 'HYPE',
+      decimals: 18
+    },
+    rpcUrl: 'https://lb.drpc.live/hyperliquid/ApV7qFFPZUNojcZQujPHrTH9b6q7rvcR8LoqQrxF2MGT',
+    blockExplorer: 'https://hyperevmscan.io'
+  }
 }
 
 // Chain IDs for easy reference
 export const CHAIN_IDS = {
   MAINNET: 1,
   BASE: 8453,
+  HYPEREVM: 999
 }
 
 // Default network
