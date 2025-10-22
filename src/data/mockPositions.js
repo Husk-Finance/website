@@ -9,6 +9,7 @@ export const mockPositions = [
   {
     id: 1,
     chainId: 1, // Ethereum Mainnet
+    protocol: 'uniswap', // Protocol identifier for logo display
     pair: 'XAUT/USDC',
     version: 'v3',
     fee: '0.3%',
@@ -26,6 +27,7 @@ export const mockPositions = [
   {
     id: 2,
     chainId: 1,
+    protocol: 'uniswap', // Protocol identifier for logo display
     pair: 'WBTC/USDC',
     version: 'v4',
     fee: '0.3%',
@@ -43,6 +45,7 @@ export const mockPositions = [
   {
     id: 3,
     chainId: 1,
+    protocol: 'uniswap', // Protocol identifier for logo display
     pair: 'ETH/USDC',
     version: 'v3',
     fee: '0.05%',
@@ -61,6 +64,7 @@ export const mockPositions = [
   {
     id: 4,
     chainId: 1,
+    protocol: 'uniswap', // Protocol identifier for logo display
     pair: 'USDT/DAI',
     version: 'v3',
     fee: '0.01%',
@@ -78,6 +82,7 @@ export const mockPositions = [
   {
     id: 5,
     chainId: 1,
+    protocol: 'uniswap', // Protocol identifier for logo display
     pair: 'WBTC/ETH',
     version: 'v4',
     fee: '0.3%',
@@ -95,6 +100,7 @@ export const mockPositions = [
   {
     id: 6,
     chainId: 1,
+    protocol: 'uniswap', // Protocol identifier for logo display
     pair: 'MATIC/USDC',
     version: 'v3',
     fee: '0.3%',
@@ -112,6 +118,7 @@ export const mockPositions = [
   {
     id: 7,
     chainId: 1,
+    protocol: 'uniswap', // Protocol identifier for logo display
     pair: 'LINK/ETH',
     version: 'v3',
     fee: '0.3%',
@@ -129,6 +136,7 @@ export const mockPositions = [
   {
     id: 8,
     chainId: 1,
+    protocol: 'uniswap', // Protocol identifier for logo display
     pair: 'UNI/USDC',
     version: 'v4',
     fee: '0.3%',
@@ -148,6 +156,7 @@ export const mockPositions = [
   {
     id: 101,
     chainId: 8453, // Base
+    protocol: 'uniswap', // Protocol identifier for logo display
     pair: 'ETH/USDbC',
     version: 'v3',
     fee: '0.05%',
@@ -165,6 +174,7 @@ export const mockPositions = [
   {
     id: 102,
     chainId: 8453,
+    protocol: 'uniswap', // Protocol identifier for logo display
     pair: 'cbBTC/USDbC',
     version: 'v3',
     fee: '0.3%',
@@ -182,6 +192,7 @@ export const mockPositions = [
   {
     id: 103,
     chainId: 8453,
+    protocol: 'uniswap', // Protocol identifier for logo display
     pair: 'USDC/USDbC',
     version: 'v3',
     fee: '0.01%',
@@ -199,6 +210,7 @@ export const mockPositions = [
   {
     id: 104,
     chainId: 8453,
+    protocol: 'aerodrome', // Protocol identifier for logo display (placeholder for future implementation)
     pair: 'DEGEN/ETH',
     version: 'v3',
     fee: '1%',

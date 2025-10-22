@@ -11,18 +11,25 @@ export default function DexPositionCard({ position, onSupplyClick, onBorrowClick
   return (
     <div className="dex-position-card">
       <div className="card-background">
-        <img 
-          src={uniswapIcon} 
-          alt="Uniswap" 
-          className="uniswap-icon"
-          loading="lazy"
-        />
+        {position.protocol === 'uniswap' && (
+          <img 
+            src={uniswapIcon} 
+            alt="Uniswap" 
+            className="uniswap-icon"
+            loading="lazy"
+          />
+        )}
       </div>
 
       <div className="card-header">
         <div className="pair-info">
           <div className="pair-name">{position.pair}</div>
-          <div className="pair-meta">{position.version} {position.fee}</div>
+          <div className="pair-meta">
+            {position.version} {position.fee}{' '}
+            <span className="protocol-name">
+              {position.protocol.charAt(0).toUpperCase() + position.protocol.slice(1)}
+            </span>
+          </div>
         </div>
         <div className="apy-info">
           <div className="apy-label">{GRID_LABELS.huskAPY}</div>
@@ -73,6 +80,7 @@ export default function DexPositionCard({ position, onSupplyClick, onBorrowClick
 DexPositionCard.propTypes = {
   position: PropTypes.shape({
     id: PropTypes.number.isRequired,
+    protocol: PropTypes.string.isRequired, // Protocol identifier (e.g., 'uniswap', 'aerodrome')
     pair: PropTypes.string.isRequired,
     version: PropTypes.string.isRequired,
     fee: PropTypes.string.isRequired,

@@ -88,11 +88,16 @@
       }
 
       .pair-meta {
-        font-size: $font-size-base;
+        font-size: $font-size-sm;
         font-weight: 400;
         letter-spacing: $letter-spacing-tight;
         color: $text-primary;
         transition: color $transition-fast;
+
+        .protocol-name {
+          color: $text-secondary;
+          opacity: 0.6;
+        }
       }
     }
 
