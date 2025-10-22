@@ -1,19 +1,140 @@
 import { useState, useEffect } from 'react'
 import PropTypes from 'prop-types'
-import { useAccount } from 'wagmi'
+import { useAccount, usePublicClient } from 'wagmi'
 import './BusinessPositionModal.scss'
+import { fetchTokenData } from '../../utils/tokenUtils'
 
 function BusinessPositionModal({ isOpen, onClose, action, position }) {
   // Wagmi hooks for wallet connection
   const { address, isConnected } = useAccount()
+  const publicClient = usePublicClient()
+  
+  // Token data state for the input form (collateral/deposit asset)
+  const [tokenSymbol, setTokenSymbol] = useState('')
+  const [tokenBalance, setTokenBalance] = useState('0')
+  const [tokenDecimals, setTokenDecimals] = useState(18)
+  const [isLoadingToken, setIsLoadingToken] = useState(false)
+  
+  // Token data for the action (what you're getting/borrowing)
+  const [actionTokenSymbol, setActionTokenSymbol] = useState('')
+  const [isLoadingActionToken, setIsLoadingActionToken] = useState(false)
   
   // Input state
   const [amount, setAmount] = useState('')
   const [percentage, setPercentage] = useState(0)
-  
-  // Mock balance for demonstration (replace with actual balance fetching)
-  const userBalance = 10000
-  const tokenSymbol = 'USDC'
+
+  // Determine which asset to use for the input form (what you're providing)
+  const getCollateralAssetAddress = () => {
+    if (!position) return null
+    
+    if (action === 'supply') {
+      // Supply action: user deposits USDC (liquiditySupplierAsset)
+      return position.liquiditySupplierAsset
+    } else {
+      // Borrow action: user supplies RWA Business Token as collateral (liquidityProviderAsset)
+      return position.liquidityProviderAsset
+    }
+  }
+
+  // Determine which asset represents the action (what you're getting)
+  const getActionAssetAddress = () => {
+    if (!position) return null
+    
+    if (action === 'supply') {
+      // Supply action: you're supplying USDC
+      return position.liquiditySupplierAsset
+    } else {
+      // Borrow action: you're borrowing USDC (liquiditySupplierAsset)
+      return position.liquiditySupplierAsset
+    }
+  }
+
+  // Check if balance is numeric or a placeholder message
+  const isBalanceNumeric = tokenBalance && !isNaN(parseFloat(tokenBalance))
+  const userBalance = isBalanceNumeric ? parseFloat(tokenBalance) : 0
+  const balanceDisplay = isBalanceNumeric 
+    ? `${userBalance.toLocaleString(undefined, { maximumFractionDigits: 6 })} ${tokenSymbol}` 
+    : tokenBalance || '0'
+
+  // Fetch collateral token data (for input form - what you're providing)
+  useEffect(() => {
+    const loadTokenData = async () => {
+      if (!isOpen) {
+        setIsLoadingToken(false)
+        return
+      }
+
+      const assetAddress = getCollateralAssetAddress()
+      if (!assetAddress) {
+        setIsLoadingToken(false)
+        return
+      }
+
+      setIsLoadingToken(true)
+      try {
+        // Get chainId from position, pass to fetchTokenData for network-aware caching
+        const chainId = position?.chainId || 1
+        
+        // Pass address, publicClient, and chainId
+        const data = await fetchTokenData(
+          assetAddress, 
+          isConnected ? address : null, 
+          publicClient,
+          chainId
+        )
+        setTokenSymbol(data.symbol)
+        setTokenBalance(data.balance)
+        setTokenDecimals(data.decimals)
+      } catch (error) {
+        console.error('Failed to fetch collateral token data:', error)
+        setTokenSymbol('UNKNOWN')
+        setTokenBalance(isConnected ? '0' : 'Please connect wallet first')
+        setTokenDecimals(18)
+      } finally {
+        setIsLoadingToken(false)
+      }
+    }
+
+    loadTokenData()
+  }, [isOpen, address, isConnected, publicClient, action, position])
+
+  // Fetch action token symbol (for button - what you're getting)
+  useEffect(() => {
+    const loadActionTokenData = async () => {
+      if (!isOpen) {
+        setIsLoadingActionToken(false)
+        return
+      }
+
+      const assetAddress = getActionAssetAddress()
+      if (!assetAddress) {
+        setIsLoadingActionToken(false)
+        return
+      }
+
+      setIsLoadingActionToken(true)
+      try {
+        // Get chainId from position for network-aware caching
+        const chainId = position?.chainId || 1
+        
+        // Only need symbol, no need for balance
+        const data = await fetchTokenData(
+          assetAddress, 
+          null, // No user address needed, we only want the symbol
+          publicClient,
+          chainId
+        )
+        setActionTokenSymbol(data.symbol)
+      } catch (error) {
+        console.error('Failed to fetch action token data:', error)
+        setActionTokenSymbol('USDC')
+      } finally {
+        setIsLoadingActionToken(false)
+      }
+    }
+
+    loadActionTokenData()
+  }, [isOpen, publicClient, action, position])
 
   // Reset input when modal opens/closes or action type changes
   useEffect(() => {
@@ -49,7 +170,7 @@ function BusinessPositionModal({ isOpen, onClose, action, position }) {
     
     // Update input amount
     const amt = (userBalance * pct) / 100
-    setAmount(amt > 0 ? amt.toFixed(2) : '')
+    setAmount(amt > 0 ? amt.toFixed(6) : '')
   }
 
   // Handle percentage input change
@@ -62,7 +183,7 @@ function BusinessPositionModal({ isOpen, onClose, action, position }) {
       
       // Update input amount
       const amt = (userBalance * pct) / 100
-      setAmount(amt > 0 ? amt.toFixed(2) : '')
+      setAmount(amt > 0 ? amt.toFixed(6) : '')
     }
   }
 
@@ -91,10 +212,6 @@ function BusinessPositionModal({ isOpen, onClose, action, position }) {
       onClose()
     }
   }
-
-  const balanceDisplay = isConnected 
-    ? `${userBalance.toLocaleString(undefined, { maximumFractionDigits: 2 })} ${tokenSymbol}`
-    : 'Please connect wallet first'
 
   return (
     <div className="business-modal-overlay" onClick={handleOverlayClick}>
@@ -178,7 +295,9 @@ function BusinessPositionModal({ isOpen, onClose, action, position }) {
 
             <div className="input-section">
               <div className="asset-balance">
-                <span className="asset-name">{tokenSymbol}</span>
+                <span className="asset-name">
+                  {isLoadingToken ? 'Loading...' : tokenSymbol || 'USDC'}
+                </span>
                 <span className="balance-value">Balance: {balanceDisplay}</span>
               </div>
 
@@ -188,7 +307,7 @@ function BusinessPositionModal({ isOpen, onClose, action, position }) {
                 placeholder="0.00"
                 value={amount}
                 onChange={handleAmountChange}
-                disabled={!isConnected}
+                disabled={!isConnected || isLoadingToken}
               />
 
               <div className="percentage-control">
@@ -199,7 +318,7 @@ function BusinessPositionModal({ isOpen, onClose, action, position }) {
                   max="100"
                   value={percentage}
                   onChange={handleSliderChange}
-                  disabled={!isConnected}
+                  disabled={!isConnected || isLoadingToken}
                   style={{
                     background: `linear-gradient(to right, #388262 0%, #388262 ${percentage}%, rgba(59, 59, 59, 0.5) ${percentage}%, rgba(59, 59, 59, 0.5) 100%)`
                   }}
@@ -210,7 +329,7 @@ function BusinessPositionModal({ isOpen, onClose, action, position }) {
                   placeholder="0"
                   value={percentage}
                   onChange={handlePercentageInputChange}
-                  disabled={!isConnected}
+                  disabled={!isConnected || isLoadingToken}
                 />
                 <span className="percentage-label">%</span>
               </div>
@@ -220,7 +339,9 @@ function BusinessPositionModal({ isOpen, onClose, action, position }) {
               <h4>Transaction Summary</h4>
               <div className="summary-row">
                 <span className="summary-label">Amount</span>
-                <span className="summary-value">{amount || '0.00'} {tokenSymbol}</span>
+                <span className="summary-value">
+                  {amount || '0.00'} {isLoadingToken ? '...' : (tokenSymbol || 'USDC')}
+                </span>
               </div>
               <div className="summary-row">
                 <span className="summary-label">Expected APY</span>
@@ -244,12 +365,18 @@ function BusinessPositionModal({ isOpen, onClose, action, position }) {
               ) : (
                 <>
                   {action === 'supply' ? (
-                    <button className="action-btn supply-btn" disabled={!amount || parseFloat(amount) === 0}>
-                      Supply {tokenSymbol}
+                    <button 
+                      className="action-btn supply-btn" 
+                      disabled={!amount || parseFloat(amount) === 0 || isLoadingToken || isLoadingActionToken}
+                    >
+                      Supply {isLoadingActionToken ? '...' : (actionTokenSymbol || 'USDC')}
                     </button>
                   ) : (
-                    <button className="action-btn borrow-btn" disabled={!amount || parseFloat(amount) === 0}>
-                      Borrow {tokenSymbol}
+                    <button 
+                      className="action-btn borrow-btn" 
+                      disabled={!amount || parseFloat(amount) === 0 || isLoadingToken || isLoadingActionToken}
+                    >
+                      Borrow {isLoadingActionToken ? '...' : (actionTokenSymbol || 'USDC')}
                     </button>
                   )}
                 </>
@@ -271,6 +398,7 @@ BusinessPositionModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   action: PropTypes.oneOf(['supply', 'borrow']).isRequired,
   position: PropTypes.shape({
+    chainId: PropTypes.number.isRequired,
     businessName: PropTypes.string.isRequired,
     businessImage: PropTypes.string.isRequired,
     network: PropTypes.string.isRequired,
@@ -281,6 +409,8 @@ BusinessPositionModal.propTypes = {
     nextDistribution: PropTypes.string.isRequired,
     supplyAPY: PropTypes.string.isRequired,
     participationRisk: PropTypes.string.isRequired,
+    liquidityProviderAsset: PropTypes.string.isRequired, // ERC20 token address (RWA Business Token)
+    liquiditySupplierAsset: PropTypes.string.isRequired, // ERC20 token address (typically USDC)
   }),
 }
 

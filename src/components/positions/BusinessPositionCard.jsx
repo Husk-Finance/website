@@ -86,6 +86,8 @@ BusinessPositionCard.propTypes = {
     nextDistribution: PropTypes.string.isRequired,
     supplyAPY: PropTypes.string.isRequired,
     participationRisk: PropTypes.string.isRequired,
+    liquidityProviderAsset: PropTypes.string.isRequired, // ERC20 token address (RWA Business Token)
+    liquiditySupplierAsset: PropTypes.string.isRequired, // ERC20 token address (typically USDC)
   }).isRequired,
   onSupplyClick: PropTypes.func.isRequired,
   onBorrowClick: PropTypes.func.isRequired,
