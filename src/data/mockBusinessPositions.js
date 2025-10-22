@@ -12,6 +12,10 @@ export const mockBusinessPositions = [
     businessName: 'Finding Nemo Live Action',
     businessImage: 'https://images.unsplash.com/photo-1544552866-d3ed42536cfd?w=800&q=80',
     network: 'Onyx',
+    tags: [
+      { label: 'Onyx', bg: '#1e442a', color: '#fdb85b' },
+      { label: 'RWA', bg: '#2485c7', color: '#000000' },
+    ],
     createdAt: 1729416600000, // Oct 20, 2025 09:30:00
     huskAPY: '43.25%',
     tvlMcap: '$10.62k / $10M',
@@ -29,6 +33,10 @@ export const mockBusinessPositions = [
     businessName: 'Fishing Ship Rentals',
     businessImage: 'https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=800&q=80',
     network: 'Onyx',
+    tags: [
+      { label: 'Onyx', bg: '#1e442a', color: '#fdb85b' },
+      { label: 'RWA', bg: '#2485c7', color: '#000000' },
+    ],
     createdAt: 1729330200000, // Oct 19, 2025 09:30:00
     huskAPY: '38.50%',
     tvlMcap: '$25.3k / $15M',
@@ -48,6 +56,10 @@ export const mockBusinessPositions = [
     businessName: 'Maritime Cargo Fleet',
     businessImage: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800&q=80',
     network: 'Onyx',
+    tags: [
+      { label: 'Onyx', bg: '#1e442a', color: '#fdb85b' },
+      { label: 'RWA', bg: '#2485c7', color: '#000000' },
+    ],
     createdAt: 1729243800000, // Oct 18, 2025 09:30:00
     huskAPY: '52.75%',
     tvlMcap: '$45.8k / $22M',
@@ -65,6 +77,10 @@ export const mockBusinessPositions = [
     businessName: 'Commercial Fishing Fleet',
     businessImage: 'https://images.unsplash.com/photo-1589182337358-2cb63099350c?w=800&q=80',
     network: 'Onyx',
+    tags: [
+      { label: 'Onyx', bg: '#1e442a', color: '#fdb85b' },
+      { label: 'RWA', bg: '#2485c7', color: '#000000' },
+    ],
     createdAt: 1729157400000, // Oct 17, 2025 09:30:00
     huskAPY: '46.20%',
     tvlMcap: '$18.5k / $12M',
@@ -84,6 +100,10 @@ export const mockBusinessPositions = [
     businessName: 'Naval Defense Systems',
     businessImage: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800&q=80',
     network: 'Onyx',
+    tags: [
+      { label: 'Onyx', bg: '#1e442a', color: '#fdb85b' },
+      { label: 'RWA', bg: '#2485c7', color: '#000000' },
+    ],
     createdAt: 1729071000000, // Oct 16, 2025 09:30:00
     huskAPY: '55.80%',
     tvlMcap: '$32.4k / $18M',
@@ -101,6 +121,10 @@ export const mockBusinessPositions = [
     businessName: 'Ocean Research Vessels',
     businessImage: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800&q=80',
     network: 'Onyx',
+    tags: [
+      { label: 'Onyx', bg: '#1e442a', color: '#fdb85b' },
+      { label: 'RWA', bg: '#2485c7', color: '#000000' },
+    ],
     createdAt: 1728984600000, // Oct 15, 2025 09:30:00
     huskAPY: '41.30%',
     tvlMcap: '$15.2k / $9M',
@@ -119,6 +143,10 @@ export const mockBusinessPositions = [
     businessName: 'Cruise Line Operations',
     businessImage: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800&q=80',
     network: 'Onyx',
+    tags: [
+      { label: 'Onyx', bg: '#1e442a', color: '#fdb85b' },
+      { label: 'RWA', bg: '#2485c7', color: '#000000' },
+    ],
     createdAt: 1728898200000, // Oct 14, 2025 09:30:00
     huskAPY: '39.90%',
     tvlMcap: '$28.7k / $16M',
@@ -136,6 +164,10 @@ export const mockBusinessPositions = [
     businessName: 'Port Infrastructure',
     businessImage: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800&q=80',
     network: 'Onyx',
+    tags: [
+      { label: 'Onyx', bg: '#1e442a', color: '#fdb85b' },
+      { label: 'RWA', bg: '#2485c7', color: '#000000' },
+    ],
     createdAt: 1728811800000, // Oct 13, 2025 09:30:00
     huskAPY: '48.60%',
     tvlMcap: '$52.1k / $25M',

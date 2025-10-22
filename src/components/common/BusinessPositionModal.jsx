@@ -232,10 +232,19 @@ function BusinessPositionModal({ isOpen, onClose, action, position }) {
               <div className="business-modal-header">
                 <div className="business-details">
                   <h3 className="business-name">{position.businessName}</h3>
-                  <div className="business-tags">
-                    <span className="network-tag">{position.network}</span>
-                    <span className="rwa-tag">RWA</span>
-                  </div>
+                  {position.tags && position.tags.length > 0 && (
+                    <div className="business-tags">
+                      {position.tags.map((tag, idx) => (
+                        <span
+                          key={idx}
+                          className="business-tag"
+                          style={{ backgroundColor: tag.bg, color: tag.color }}
+                        >
+                          {tag.label}
+                        </span>
+                      ))}
+                    </div>
+                  )}
                 </div>
                 <div className="husk-apy">
                   <p className="label">Husk APY</p>
@@ -402,6 +411,11 @@ BusinessPositionModal.propTypes = {
     businessName: PropTypes.string.isRequired,
     businessImage: PropTypes.string.isRequired,
     network: PropTypes.string.isRequired,
+    tags: PropTypes.arrayOf(PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      bg: PropTypes.string.isRequired,
+      color: PropTypes.string.isRequired,
+    })),
     huskAPY: PropTypes.string.isRequired,
     tvlMcap: PropTypes.string.isRequired,
     revenue30d: PropTypes.string.isRequired,

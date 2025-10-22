@@ -104,19 +104,7 @@
           align-items: center;
           flex-wrap: wrap;
 
-          .network-tag {
-            background: #1e442a;
-            color: #fdb85b;
-            font-size: 10px;
-            padding: 2px $spacing-xs;
-            border-radius: $border-radius-sm;
-            letter-spacing: -0.2px;
-            line-height: normal;
-          }
-
-          .rwa-tag {
-            background: #2485c7;
-            color: #000000;
+          .business-tag {
             font-size: 10px;
             padding: 2px $spacing-xs;
             border-radius: $border-radius-sm;

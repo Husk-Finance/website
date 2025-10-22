@@ -19,10 +19,19 @@ export default function BusinessPositionCard({ position, onSupplyClick, onBorrow
         <div className="business-header">
           <div className="business-details">
             <div className="business-name">{position.businessName}</div>
-            <div className="business-tags">
-              <span className="network-tag">{position.network}</span>
-              <span className="rwa-tag">RWA</span>
-            </div>
+            {position.tags && position.tags.length > 0 && (
+              <div className="business-tags">
+                {position.tags.map((tag, idx) => (
+                  <span
+                    key={idx}
+                    className="business-tag"
+                    style={{ backgroundColor: tag.bg, color: tag.color }}
+                  >
+                    {tag.label}
+                  </span>
+                ))}
+              </div>
+            )}
           </div>
           <div className="apy-info">
             <div className="apy-label">{GRID_LABELS.huskAPY}</div>
@@ -78,6 +87,11 @@ BusinessPositionCard.propTypes = {
     businessName: PropTypes.string.isRequired,
     businessImage: PropTypes.string.isRequired,
     network: PropTypes.string.isRequired,
+    tags: PropTypes.arrayOf(PropTypes.shape({
+      label: PropTypes.string.isRequired,
+      bg: PropTypes.string.isRequired,
+      color: PropTypes.string.isRequired,
+    })),
     createdAt: PropTypes.number,
     huskAPY: PropTypes.string.isRequired,
     tvlMcap: PropTypes.string.isRequired,
