@@ -1,4 +1,45 @@
-# Position Utilities
+# Utilities Documentation
+
+This directory contains utility functions for the Husk Finance application.
+
+## Token Utilities (`tokenUtils.js`)
+
+Utilities for fetching ERC20 token data from the blockchain using viem, with built-in caching for improved performance.
+
+### Caching Strategy
+
+The token utilities implement a two-tier caching system using `sessionStorage`:
+
+#### Token Info Cache (24 hours)
+- **What's cached**: Token symbol and decimals
+- **Duration**: 24 hours
+- **Rationale**: Token metadata (symbol, decimals) rarely changes, so we can cache it for longer
+
+#### Balance Cache (5 minutes)
+- **What's cached**: User's token balance
+- **Duration**: 5 minutes
+- **Rationale**: Balances change frequently, so we use a shorter cache duration
+
+### Cache Management Functions
+
+```javascript
+import { clearTokenCache, clearBalanceCache } from './utils/tokenUtils'
+
+// Clear all token cache (useful on wallet disconnect)
+clearTokenCache()
+
+// Clear balance cache for specific user (useful when user wants to refresh)
+clearBalanceCache(userAddress)
+```
+
+The cache automatically expires and is cleaned up when:
+- Token info is older than 24 hours
+- Balance is older than 5 minutes
+- User manually clears the cache
+
+---
+
+## Position Utilities (`positionUtils.js`)
 
 This module provides utility functions for managing and processing position data in the Husk Finance application.
 
