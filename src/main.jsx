@@ -7,9 +7,12 @@ import { getDefaultConfig, RainbowKitProvider, darkTheme } from '@rainbow-me/rai
 import { WagmiProvider } from 'wagmi';
 import { custom } from '@wagmi/core';
 import { mainnet, base } from 'wagmi/chains';
+import { Porto } from 'porto';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { http } from 'viem';
 import { hyperevm } from './constants/chains';
+
+Porto.create();
 
 const queryClient = new QueryClient();
 
