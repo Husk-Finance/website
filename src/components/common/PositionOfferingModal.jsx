@@ -285,7 +285,7 @@ function PositionOfferingModal({ isOpen, onClose, action, position, positionType
                 </div>
                 <div className="info-item">
                   <p className="label">{isDexPosition ? 'Borrow Risk' : 'Participation Risk'}</p>
-                  <p className="value">{position.borrowRisk}</p>
+                  <p className="value">{position.borrowRisk ?? position.participationRisk}</p>
                 </div>
               </div>
 

@@ -36,7 +36,8 @@ export const GRID_LABELS = {
   liquidationLow: 'Liqd. Low Price',
   liquidationHigh: 'Liqd. High Price',
   supplyAPY: 'Supply APY',
-  borrowRisk: 'Participation Risk',
+  borrowRisk: 'Borrow Risk',
+  participationRisk: 'Participation Risk',
   huskAPY: 'Husk APY',
 }
 
