@@ -90,7 +90,7 @@ export default function Homepage() {
         <p>{HERO_CONTENT.subtitle}</p>
       </section>
 
-      <section className="positions-section">
+      {/* <section className="positions-section">
         <h2>{SECTION_TITLES.businessPositionMarket}</h2>
         {sortedBusinessPositions.length > 0 ? (
           <div className="business-positions-grid">
@@ -109,7 +109,7 @@ export default function Homepage() {
             {isConnected && <p className="empty-state-hint">Try switching to a different network or disconnect to see all positions.</p>}
           </div>
         )}
-      </section>
+      </section> */}
 
       <section className="positions-section">
         <h2>{SECTION_TITLES.dexPositionMarket}</h2>

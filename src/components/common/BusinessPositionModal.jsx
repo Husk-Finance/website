@@ -369,14 +369,14 @@ function BusinessPositionModal({ isOpen, onClose, action, position }) {
               </div>
             </div>
 
-            <div className="transaction-summary">
+            {action !== 'supply' ? (<div className="transaction-summary">
               <div className="summary-row liquidation-price">
                 <span className="summary-label">Liqd. Low Price</span>
                 <span className="summary-value">
-                  {action === 'supply' ? 'None' : `$${position.liqdLowPrice}`}
+                  {position.liqdLowPrice}
                 </span>
               </div>
-            </div>
+            </div>) : ''}
 
             <div className="action-buttons">
               {!isConnected ? (
