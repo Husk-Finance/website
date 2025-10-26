@@ -207,5 +207,26 @@ export const mockDeFiPositions = [
     liquidityProviderAsset: '0x93919784C523f39CACaa98Ee0a9d96c3F32b593e', // uniBTC
     liquiditySupplierAsset: '0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34', // USDe
     quotedAsset: 'USDe'
+  },
+  {
+    id: 402,
+    chainId: 5000,
+    protocol: 'Beefy mETH-WETH CLM',
+    createdAt: 1761453090000,
+    tags: [
+      { label: 'CLM', bg: '#3b82f6', color: '#ffffff' },
+      { label: 'UniV3', bg: '#ff7777', color: '#000000' },
+    ],
+    huskAPY: '4.64%',
+    supplyAPY: '1.32%',
+    distribution: 'Daily',
+    nextDistribution: 'in 6 hours',
+    tvl: '$62.16k',
+    revenue24h: '$2.77',
+    liquidationLow: '',
+    participationRisk: '0.01',
+    liquidityProviderAsset: '0xEBDC36506adCFF3c64E7da11215D7Bf1d4700Ee3', // Cow Uniswap mETH-WETH
+    liquiditySupplierAsset: '0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34', // USDe
+    quotedAsset: 'USDe'
   }
 ];
