@@ -62,9 +62,11 @@ export async function getTokenInfo(tokenAddress, chainId = CHAIN_IDS.MAINNET) {
     return { symbol: 'UNKNOWN', decimals: 18 }
   }
 
-  // Handle native ETH
+  // Handle native token (EIP-7528)
   if (isNativeETH(tokenAddress)) {
-    return { symbol: 'ETH', decimals: 18 }
+    const network = getNetworkByChainId(chainId)
+    const symbol = network?.nativeCurrency?.symbol || 'ETH'
+    return { symbol, decimals: 18 }
   }
 
   const params = {
@@ -188,9 +190,13 @@ export async function getTokenData(
 
   // Handle native ETH
   if (isNativeETH(tokenAddress)) {
+    // Get the native currency symbol based on chainId
+    const network = getNetworkByChainId(chainId)
+    const symbol = network?.nativeCurrency?.symbol || 'ETH'
+    
     if (!userAddress) {
       return {
-        symbol: 'ETH',
+        symbol,
         decimals: 18,
         balance: 'Please connect wallet first',
         needsWallet: true,
@@ -199,7 +205,7 @@ export async function getTokenData(
 
     const balance = await getTokenBalance(tokenAddress, userAddress, chainId, onUpdate)
     return {
-      symbol: 'ETH',
+      symbol,
       decimals: 18,
       balance,
       needsWallet: false,

@@ -204,7 +204,9 @@ export async function fetchTokenData(tokenAddress, userAddress, publicClient, ch
 
     // Handle native ETH (EIP-7528)
     if (isNativeETH(tokenAddress)) {
-      const symbol = 'ETH'
+      // Get the native currency symbol based on chainId
+      const network = getNetworkByChainId(chainId)
+      const symbol = network?.nativeCurrency?.symbol || 'ETH'
       const decimals = 18
 
       // If no user address, return placeholder for balance
@@ -217,7 +219,7 @@ export async function fetchTokenData(tokenAddress, userAddress, publicClient, ch
         }
       }
 
-      // Fetch ETH balance directly
+      // Fetch native token balance directly
       try {
         const balanceRaw = await client.getBalance({ address: userAddress })
         const balance = formatUnits(balanceRaw, decimals)
@@ -232,7 +234,7 @@ export async function fetchTokenData(tokenAddress, userAddress, publicClient, ch
           needsWallet: false,
         }
       } catch (error) {
-        console.error('Error fetching ETH balance:', error)
+        console.error(`Error fetching ${symbol} balance:`, error)
         return {
           symbol, decimals, balance: '0', needsWallet: false,
         }

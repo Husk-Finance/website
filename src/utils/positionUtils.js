@@ -2,6 +2,30 @@
  * Utility functions for position data management
  */
 
+import { getNetworkByChainId } from '../constants/networks'
+
+// EIP-7528: ETH native asset address convention
+const ETH_NATIVE_ADDRESS = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE'
+
+/**
+ * Check if the address is the native token address (EIP-7528)
+ * @param {string} address - Token address
+ * @returns {boolean} True if it's the native token address
+ */
+function isNativeAddress(address) {
+  return address && address.toLowerCase() === ETH_NATIVE_ADDRESS.toLowerCase()
+}
+
+/**
+ * Get the native token symbol for a given chainId
+ * @param {number} chainId - The chain ID
+ * @returns {string} Native token symbol (e.g., "ETH", "MNT", "HYPE")
+ */
+export function getNativeTokenSymbol(chainId) {
+  const network = getNetworkByChainId(chainId)
+  return network?.nativeCurrency?.symbol || 'ETH'
+}
+
 /**
  * Formats a number string to compact notation (K, M, B)
  * @param {string|number} value - Number value as string or number

@@ -3,7 +3,9 @@ import PropTypes from 'prop-types'
 import { useAccount } from 'wagmi'
 import './PositionOfferingModal.scss'
 import { getTokenData } from '../../utils/tokenUtilsOptimized'
-import { formatPercent, formatDollar } from '../../utils/positionUtils'
+import {
+  formatPercent, formatDollar, formatTokenAmount, getTokenDecimals,
+} from '../../utils/positionUtils'
 import { formatTokenBalance, parseTokenAmount, hasSufficientBalance } from '../../utils/tokenDisplayUtils'
 
 function PositionOfferingModal({
@@ -290,11 +292,23 @@ function PositionOfferingModal({
                   <>
                     <div className="info-item">
                       <p className="label">Liquidation Low</p>
-                      <p className="value">{position.liquidationLow}</p>
+                      <p className="value">
+                        {formatTokenAmount(
+                          position.liquidationLow,
+                          getTokenDecimals(position.liquiditySupplierAsset),
+                          actionTokenSymbol || 'USDC',
+                        )}
+                      </p>
                     </div>
                     <div className="info-item">
                       <p className="label">Liquidation High</p>
-                      <p className="value">{position.liquidationHigh}</p>
+                      <p className="value">
+                        {formatTokenAmount(
+                          position.liquidationHigh,
+                          getTokenDecimals(position.liquiditySupplierAsset),
+                          actionTokenSymbol || 'USDC',
+                        )}
+                      </p>
                     </div>
                   </>
                 ) : (
@@ -315,7 +329,11 @@ function PositionOfferingModal({
                 </div>
                 <div className="info-item">
                   <p className="label">{isDexPosition ? 'Borrow Risk' : 'Participation Risk'}</p>
-                  <p className="value">{position.borrowRisk ?? position.participationRisk}</p>
+                  <p className="value">
+                    {isDexPosition
+                      ? formatPercent(position.borrowRisk)
+                      : position.participationRisk}
+                  </p>
                 </div>
               </div>
 
