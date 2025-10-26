@@ -16,6 +16,18 @@ export const NETWORKS = {
     rpcUrl: 'https://eth.meowrpc.com',
     blockExplorer: 'https://etherscan.io',
   },
+  MANTLE: {
+    id: 5000,
+    name: 'Mantle',
+    shortname: 'Mantle',
+    nativeCurrency: {
+      name: 'Mantle',
+      symbol: 'MNT',
+      decimals: 18,
+    },
+    rpcUrl: 'https://lb.drpc.live/mantle/ApV7qFFPZUNojcZQujPHrTH9b6q7rvcR8LoqQrxF2MGT',
+    blockExplorer: 'https://mantlescan.xyz'
+  },
   BASE: {
     id: 8453,
     name: 'Base',
@@ -45,6 +57,7 @@ export const NETWORKS = {
 // Chain IDs for easy reference
 export const CHAIN_IDS = {
   MAINNET: 1,
+  MANTLE: 5000,
   BASE: 8453,
   HYPEREVM: 999
 }

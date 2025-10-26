@@ -185,5 +185,27 @@ export const mockDeFiPositions = [
     liquidityProviderAsset: '0xfFaa4a3D97fE9107Cef8a3F48c069F577Ff76cC1', // stHYPE
     liquiditySupplierAsset: '0xb88339CB7199b77E23DB6E890353E22632Ba630f', // USDC
     quotedAsset: 'USDC'
+  },
+
+  // Mantle DeFi Positions (chainId: 5000)
+  {
+    id: 401,
+    chainId: 5000,
+    protocol: 'Bedrock uniBTC',
+    createdAt: 1761453070825,
+    tags: [
+      { label: 'LST', bg: '#8b5cf6', color: '#ffffff' },
+    ],
+    huskAPY: '0.2%',
+    supplyAPY: '0.05%',
+    distribution: 'Daily',
+    nextDistribution: 'in 6 hours',
+    tvl: '$10k',
+    revenue24h: '$2',
+    liquidationLow: '',
+    participationRisk: '0.01',
+    liquidityProviderAsset: '0x93919784C523f39CACaa98Ee0a9d96c3F32b593e', // uniBTC
+    liquiditySupplierAsset: '0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34', // USDe
+    quotedAsset: 'USDe'
   }
 ];
