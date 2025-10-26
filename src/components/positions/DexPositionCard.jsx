@@ -2,6 +2,7 @@ import PropTypes from 'prop-types'
 import './DexPositionCard.scss'
 import uniswapIcon from '../../assets/uniswap-icon.svg'
 import aerodromeIcon from '../../assets/aerodrome-icon.svg'
+import agniIcon from '../../assets/agni-icon.svg'
 import { GRID_LABELS } from '../../constants'
 import { getQuotedTokenSymbol, formatPercent, formatDollar, formatTokenAmount, getTokenDecimals } from '../../utils/positionUtils'
 
@@ -28,6 +29,14 @@ export default function DexPositionCard({ position, onSupplyClick, onBorrowClick
             src={aerodromeIcon} 
             alt="Aerodrome" 
             className="protocol-icon aerodrome-icon"
+            loading="lazy"
+          />
+        )}
+        {position.protocol === 'agni' && (
+          <img 
+            src={agniIcon} 
+            alt="Agni" 
+            className="protocol-icon agni-icon"
             loading="lazy"
           />
         )}
