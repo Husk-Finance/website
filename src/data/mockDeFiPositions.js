@@ -233,5 +233,23 @@ export const mockDeFiPositions = [
     liquidityProviderAsset: '0xEBDC36506adCFF3c64E7da11215D7Bf1d4700Ee3', // Cow Uniswap mETH-WETH
     liquiditySupplierAsset: '0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34', // USDe
     quotedAsset: 'USDe'
+  },
+  {
+    id: 402,
+    chainId: 5000,
+    protocol: 'MerchantMoe Staking',
+    createdAt: 1761453090000,
+    tags: [],
+    huskAPY: '2888',
+    supplyAPY: '722',
+    distribution: 'Daily',
+    nextDistribution: 'in 6 hours',
+    tvl: '69420',
+    revenue24h: '1239',
+    liquidationLow: '',
+    participationRisk: '0.12',
+    liquidityProviderAsset: '0x4515A45337F461A11Ff0FE8aBF3c606AE5dC00c9', // MOE
+    liquiditySupplierAsset: '0x09Bc4E0D864854c6aFB6eB9A9cdF58aC190D0dF9', // USDC
+    quotedAsset: 'USDC'
   }
 ];
