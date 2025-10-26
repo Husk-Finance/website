@@ -20,12 +20,12 @@ const config = getDefaultConfig({
   appName: 'Husk Finance',
   projectId: 'cd660e6d5a6c12fe81c7f640dc8b779f',
   ssr: false,
-  chains: [mainnet, base, hyperevm, mantle],
+  chains: [mainnet, mantle, base, hyperevm],
   transports: {
     [mainnet.id]: http('https://lb.drpc.live/ethereum/ApV7qFFPZUNojcZQujPHrTH9b6q7rvcR8LoqQrxF2MGT'),
+    [mantle.id]: http('https://lb.drpc.live/mantle/ApV7qFFPZUNojcZQujPHrTH9b6q7rvcR8LoqQrxF2MGT'),
     [base.id]: http('https://lb.drpc.live/base/ApV7qFFPZUNojcZQujPHrTH9b6q7rvcR8LoqQrxF2MGT'),
     [hyperevm.id]: http('https://lb.drpc.live/hyperliquid/ApV7qFFPZUNojcZQujPHrTH9b6q7rvcR8LoqQrxF2MGT'),
-    [mantle.id]: http('https://lb.drpc.live/mantle/ApV7qFFPZUNojcZQujPHrTH9b6q7rvcR8LoqQrxF2MGT'),
   },
 });
 
