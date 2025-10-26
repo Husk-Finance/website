@@ -52,7 +52,7 @@ export const mockBusinessPositions = [
     liquidityProviderAsset: '0x0000000000000000000000000000000000000002', // RWA Business Token (placeholder)
     liquiditySupplierAsset: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // USDC
   },
-  
+
   // Base Mainnet Positions (chainId: 8453)
   {
     id: 3,
@@ -100,7 +100,7 @@ export const mockBusinessPositions = [
     liquidityProviderAsset: '0x0000000000000000000000000000000000000004', // RWA Business Token (placeholder)
     liquiditySupplierAsset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913', // USDC on Base
   },
-  
+
   // HyperEVM Mainnet Positions (chainId: 999)
   {
     id: 5,
@@ -148,7 +148,7 @@ export const mockBusinessPositions = [
     liquidityProviderAsset: '0x0000000000000000000000000000000000000006', // RWA Business Token (placeholder)
     liquiditySupplierAsset: '0xb88339CB7199b77E23DB6E890353E22632Ba630f', // USDC (placeholder for HyperEVM)
   },
-  
+
   {
     id: 7,
     chainId: 999,

@@ -5,10 +5,17 @@ import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
 import { DexPositionCard } from '../components/positions'
 import DeFiPositionCard from '../components/positions/DeFiPositionCard'
-import BusinessPositionCard from '../components/positions/BusinessPositionCard'
 import { HERO_CONTENT, SECTION_TITLES } from '../constants'
-import { processDexPositions, processDeFiPositions, processBusinessPositions } from '../utils/positionUtils'
-import { getDexPositionsByChain, getDeFiPositionsByChain, getBusinessPositionsByChain, getAllDexPositions, getAllDeFiPositions, getAllBusinessPositions } from '../utils/networkUtils'
+import {
+  processDexPositions,
+  processDeFiPositions,
+} from '../utils/positionUtils'
+import {
+  getDexPositionsByChain,
+  getDeFiPositionsByChain,
+  getAllDexPositions,
+  getAllDeFiPositions,
+} from '../utils/networkUtils'
 import PositionOfferingModal from '../components/common/PositionOfferingModal'
 import BusinessPositionModal from '../components/common/BusinessPositionModal'
 
@@ -21,19 +28,14 @@ export default function Homepage() {
   const networkDexPositions = isConnected && walletChainId
     ? getDexPositionsByChain(walletChainId)
     : getAllDexPositions()
-  
+
   const networkDeFiPositions = isConnected && walletChainId
     ? getDeFiPositionsByChain(walletChainId)
     : getAllDeFiPositions()
 
-  const networkBusinessPositions = isConnected && walletChainId
-    ? getBusinessPositionsByChain(walletChainId)
-    : getAllBusinessPositions()
-
   // Process positions: sort by creation time and auto-tag NEW for DeFi positions
   const sortedDexPositions = processDexPositions(networkDexPositions)
   const sortedDeFiPositions = processDeFiPositions(networkDeFiPositions)
-  const sortedBusinessPositions = processBusinessPositions(networkBusinessPositions)
 
   // Modal state for DEX/DeFi positions
   const [modalState, setModalState] = useState({
@@ -65,6 +67,7 @@ export default function Homepage() {
     })
   }
 
+  /* Disabled for now
   const openBusinessModal = (position, actionType) => {
     setBusinessModalState({
       isOpen: true,
@@ -72,6 +75,7 @@ export default function Homepage() {
       actionType,
     })
   }
+  */
 
   const closeBusinessModal = () => {
     setBusinessModalState({
@@ -95,9 +99,9 @@ export default function Homepage() {
         {sortedBusinessPositions.length > 0 ? (
           <div className="business-positions-grid">
             {sortedBusinessPositions.map((position) => (
-              <BusinessPositionCard 
-                key={position.id} 
-                position={position} 
+              <BusinessPositionCard
+                key={position.id}
+                position={position}
                 onSupplyClick={() => openBusinessModal(position, 'supply')}
                 onBorrowClick={() => openBusinessModal(position, 'borrow')}
               />
@@ -116,9 +120,9 @@ export default function Homepage() {
         {sortedDexPositions.length > 0 ? (
           <div className="positions-grid">
             {sortedDexPositions.map((position) => (
-              <DexPositionCard 
-                key={position.id} 
-                position={position} 
+              <DexPositionCard
+                key={position.id}
+                position={position}
                 onSupplyClick={() => openModal(position, 'supply')}
                 onBorrowClick={() => openModal(position, 'borrow')}
               />
@@ -137,9 +141,9 @@ export default function Homepage() {
         {sortedDeFiPositions.length > 0 ? (
           <div className="positions-grid">
             {sortedDeFiPositions.map((position) => (
-              <DeFiPositionCard 
-                key={position.id} 
-                position={position} 
+              <DeFiPositionCard
+                key={position.id}
+                position={position}
                 onSupplyClick={() => openModal(position, 'supply')}
                 onBorrowClick={() => openModal(position, 'borrow')}
               />

@@ -7,8 +7,8 @@ export default function BusinessPositionCard({ position, onSupplyClick, onBorrow
   return (
     <div className="business-position-card">
       <div className="business-image-container">
-        <img 
-          src={position.businessImage} 
+        <img
+          src={position.businessImage}
           alt={position.businessName}
           className="business-image"
           loading="lazy"
@@ -22,9 +22,9 @@ export default function BusinessPositionCard({ position, onSupplyClick, onBorrow
             <div className="business-name">{position.businessName}</div>
             {position.tags && position.tags.length > 0 && (
               <div className="business-tags">
-                {position.tags.map((tag, idx) => (
+                {position.tags.map((tag) => (
                   <span
-                    key={idx}
+                    key={tag.label}
                     className="business-tag"
                     style={{ backgroundColor: tag.bg, color: tag.color }}
                   >
@@ -44,12 +44,19 @@ export default function BusinessPositionCard({ position, onSupplyClick, onBorrow
           <div className="grid-item">
             <div className="grid-label">TVL / MCap</div>
             <div className="grid-value">
-              ${formatCompactNumber(position.tvl)} / ${formatCompactNumber(position.mcap)}
+              $
+              {formatCompactNumber(position.tvl)}
+              {' '}
+              / $
+              {formatCompactNumber(position.mcap)}
             </div>
           </div>
           <div className="grid-item">
             <div className="grid-label">30d rev.</div>
-            <div className="grid-value">${formatCompactNumber(position.revenue30d)}</div>
+            <div className="grid-value">
+              $
+              {formatCompactNumber(position.revenue30d)}
+            </div>
           </div>
           <div className="grid-item">
             <div className="grid-label">Distribution</div>
@@ -68,12 +75,12 @@ export default function BusinessPositionCard({ position, onSupplyClick, onBorrow
             <div className="grid-value">{position.participationRisk}</div>
           </div>
           <div className="button-item">
-            <button className="action-button" onClick={onSupplyClick}>
+            <button type="button" className="action-button" onClick={onSupplyClick}>
               Supply USDC
             </button>
           </div>
           <div className="button-item">
-            <button className="action-button borrow-button" onClick={onBorrowClick}>
+            <button type="button" className="action-button borrow-button" onClick={onBorrowClick}>
               Borrow USDC
             </button>
           </div>

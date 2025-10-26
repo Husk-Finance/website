@@ -1,4 +1,6 @@
-import { createPublicClient, http, formatUnits, encodeFunctionData, decodeFunctionResult } from 'viem'
+import {
+  createPublicClient, http, formatUnits, encodeFunctionData, decodeFunctionResult,
+} from 'viem'
 import { mainnet, base } from 'viem/chains'
 import { ERC20_ABI } from '../constants/contracts'
 import { CHAIN_IDS, getNetworkByChainId } from '../constants/networks'
@@ -30,18 +32,18 @@ function isNativeETH(address) {
  */
 function getCachedTokenInfo(tokenAddress, chainId = 1) {
   try {
-    const cacheKey = TOKEN_CACHE_PREFIX + chainId + '_' + tokenAddress.toLowerCase()
+    const cacheKey = `${TOKEN_CACHE_PREFIX + chainId}_${tokenAddress.toLowerCase()}`
     const cached = sessionStorage.getItem(cacheKey)
     if (!cached) return null
-    
+
     const { data, timestamp } = JSON.parse(cached)
     const now = Date.now()
-    
+
     // Check if cache is still valid
     if (now - timestamp < TOKEN_INFO_CACHE_DURATION) {
       return data
     }
-    
+
     // Cache expired, remove it
     sessionStorage.removeItem(cacheKey)
     return null
@@ -59,10 +61,10 @@ function getCachedTokenInfo(tokenAddress, chainId = 1) {
  */
 function setCachedTokenInfo(tokenAddress, tokenInfo, chainId = 1) {
   try {
-    const cacheKey = TOKEN_CACHE_PREFIX + chainId + '_' + tokenAddress.toLowerCase()
+    const cacheKey = `${TOKEN_CACHE_PREFIX + chainId}_${tokenAddress.toLowerCase()}`
     const cacheData = {
       data: tokenInfo,
-      timestamp: Date.now()
+      timestamp: Date.now(),
     }
     sessionStorage.setItem(cacheKey, JSON.stringify(cacheData))
   } catch (error) {
@@ -80,19 +82,19 @@ function setCachedTokenInfo(tokenAddress, tokenInfo, chainId = 1) {
 function getCachedBalance(tokenAddress, userAddress, chainId = 1) {
   try {
     if (!userAddress) return null
-    
-    const cacheKey = BALANCE_CACHE_PREFIX + chainId + '_' + tokenAddress.toLowerCase() + '_' + userAddress.toLowerCase()
+
+    const cacheKey = `${BALANCE_CACHE_PREFIX + chainId}_${tokenAddress.toLowerCase()}_${userAddress.toLowerCase()}`
     const cached = sessionStorage.getItem(cacheKey)
     if (!cached) return null
-    
+
     const { balance, timestamp } = JSON.parse(cached)
     const now = Date.now()
-    
+
     // Check if cache is still valid (shorter duration for balance)
     if (now - timestamp < CACHE_DURATION) {
       return balance
     }
-    
+
     // Cache expired, remove it
     sessionStorage.removeItem(cacheKey)
     return null
@@ -112,11 +114,11 @@ function getCachedBalance(tokenAddress, userAddress, chainId = 1) {
 function setCachedBalance(tokenAddress, userAddress, balance, chainId = 1) {
   try {
     if (!userAddress) return
-    
-    const cacheKey = BALANCE_CACHE_PREFIX + chainId + '_' + tokenAddress.toLowerCase() + '_' + userAddress.toLowerCase()
+
+    const cacheKey = `${BALANCE_CACHE_PREFIX + chainId}_${tokenAddress.toLowerCase()}_${userAddress.toLowerCase()}`
     const cacheData = {
       balance,
-      timestamp: Date.now()
+      timestamp: Date.now(),
     }
     sessionStorage.setItem(cacheKey, JSON.stringify(cacheData))
   } catch (error) {
@@ -170,7 +172,7 @@ function getRpcUrl(chainId) {
 export function createViemPublicClient(chainId = CHAIN_IDS.MAINNET) {
   const chain = getChainConfig(chainId)
   const rpcUrl = getRpcUrl(chainId)
-  
+
   return createPublicClient({
     chain,
     transport: http(rpcUrl),
@@ -190,10 +192,14 @@ export async function fetchTokenData(tokenAddress, userAddress, publicClient, ch
   try {
     // Always create a chain-specific client if chainId is provided
     // This ensures we use the correct RPC endpoint for the token's network
-    const client = chainId ? createViemPublicClient(chainId) : (publicClient || createViemPublicClient(1))
-    
+    const client = chainId
+      ? createViemPublicClient(chainId)
+      : (publicClient || createViemPublicClient(1))
+
     if (!tokenAddress) {
-      return { symbol: 'UNKNOWN', decimals: 18, balance: '0', needsWallet: false }
+      return {
+        symbol: 'UNKNOWN', decimals: 18, balance: '0', needsWallet: false,
+      }
     }
 
     // Handle native ETH (EIP-7528)
@@ -215,7 +221,7 @@ export async function fetchTokenData(tokenAddress, userAddress, publicClient, ch
       try {
         const balanceRaw = await client.getBalance({ address: userAddress })
         const balance = formatUnits(balanceRaw, decimals)
-        
+
         // Cache the balance with chainId
         setCachedBalance(tokenAddress, userAddress, balance, chainId)
 
@@ -227,13 +233,16 @@ export async function fetchTokenData(tokenAddress, userAddress, publicClient, ch
         }
       } catch (error) {
         console.error('Error fetching ETH balance:', error)
-        return { symbol, decimals, balance: '0', needsWallet: false }
+        return {
+          symbol, decimals, balance: '0', needsWallet: false,
+        }
       }
     }
 
     // Try to get cached token info (symbol, decimals) with chainId
-    let cachedTokenInfo = getCachedTokenInfo(tokenAddress, chainId)
-    let symbol, decimals
+    const cachedTokenInfo = getCachedTokenInfo(tokenAddress, chainId)
+    let symbol; let
+      decimals
 
     if (cachedTokenInfo) {
       // Use cached data
@@ -327,7 +336,9 @@ export async function fetchTokenData(tokenAddress, userAddress, publicClient, ch
     }
   } catch (error) {
     console.error('Error fetching token data:', error)
-    return { symbol: 'UNKNOWN', decimals: 18, balance: '0', needsWallet: false }
+    return {
+      symbol: 'UNKNOWN', decimals: 18, balance: '0', needsWallet: false,
+    }
   }
 }
 
@@ -353,7 +364,7 @@ export async function fetchMultipleTokensData(tokens, publicClient) {
           address,
           ...tokenData,
         }
-      })
+      }),
     )
 
     return results
@@ -377,15 +388,15 @@ export function clearTokenCache() {
   try {
     // Get all keys from sessionStorage
     const keys = Object.keys(sessionStorage)
-    
+
     // Remove all token and balance cache entries
-    keys.forEach(key => {
+    keys.forEach((key) => {
       if (key.startsWith(TOKEN_CACHE_PREFIX) || key.startsWith(BALANCE_CACHE_PREFIX)) {
         sessionStorage.removeItem(key)
       }
     })
-    
-    console.log('Token cache cleared')
+
+    // Token cache cleared successfully
   } catch (error) {
     console.error('Error clearing token cache:', error)
   }
@@ -399,18 +410,18 @@ export function clearTokenCache() {
 export function clearBalanceCache(userAddress) {
   try {
     if (!userAddress) return
-    
+
     const keys = Object.keys(sessionStorage)
     const userAddressLower = userAddress.toLowerCase()
-    
+
     // Remove all balance cache entries for this user
-    keys.forEach(key => {
+    keys.forEach((key) => {
       if (key.startsWith(BALANCE_CACHE_PREFIX) && key.includes(userAddressLower)) {
         sessionStorage.removeItem(key)
       }
     })
-    
-    console.log('Balance cache cleared for user:', userAddress)
+
+    // Balance cache cleared for user
   } catch (error) {
     console.error('Error clearing balance cache:', error)
   }

@@ -13,7 +13,7 @@ import { CHAIN_IDS } from '../constants/networks'
  * @returns {Array} DEX positions for the specified chain
  */
 export function getDexPositionsByChain(chainId) {
-  return mockPositions.filter(position => position.chainId === chainId)
+  return mockPositions.filter((position) => position.chainId === chainId)
 }
 
 /**
@@ -30,7 +30,7 @@ export function getAllDexPositions() {
  * @returns {Array} DeFi positions for the specified chain
  */
 export function getDeFiPositionsByChain(chainId) {
-  return mockDeFiPositions.filter(position => position.chainId === chainId)
+  return mockDeFiPositions.filter((position) => position.chainId === chainId)
 }
 
 /**
@@ -47,7 +47,7 @@ export function getAllDeFiPositions() {
  * @returns {Array} Business positions for the specified chain
  */
 export function getBusinessPositionsByChain(chainId) {
-  return mockBusinessPositions.filter(position => position.chainId === chainId)
+  return mockBusinessPositions.filter((position) => position.chainId === chainId)
 }
 
 /**

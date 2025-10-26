@@ -4,38 +4,40 @@ import uniswapIcon from '../../assets/uniswap-icon.svg'
 import aerodromeIcon from '../../assets/aerodrome-icon.svg'
 import agniIcon from '../../assets/agni-icon.svg'
 import { GRID_LABELS } from '../../constants'
-import { getQuotedTokenSymbol, formatPercent, formatDollar, formatTokenAmount, getTokenDecimals } from '../../utils/positionUtils'
+import {
+  getQuotedTokenSymbol, formatPercent, formatDollar, formatTokenAmount, getTokenDecimals,
+} from '../../utils/positionUtils'
 
 export default function DexPositionCard({ position, onSupplyClick, onBorrowClick }) {
   // Both buttons show the quote asset (what you're getting/depositing)
   const quotedToken = getQuotedTokenSymbol(position, 'supply')
-  
+
   // Get decimals for the quote asset (liquiditySupplierAsset)
   const quoteDecimals = getTokenDecimals(position.liquiditySupplierAsset)
-  
+
   return (
     <div className="dex-position-card">
       <div className="card-background">
         {position.protocol === 'uniswap' && (
-          <img 
-            src={uniswapIcon} 
-            alt="Uniswap" 
+          <img
+            src={uniswapIcon}
+            alt="Uniswap"
             className="protocol-icon"
             loading="lazy"
           />
         )}
         {position.protocol === 'aerodrome' && (
-          <img 
-            src={aerodromeIcon} 
-            alt="Aerodrome" 
+          <img
+            src={aerodromeIcon}
+            alt="Aerodrome"
             className="protocol-icon aerodrome-icon"
             loading="lazy"
           />
         )}
         {position.protocol === 'agni' && (
-          <img 
-            src={agniIcon} 
-            alt="Agni" 
+          <img
+            src={agniIcon}
+            alt="Agni"
             className="protocol-icon agni-icon"
             loading="lazy"
           />
@@ -46,7 +48,10 @@ export default function DexPositionCard({ position, onSupplyClick, onBorrowClick
         <div className="pair-info">
           <div className="pair-name">{position.pair}</div>
           <div className="pair-meta">
-            {position.version} {formatPercent(position.fee)}{' '}
+            {position.version}
+            {' '}
+            {formatPercent(position.fee)}
+            {' '}
             <span className="protocol-name">
               {position.protocol.charAt(0).toUpperCase() + position.protocol.slice(1)}
             </span>
@@ -84,13 +89,17 @@ export default function DexPositionCard({ position, onSupplyClick, onBorrowClick
           <div className="grid-value">{formatPercent(position.borrowRisk)}</div>
         </div>
         <div className="button-item">
-          <button className="action-button" onClick={onSupplyClick}>
-            Supply {quotedToken}
+          <button type="button" className="action-button" onClick={onSupplyClick}>
+            Supply
+            {' '}
+            {quotedToken}
           </button>
         </div>
         <div className="button-item">
-          <button className="action-button borrow-button" onClick={onBorrowClick}>
-            Borrow {quotedToken}
+          <button type="button" className="action-button borrow-button" onClick={onBorrowClick}>
+            Borrow
+            {' '}
+            {quotedToken}
           </button>
         </div>
       </div>
@@ -113,7 +122,13 @@ DexPositionCard.propTypes = {
     liquidationLow: PropTypes.string.isRequired,
     liquidationHigh: PropTypes.string.isRequired,
     borrowRisk: PropTypes.string.isRequired,
+    liquiditySupplierAsset: PropTypes.string, // ERC20 token address
   }).isRequired,
   onSupplyClick: PropTypes.func,
   onBorrowClick: PropTypes.func,
+}
+
+DexPositionCard.defaultProps = {
+  onSupplyClick: null,
+  onBorrowClick: null,
 }

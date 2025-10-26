@@ -6,17 +6,17 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        api: 'modern-compiler' // Use modern Sass API
-      }
-    }
+        api: 'modern-compiler', // Use modern Sass API
+      },
+    },
   },
   server: {
     port: 3000,
-    open: true
+    open: true,
   },
   build: {
     outDir: 'dist',
     sourcemap: false,
-    minify: 'terser'
-  }
+    minify: 'terser',
+  },
 })

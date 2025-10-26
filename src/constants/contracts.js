@@ -67,4 +67,3 @@ export const TOKEN_ADDRESSES = {
   MATIC: '0x7D1AfA7B718fb893dB30A3aBc0Cfc608AaCfeBB0',
   // Add more token addresses as needed
 }
-

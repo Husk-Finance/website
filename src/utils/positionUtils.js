@@ -9,21 +9,21 @@
  */
 export function formatCompactNumber(value) {
   const num = typeof value === 'string' ? parseInt(value, 10) : value
-  
-  if (isNaN(num)) return '0'
-  
+
+  if (Number.isNaN(num)) return '0'
+
   const absNum = Math.abs(num)
-  
+
   if (absNum >= 1e9) {
-    return (num / 1e9).toFixed(2) + 'B'
+    return `${(num / 1e9).toFixed(2)}B`
   }
   if (absNum >= 1e6) {
-    return (num / 1e6).toFixed(2) + 'M'
+    return `${(num / 1e6).toFixed(2)}M`
   }
   if (absNum >= 1e3) {
-    return (num / 1e3).toFixed(2) + 'K'
+    return `${(num / 1e3).toFixed(2)}K`
   }
-  
+
   return num.toFixed(2)
 }
 
@@ -34,10 +34,10 @@ export function formatCompactNumber(value) {
  */
 export function formatPercent(value) {
   const num = typeof value === 'string' ? parseInt(value, 10) : value
-  
-  if (isNaN(num)) return '0.00%'
-  
-  return (num / 100).toFixed(2) + '%'
+
+  if (Number.isNaN(num)) return '0.00%'
+
+  return `${(num / 100).toFixed(2)}%`
 }
 
 /**
@@ -47,7 +47,7 @@ export function formatPercent(value) {
  */
 export function formatDollar(value) {
   const formatted = formatCompactNumber(value)
-  return '$' + formatted
+  return `$${formatted}`
 }
 
 /**
@@ -60,30 +60,30 @@ export function formatDollar(value) {
 export function formatTokenAmount(value, decimals, symbol) {
   const num = typeof value === 'string' ? BigInt(value) : BigInt(value)
   const divisor = BigInt(10 ** decimals)
-  
+
   // Convert to number for formatting
   const amount = Number(num) / Number(divisor)
-  
+
   // Format based on size
   let formatted
   if (amount >= 1000) {
-    formatted = amount.toLocaleString('en-US', { 
+    formatted = amount.toLocaleString('en-US', {
       minimumFractionDigits: 0,
-      maximumFractionDigits: 2
+      maximumFractionDigits: 2,
     })
   } else if (amount >= 1) {
     formatted = amount.toLocaleString('en-US', {
       minimumFractionDigits: 0,
-      maximumFractionDigits: 2
+      maximumFractionDigits: 2,
     })
   } else {
     // For small amounts, show more precision
     formatted = amount.toLocaleString('en-US', {
       minimumFractionDigits: 2,
-      maximumFractionDigits: 6
+      maximumFractionDigits: 6,
     })
   }
-  
+
   return `${formatted} ${symbol}`
 }
 
@@ -100,15 +100,15 @@ export function getTokenDecimals(tokenAddress) {
     '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913': 6, // USDC on Base
     '0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA': 6, // USDbC on Base
     '0x09Bc4E0D864854c6aFB6eB9A9cdF58aC190D0dF9': 6, // USDC on Mantle
-    
+
     // USDT (6 decimals)
     '0xdAC17F958D2ee523a2206206994597C13D831ec7': 6, // USDT on Ethereum
-    
+
     // WBTC (8 decimals)
     '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599': 8, // WBTC on Ethereum
     '0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf': 8, // cbBTC on Base
   }
-  
+
   return decimalsMap[tokenAddress] || 18 // Default to 18 decimals for ETH and most ERC20s
 }
 
@@ -135,13 +135,13 @@ export function autoTagNewPositions(positions) {
   const sevenDaysInMs = 7 * 24 * 60 * 60 * 1000
   const sevenDaysAgo = now - sevenDaysInMs
 
-  return positions.map(position => {
+  return positions.map((position) => {
     const createdAt = position.createdAt || 0
     const isNew = createdAt >= sevenDaysAgo
-    
+
     // Clone the position to avoid mutation
     const updatedPosition = { ...position }
-    
+
     // Initialize tags if not present
     if (!updatedPosition.tags) {
       updatedPosition.tags = []
@@ -149,22 +149,22 @@ export function autoTagNewPositions(positions) {
       // Clone tags array to avoid mutation
       updatedPosition.tags = [...updatedPosition.tags]
     }
-    
+
     // Check if NEW tag already exists
-    const hasNewTag = updatedPosition.tags.some(tag => tag.label === 'NEW')
-    
+    const hasNewTag = updatedPosition.tags.some((tag) => tag.label === 'NEW')
+
     if (isNew && !hasNewTag) {
       // Add NEW tag at the beginning
       updatedPosition.tags.unshift({
         label: 'NEW',
         bg: '#a6c724',
-        color: '#000000'
+        color: '#000000',
       })
     } else if (!isNew && hasNewTag) {
       // Remove NEW tag if position is older than 7 days
-      updatedPosition.tags = updatedPosition.tags.filter(tag => tag.label !== 'NEW')
+      updatedPosition.tags = updatedPosition.tags.filter((tag) => tag.label !== 'NEW')
     }
-    
+
     return updatedPosition
   })
 }
@@ -202,15 +202,14 @@ export function processBusinessPositions(positions) {
  * For DEX positions: extracts from pair name (e.g., "WBTC/USDC" → "USDC")
  * For DeFi positions: uses the quotedAsset property (e.g., "USDC", "WETH", "DAI")
  * @param {Object} position - Position object
- * @param {string} action - Action type ('supply' or 'borrow') - not used but kept for compatibility
  * @returns {string} Token symbol
  */
-export function getQuotedTokenSymbol(position, action) {
+export function getQuotedTokenSymbol(position) {
   // For DeFi positions with quotedAsset property
   if (position.quotedAsset) {
     return position.quotedAsset
   }
-  
+
   // For DEX positions, extract from pair name (always return quote asset)
   if (position.pair) {
     const tokens = position.pair.split('/')
@@ -219,7 +218,7 @@ export function getQuotedTokenSymbol(position, action) {
       return tokens[1].trim()
     }
   }
-  
+
   // Default fallback
   return 'USDC'
 }

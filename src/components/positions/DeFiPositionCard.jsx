@@ -6,18 +6,18 @@ import { getQuotedTokenSymbol, formatPercent, formatDollar } from '../../utils/p
 export default function DeFiPositionCard({ position, onSupplyClick, onBorrowClick }) {
   // Both buttons show the same token for DeFi positions
   const quotedToken = getQuotedTokenSymbol(position, 'supply')
-  
+
   return (
     <div className="defi-position-card">
       <div className="card-header">
         <div className="protocol-info">
           <div className="protocol-name">{position.protocol}</div>
-          
+
           {position.tags && position.tags.length > 0 && (
             <div className="tag-row">
-              {position.tags.map((t, idx) => (
+              {position.tags.map((t) => (
                 <span
-                  key={idx}
+                  key={t.label}
                   className="tag-pill"
                   style={{ background: t.bg, color: t.color }}
                 >
@@ -66,14 +66,18 @@ export default function DeFiPositionCard({ position, onSupplyClick, onBorrowClic
         </div>
 
         <div className="button-item">
-          <button className="action-button" onClick={onSupplyClick}>
-            Supply {quotedToken}
+          <button type="button" className="action-button" onClick={onSupplyClick}>
+            Supply
+            {' '}
+            {quotedToken}
           </button>
         </div>
 
         <div className="button-item">
-          <button className="action-button borrow-button" onClick={onBorrowClick}>
-            Borrow {quotedToken}
+          <button type="button" className="action-button borrow-button" onClick={onBorrowClick}>
+            Borrow
+            {' '}
+            {quotedToken}
           </button>
         </div>
       </div>
@@ -86,7 +90,11 @@ DeFiPositionCard.propTypes = {
     id: PropTypes.number.isRequired,
     protocol: PropTypes.string.isRequired,
     createdAt: PropTypes.number,
-    tags: PropTypes.array,
+    tags: PropTypes.arrayOf(PropTypes.shape({
+      label: PropTypes.string,
+      bg: PropTypes.string,
+      color: PropTypes.string,
+    })),
     huskAPY: PropTypes.string,
     supplyAPY: PropTypes.string.isRequired,
     tvl: PropTypes.string.isRequired,
@@ -95,8 +103,14 @@ DeFiPositionCard.propTypes = {
     nextDistribution: PropTypes.string,
     liquidationLow: PropTypes.string,
     borrowRisk: PropTypes.string,
+    participationRisk: PropTypes.string,
     quotedAsset: PropTypes.string, // Token symbol for button labels (e.g., "USDC", "WETH", "DAI")
   }).isRequired,
   onSupplyClick: PropTypes.func,
   onBorrowClick: PropTypes.func,
+}
+
+DeFiPositionCard.defaultProps = {
+  onSupplyClick: null,
+  onBorrowClick: null,
 }

@@ -1,18 +1,18 @@
-import '@rainbow-me/rainbowkit/styles.css';
-import './Header.scss';
+import '@rainbow-me/rainbowkit/styles.css'
+import './Header.scss'
 
-import logoGradient from '../../assets/logo-gradient.svg';
-import { NAV_LINKS } from '../../constants';
-import { ConnectButton } from '@rainbow-me/rainbowkit';
+import { ConnectButton } from '@rainbow-me/rainbowkit'
+import logoGradient from '../../assets/logo-gradient.svg'
+import { NAV_LINKS } from '../../constants'
 
 export default function Header() {
   return (
     <header className="header">
       <div className="header-content">
         <div className="logo-section">
-          <img 
-            src={logoGradient} 
-            alt="Husk Finance" 
+          <img
+            src={logoGradient}
+            alt="Husk Finance"
             className="logo"
           />
           <span className="logo-text">Husk Finance</span>

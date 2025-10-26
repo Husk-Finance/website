@@ -1,7 +1,7 @@
 /**
  * Mock DeFi position data for development.
  * Contains positions from multiple networks - filter by chainId as needed.
- * 
+ *
  * Data Format:
  * - huskAPY, supplyAPY: Integer strings representing percentages (e.g., "4325" = 43.25%)
  * - tvl, revenue24h: Integer strings representing dollar amounts (e.g., "10620" = $10.62K)
@@ -14,7 +14,7 @@ export const mockDeFiPositions = [
     id: 101,
     chainId: 1, // Ethereum Mainnet
     protocol: 'Aethir Gaming Pool',
-    createdAt: 1761022597000, //should get NEW tag
+    createdAt: 1761022597000, // should get NEW tag
     tags: [
       { label: 'RWA', bg: '#2485c7', color: '#000000' },
       { label: 'AutoC', bg: '#0d9aa2', color: '#ffffff' },
@@ -189,7 +189,7 @@ export const mockDeFiPositions = [
     participationRisk: '0.01',
     liquidityProviderAsset: '0xfFaa4a3D97fE9107Cef8a3F48c069F577Ff76cC1', // stHYPE
     liquiditySupplierAsset: '0xb88339CB7199b77E23DB6E890353E22632Ba630f', // USDC
-    quotedAsset: 'USDC'
+    quotedAsset: 'USDC',
   },
 
   // Mantle DeFi Positions (chainId: 5000)
@@ -211,7 +211,7 @@ export const mockDeFiPositions = [
     participationRisk: '0.01',
     liquidityProviderAsset: '0x93919784C523f39CACaa98Ee0a9d96c3F32b593e', // uniBTC
     liquiditySupplierAsset: '0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34', // USDe
-    quotedAsset: 'USDe'
+    quotedAsset: 'USDe',
   },
   {
     id: 402,
@@ -232,7 +232,7 @@ export const mockDeFiPositions = [
     participationRisk: '0.01',
     liquidityProviderAsset: '0xEBDC36506adCFF3c64E7da11215D7Bf1d4700Ee3', // Cow Uniswap mETH-WETH
     liquiditySupplierAsset: '0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34', // USDe
-    quotedAsset: 'USDe'
+    quotedAsset: 'USDe',
   },
   {
     id: 402,
@@ -250,6 +250,6 @@ export const mockDeFiPositions = [
     participationRisk: '0.12',
     liquidityProviderAsset: '0x4515A45337F461A11Ff0FE8aBF3c606AE5dC00c9', // MOE
     liquiditySupplierAsset: '0x09Bc4E0D864854c6aFB6eB9A9cdF58aC190D0dF9', // USDC
-    quotedAsset: 'USDC'
-  }
-];
+    quotedAsset: 'USDC',
+  },
+]

@@ -1,62 +1,59 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { useAccount, usePublicClient } from 'wagmi'
 import './PositionOfferingModal.scss'
 import { fetchTokenData } from '../../utils/tokenUtils'
 import { formatPercent, formatDollar } from '../../utils/positionUtils'
 
-function PositionOfferingModal({ isOpen, onClose, action, position, positionType }) {
+function PositionOfferingModal({
+  isOpen, onClose, action, position,
+}) {
   // Wagmi hooks for wallet connection and blockchain data
   const { address, isConnected } = useAccount()
   const publicClient = usePublicClient()
-  
+
   // Token data state for the input form (collateral/deposit asset)
   const [tokenSymbol, setTokenSymbol] = useState('')
   const [tokenBalance, setTokenBalance] = useState('0')
-  const [tokenDecimals, setTokenDecimals] = useState(18)
   const [isLoadingToken, setIsLoadingToken] = useState(false)
-  
+
   // Token data for the action (what you're getting/borrowing)
   const [actionTokenSymbol, setActionTokenSymbol] = useState('')
   const [isLoadingActionToken, setIsLoadingActionToken] = useState(false)
-  
+
   // Input state
   const [amount, setAmount] = useState('')
   const [percentage, setPercentage] = useState(0)
 
   // Determine which asset to use for the input form (what you're providing)
-  const getCollateralAssetAddress = () => {
+  const getCollateralAssetAddress = useCallback(() => {
     if (!position) return null
-    
+
     if (action === 'supply') {
       // Supply action: user deposits the quote asset (e.g., USDC in WBTC/USDC)
       return position.liquiditySupplierAsset
-    } else {
-      // Borrow action: user supplies collateral (base asset, e.g., WBTC in WBTC/USDC)
-      return position.liquidityProviderAsset || position.liquiditySupplierAsset
     }
-  }
+    // Borrow action: user supplies collateral (base asset, e.g., WBTC in WBTC/USDC)
+    return position.liquidityProviderAsset || position.liquiditySupplierAsset
+  }, [position, action])
 
   // Determine which asset represents the action (what you're getting)
-  const getActionAssetAddress = () => {
+  const getActionAssetAddress = useCallback(() => {
     if (!position) return null
-    
+
     if (action === 'supply') {
       // Supply action: you're supplying the same asset you input
       return position.liquiditySupplierAsset
-    } else {
-      // Borrow action: you're borrowing the quote asset (e.g., USDC in WBTC/USDC)
-      return position.liquiditySupplierAsset
     }
-  }
+    // Borrow action: you're borrowing the quote asset (e.g., USDC in WBTC/USDC)
+    return position.liquiditySupplierAsset
+  }, [position, action])
 
-  const currentAssetAddress = getCollateralAssetAddress()
-  const actionAssetAddress = getActionAssetAddress()
   // Check if balance is numeric or a placeholder message
-  const isBalanceNumeric = tokenBalance && !isNaN(parseFloat(tokenBalance))
+  const isBalanceNumeric = tokenBalance && !Number.isNaN(parseFloat(tokenBalance))
   const userBalance = isBalanceNumeric ? parseFloat(tokenBalance) : 0
-  const balanceDisplay = isBalanceNumeric 
-    ? `${userBalance.toLocaleString(undefined, { maximumFractionDigits: 6 })} ${tokenSymbol}` 
+  const balanceDisplay = isBalanceNumeric
+    ? `${userBalance.toLocaleString(undefined, { maximumFractionDigits: 6 })} ${tokenSymbol}`
     : tokenBalance || '0'
 
   // Fetch collateral token data (for input form - what you're providing)
@@ -77,29 +74,27 @@ function PositionOfferingModal({ isOpen, onClose, action, position, positionType
       try {
         // Get chainId from position, pass to fetchTokenData for network-aware caching
         const chainId = position?.chainId || 1
-        
+
         // Pass address, publicClient, and chainId
         const data = await fetchTokenData(
-          assetAddress, 
-          isConnected ? address : null, 
+          assetAddress,
+          isConnected ? address : null,
           publicClient,
-          chainId
+          chainId,
         )
         setTokenSymbol(data.symbol)
         setTokenBalance(data.balance)
-        setTokenDecimals(data.decimals)
       } catch (error) {
         console.error('Failed to fetch collateral token data:', error)
         setTokenSymbol('UNKNOWN')
         setTokenBalance(isConnected ? '0' : 'Please connect wallet first')
-        setTokenDecimals(18)
       } finally {
         setIsLoadingToken(false)
       }
     }
 
     loadTokenData()
-  }, [isOpen, address, isConnected, publicClient, action, position, positionType])
+  }, [isOpen, address, isConnected, publicClient, getCollateralAssetAddress])
 
   // Fetch action token symbol (for button - what you're getting)
   useEffect(() => {
@@ -119,13 +114,13 @@ function PositionOfferingModal({ isOpen, onClose, action, position, positionType
       try {
         // Get chainId from position for network-aware caching
         const chainId = position?.chainId || 1
-        
+
         // Only need symbol, no need for balance
         const data = await fetchTokenData(
-          assetAddress, 
+          assetAddress,
           null, // No user address needed, we only want the symbol
           publicClient,
-          chainId
+          chainId,
         )
         setActionTokenSymbol(data.symbol)
       } catch (error) {
@@ -137,7 +132,7 @@ function PositionOfferingModal({ isOpen, onClose, action, position, positionType
     }
 
     loadActionTokenData()
-  }, [isOpen, publicClient, action, position, positionType])
+  }, [isOpen, publicClient, getActionAssetAddress])
 
   // Reset input when modal opens/closes or action type changes
   useEffect(() => {
@@ -149,12 +144,12 @@ function PositionOfferingModal({ isOpen, onClose, action, position, positionType
 
   // Handle amount input change
   const handleAmountChange = (e) => {
-    const value = e.target.value
-    
+    const { value } = e.target
+
     // Allow empty string or valid numbers (including decimals)
     if (value === '' || /^\d*\.?\d*$/.test(value)) {
       setAmount(value)
-      
+
       // Update slider percentage
       if (value === '' || parseFloat(value) === 0) {
         setPercentage(0)
@@ -168,9 +163,9 @@ function PositionOfferingModal({ isOpen, onClose, action, position, positionType
 
   // Handle slider change
   const handleSliderChange = (e) => {
-    const pct = parseInt(e.target.value)
+    const pct = parseInt(e.target.value, 10)
     setPercentage(pct)
-    
+
     // Update input amount
     const amt = (userBalance * pct) / 100
     setAmount(amt > 0 ? amt.toFixed(6) : '')
@@ -178,12 +173,12 @@ function PositionOfferingModal({ isOpen, onClose, action, position, positionType
 
   // Handle percentage input change
   const handlePercentageInputChange = (e) => {
-    const value = e.target.value
-    
+    const { value } = e.target
+
     if (value === '' || /^\d*$/.test(value)) {
-      const pct = value === '' ? 0 : Math.min(parseInt(value), 100)
+      const pct = value === '' ? 0 : Math.min(parseInt(value, 10), 100)
       setPercentage(pct)
-      
+
       // Update input amount
       const amt = (userBalance * pct) / 100
       setAmount(amt > 0 ? amt.toFixed(6) : '')
@@ -220,7 +215,17 @@ function PositionOfferingModal({ isOpen, onClose, action, position, positionType
   const displayName = isDexPosition ? position.pair : position.protocol
 
   return (
-    <div className="modal-overlay" onClick={handleOverlayClick}>
+    <div
+      className="modal-overlay"
+      onClick={handleOverlayClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          handleOverlayClick(e)
+        }
+      }}
+    >
       <div className="modal-container">
         <div className="modal-content">
           {/* Left Column */}
@@ -232,14 +237,18 @@ function PositionOfferingModal({ isOpen, onClose, action, position, positionType
                 </div>
                 {isDexPosition && position.version && position.fee && (
                   <div className="pair-meta">
-                    <p>{position.version} {position.fee}</p>
+                    <p>
+                      {position.version}
+                      {' '}
+                      {position.fee}
+                    </p>
                   </div>
                 )}
                 {!isDexPosition && position.tags && position.tags.length > 0 && (
                   <div className="tag-row">
-                    {position.tags.map((tag, idx) => (
+                    {position.tags.map((tag) => (
                       <div
-                        key={idx}
+                        key={tag.label}
                         className="tag-pill"
                         style={{ backgroundColor: tag.bg, color: tag.color }}
                       >
@@ -305,7 +314,9 @@ function PositionOfferingModal({ isOpen, onClose, action, position, positionType
                     {isLoadingToken ? 'Loading...' : tokenSymbol || 'UNKNOWN'}
                   </span>
                   <span className="balance-value">
-                    Balance: {balanceDisplay}
+                    Balance:
+                    {' '}
+                    {balanceDisplay}
                   </span>
                 </div>
 
@@ -328,7 +339,7 @@ function PositionOfferingModal({ isOpen, onClose, action, position, positionType
                     onChange={handleSliderChange}
                     disabled={isLoadingToken}
                     style={{
-                      background: `linear-gradient(to right, #388262 0%, #388262 ${percentage}%, rgba(59, 59, 59, 0.5) ${percentage}%, rgba(59, 59, 59, 0.5) 100%)`
+                      background: `linear-gradient(to right, #388262 0%, #388262 ${percentage}%, rgba(59, 59, 59, 0.5) ${percentage}%, rgba(59, 59, 59, 0.5) 100%)`,
                     }}
                   />
                   <input
@@ -345,12 +356,16 @@ function PositionOfferingModal({ isOpen, onClose, action, position, positionType
 
               <div className="action-buttons">
                 {action === 'supply' ? (
-                  <button className="action-btn supply-btn active">
-                    Supply {isLoadingActionToken ? '...' : (actionTokenSymbol || 'USDC')}
+                  <button type="button" className="action-btn supply-btn active">
+                    Supply
+                    {' '}
+                    {isLoadingActionToken ? '...' : (actionTokenSymbol || 'USDC')}
                   </button>
                 ) : (
-                  <button className="action-btn borrow-btn active">
-                    Borrow {isLoadingActionToken ? '...' : (actionTokenSymbol || 'USDC')}
+                  <button type="button" className="action-btn borrow-btn active">
+                    Borrow
+                    {' '}
+                    {isLoadingActionToken ? '...' : (actionTokenSymbol || 'USDC')}
                   </button>
                 )}
               </div>
@@ -360,15 +375,46 @@ function PositionOfferingModal({ isOpen, onClose, action, position, positionType
           {/* Right Column - Description */}
           <div className="modal-right">
             <div className="description-content">
-              <p>Dicta dolor dolorum blanditiis sunt error explicabo. Aspernatur provident optio iure sapiente. Rem quidem consequatur corrupti occaecati velit iure placeat. Ab quibusdam dolor id necessitatibus quidem dolores ea ea. Quibusdam omnis aut rerum repellendus ut dicta quod similique.</p>
+              <p>
+                Dicta dolor dolorum blanditiis sunt error explicabo.
+                Aspernatur provident optio iure sapiente.
+                Rem quidem consequatur corrupti occaecati velit iure placeat.
+                Ab quibusdam dolor id necessitatibus quidem dolores ea ea.
+                Quibusdam omnis aut rerum repellendus ut dicta quod similique.
+              </p>
               <p>&nbsp;</p>
-              <p>Qui repudiandae et accusantium cum rerum aliquid debitis quo. Molestias voluptatem nisi sapiente doloribus voluptatem. Repudiandae nihil et veniam libero sunt ipsam sunt. Quas voluptatem est consectetur.</p>
+              <p>
+                Qui repudiandae et accusantium cum rerum aliquid debitis quo.
+                Molestias voluptatem nisi sapiente doloribus voluptatem.
+                Repudiandae nihil et veniam libero sunt ipsam sunt.
+                Quas voluptatem est consectetur.
+              </p>
               <p>&nbsp;</p>
-              <p>Quia illum voluptatem odit voluptas et. Maiores fugit eum distinctio animi voluptatibus amet. Sit quam assumenda nulla molestiae. Possimus quo alias modi sit odio. Culpa quidem eos itaque culpa et quisquam aut aut.</p>
+              <p>
+                Quia illum voluptatem odit voluptas et.
+                Maiores fugit eum distinctio animi voluptatibus amet.
+                Sit quam assumenda nulla molestiae.
+                Possimus quo alias modi sit odio.
+                Culpa quidem eos itaque culpa et quisquam aut aut.
+              </p>
               <p>&nbsp;</p>
-              <p>Ea quis quaerat est consectetur molestiae quasi. Et earum atque omnis atque. Accusamus adipisci eveniet nihil neque et. Officia deleniti ut eos repudiandae omnis est. Voluptas nihil reiciendis amet voluptas fugiat laudantium. Tenetur laudantium explicabo dolorum.</p>
+              <p>
+                Ea quis quaerat est consectetur molestiae quasi.
+                Et earum atque omnis atque.
+                Accusamus adipisci eveniet nihil neque et.
+                Officia deleniti ut eos repudiandae omnis est.
+                Voluptas nihil reiciendis amet voluptas fugiat laudantium.
+                Tenetur laudantium explicabo dolorum.
+              </p>
               <p>&nbsp;</p>
-              <p>Assumenda nemo cupiditate aperiam aut aliquid porro consectetur. Quisquam minima non ad. Rerum perspiciatis velit non id perferendis. Architecto quia totam corrupti cupiditate dignissimos sunt nobis. Deserunt odio dolorum rerum quia adipisci. Asperiores asperiores excepturi ut.</p>
+              <p>
+                Assumenda nemo cupiditate aperiam aut aliquid porro consectetur.
+                Quisquam minima non ad.
+                Rerum perspiciatis velit non id perferendis.
+                Architecto quia totam corrupti cupiditate dignissimos sunt nobis.
+                Deserunt odio dolorum rerum quia adipisci.
+                Asperiores asperiores excepturi ut.
+              </p>
             </div>
           </div>
         </div>
@@ -402,6 +448,8 @@ PositionOfferingModal.propTypes = {
     revenue24h: PropTypes.string,
     supplyAPY: PropTypes.string,
     borrowRisk: PropTypes.string,
+    participationRisk: PropTypes.string,
+    chainId: PropTypes.number,
     // Asset fields (token addresses)
     liquidityProviderAsset: PropTypes.string, // ERC20 token address
     liquiditySupplierAsset: PropTypes.string, // ERC20 token address

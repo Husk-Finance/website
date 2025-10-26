@@ -151,7 +151,7 @@ export const mockPositions = [
     liquidityProviderAsset: '0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984', // UNI
     liquiditySupplierAsset: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // USDC
   },
-  
+
   // Base Network Positions (chainId: 8453)
   {
     id: 101,
@@ -245,4 +245,4 @@ export const mockPositions = [
     liquidityProviderAsset: '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE', // MNT
     liquiditySupplierAsset: '0x09Bc4E0D864854c6aFB6eB9A9cdF58aC190D0dF9', // USDC
   },
-];
+]

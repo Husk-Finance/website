@@ -37,7 +37,12 @@ export default function Footer() {
       </div>
 
       <div className="footer-bottom">
-        <p className="footer-copyright">Husk Finance ©{currentYear} All Rights Reserved</p>
+        <p className="footer-copyright">
+          Husk Finance ©
+          {currentYear}
+          {' '}
+          All Rights Reserved
+        </p>
       </div>
     </footer>
   )

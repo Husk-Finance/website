@@ -1,60 +1,59 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { useAccount, usePublicClient } from 'wagmi'
 import './BusinessPositionModal.scss'
 import { fetchTokenData } from '../../utils/tokenUtils'
 import { formatCompactNumber, formatPercent } from '../../utils/positionUtils'
 
-function BusinessPositionModal({ isOpen, onClose, action, position }) {
+function BusinessPositionModal({
+  isOpen, onClose, action, position,
+}) {
   // Wagmi hooks for wallet connection
   const { address, isConnected } = useAccount()
   const publicClient = usePublicClient()
-  
+
   // Token data state for the input form (collateral/deposit asset)
   const [tokenSymbol, setTokenSymbol] = useState('')
   const [tokenBalance, setTokenBalance] = useState('0')
-  const [tokenDecimals, setTokenDecimals] = useState(18)
   const [isLoadingToken, setIsLoadingToken] = useState(false)
-  
+
   // Token data for the action (what you're getting/borrowing)
   const [actionTokenSymbol, setActionTokenSymbol] = useState('')
   const [isLoadingActionToken, setIsLoadingActionToken] = useState(false)
-  
+
   // Input state
   const [amount, setAmount] = useState('')
   const [percentage, setPercentage] = useState(0)
 
   // Determine which asset to use for the input form (what you're providing)
-  const getCollateralAssetAddress = () => {
+  const getCollateralAssetAddress = useCallback(() => {
     if (!position) return null
-    
+
     if (action === 'supply') {
       // Supply action: user deposits USDC (liquiditySupplierAsset)
       return position.liquiditySupplierAsset
-    } else {
-      // Borrow action: user supplies RWA Business Token as collateral (liquidityProviderAsset)
-      return position.liquidityProviderAsset
     }
-  }
+    // Borrow action: user supplies RWA Business Token as collateral (liquidityProviderAsset)
+    return position.liquidityProviderAsset
+  }, [position, action])
 
   // Determine which asset represents the action (what you're getting)
-  const getActionAssetAddress = () => {
+  const getActionAssetAddress = useCallback(() => {
     if (!position) return null
-    
+
     if (action === 'supply') {
       // Supply action: you're supplying USDC
       return position.liquiditySupplierAsset
-    } else {
-      // Borrow action: you're borrowing USDC (liquiditySupplierAsset)
-      return position.liquiditySupplierAsset
     }
-  }
+    // Borrow action: you're borrowing USDC (liquiditySupplierAsset)
+    return position.liquiditySupplierAsset
+  }, [position, action])
 
   // Check if balance is numeric or a placeholder message
-  const isBalanceNumeric = tokenBalance && !isNaN(parseFloat(tokenBalance))
+  const isBalanceNumeric = tokenBalance && !Number.isNaN(parseFloat(tokenBalance))
   const userBalance = isBalanceNumeric ? parseFloat(tokenBalance) : 0
-  const balanceDisplay = isBalanceNumeric 
-    ? `${userBalance.toLocaleString(undefined, { maximumFractionDigits: 6 })} ${tokenSymbol}` 
+  const balanceDisplay = isBalanceNumeric
+    ? `${userBalance.toLocaleString(undefined, { maximumFractionDigits: 6 })} ${tokenSymbol}`
     : tokenBalance || '0'
 
   // Fetch collateral token data (for input form - what you're providing)
@@ -75,29 +74,27 @@ function BusinessPositionModal({ isOpen, onClose, action, position }) {
       try {
         // Get chainId from position, pass to fetchTokenData for network-aware caching
         const chainId = position?.chainId || 1
-        
+
         // Pass address, publicClient, and chainId
         const data = await fetchTokenData(
-          assetAddress, 
-          isConnected ? address : null, 
+          assetAddress,
+          isConnected ? address : null,
           publicClient,
-          chainId
+          chainId,
         )
         setTokenSymbol(data.symbol)
         setTokenBalance(data.balance)
-        setTokenDecimals(data.decimals)
       } catch (error) {
         console.error('Failed to fetch collateral token data:', error)
         setTokenSymbol('UNKNOWN')
         setTokenBalance(isConnected ? '0' : 'Please connect wallet first')
-        setTokenDecimals(18)
       } finally {
         setIsLoadingToken(false)
       }
     }
 
     loadTokenData()
-  }, [isOpen, address, isConnected, publicClient, action, position])
+  }, [isOpen, address, isConnected, publicClient, getCollateralAssetAddress])
 
   // Fetch action token symbol (for button - what you're getting)
   useEffect(() => {
@@ -117,13 +114,13 @@ function BusinessPositionModal({ isOpen, onClose, action, position }) {
       try {
         // Get chainId from position for network-aware caching
         const chainId = position?.chainId || 1
-        
+
         // Only need symbol, no need for balance
         const data = await fetchTokenData(
-          assetAddress, 
+          assetAddress,
           null, // No user address needed, we only want the symbol
           publicClient,
-          chainId
+          chainId,
         )
         setActionTokenSymbol(data.symbol)
       } catch (error) {
@@ -135,7 +132,7 @@ function BusinessPositionModal({ isOpen, onClose, action, position }) {
     }
 
     loadActionTokenData()
-  }, [isOpen, publicClient, action, position])
+  }, [isOpen, publicClient, getActionAssetAddress])
 
   // Reset input when modal opens/closes or action type changes
   useEffect(() => {
@@ -147,12 +144,12 @@ function BusinessPositionModal({ isOpen, onClose, action, position }) {
 
   // Handle amount input change
   const handleAmountChange = (e) => {
-    const value = e.target.value
-    
+    const { value } = e.target
+
     // Allow empty string or valid numbers (including decimals)
     if (value === '' || /^\d*\.?\d*$/.test(value)) {
       setAmount(value)
-      
+
       // Update slider percentage
       if (value === '' || parseFloat(value) === 0) {
         setPercentage(0)
@@ -166,9 +163,9 @@ function BusinessPositionModal({ isOpen, onClose, action, position }) {
 
   // Handle slider change
   const handleSliderChange = (e) => {
-    const pct = parseInt(e.target.value)
+    const pct = parseInt(e.target.value, 10)
     setPercentage(pct)
-    
+
     // Update input amount
     const amt = (userBalance * pct) / 100
     setAmount(amt > 0 ? amt.toFixed(6) : '')
@@ -176,12 +173,12 @@ function BusinessPositionModal({ isOpen, onClose, action, position }) {
 
   // Handle percentage input change
   const handlePercentageInputChange = (e) => {
-    const value = e.target.value
-    
+    const { value } = e.target
+
     if (value === '' || /^\d*$/.test(value)) {
-      const pct = value === '' ? 0 : Math.min(parseInt(value), 100)
+      const pct = value === '' ? 0 : Math.min(parseInt(value, 10), 100)
       setPercentage(pct)
-      
+
       // Update input amount
       const amt = (userBalance * pct) / 100
       setAmount(amt > 0 ? amt.toFixed(6) : '')
@@ -221,8 +218,8 @@ function BusinessPositionModal({ isOpen, onClose, action, position }) {
           {/* Left Column - Business Image and Info */}
           <div className="business-modal-left">
             <div className="business-modal-image-section">
-              <img 
-                src={position.businessImage} 
+              <img
+                src={position.businessImage}
                 alt={position.businessName}
                 className="business-modal-image"
               />
@@ -257,12 +254,19 @@ function BusinessPositionModal({ isOpen, onClose, action, position }) {
                 <div className="info-item">
                   <p className="label">TVL / MCap</p>
                   <p className="value">
-                    ${formatCompactNumber(position.tvl)} / ${formatCompactNumber(position.mcap)}
+                    $
+                    {formatCompactNumber(position.tvl)}
+                    {' '}
+                    / $
+                    {formatCompactNumber(position.mcap)}
                   </p>
                 </div>
                 <div className="info-item">
                   <p className="label">30d rev.</p>
-                  <p className="value">${formatCompactNumber(position.revenue30d)}</p>
+                  <p className="value">
+                    $
+                    {formatCompactNumber(position.revenue30d)}
+                  </p>
                 </div>
                 <div className="info-item">
                   <p className="label">Distribution</p>
@@ -290,16 +294,16 @@ function BusinessPositionModal({ isOpen, onClose, action, position }) {
               <h2 className="action-title">
                 {action === 'supply' ? 'Supply Capital' : 'Borrow Capital'}
               </h2>
-              <button className="close-button" onClick={onClose}>
+              <button type="button" className="close-button" onClick={onClose}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-                  <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round"/>
+                  <path d="M18 6L6 18M6 6L18 18" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
                 </svg>
               </button>
             </div>
 
             <div className="business-description">
               <p>
-                {action === 'supply' 
+                {action === 'supply'
                   ? 'Supply USDC to earn yield from real-world business revenue. Your capital will be used to fund operational expenses and growth initiatives.'
                   : 'Borrow USDC using your position as collateral. Interest rates are determined by the business performance and market conditions.'}
               </p>
@@ -310,7 +314,10 @@ function BusinessPositionModal({ isOpen, onClose, action, position }) {
                 <span className="asset-name">
                   {isLoadingToken ? 'Loading...' : tokenSymbol || 'USDC'}
                 </span>
-                <span className="balance-value">Balance: {balanceDisplay}</span>
+                <span className="balance-value">
+                  Balance:
+                  {balanceDisplay}
+                </span>
               </div>
 
               <input
@@ -332,7 +339,7 @@ function BusinessPositionModal({ isOpen, onClose, action, position }) {
                   onChange={handleSliderChange}
                   disabled={!isConnected || isLoadingToken}
                   style={{
-                    background: `linear-gradient(to right, #388262 0%, #388262 ${percentage}%, rgba(59, 59, 59, 0.5) ${percentage}%, rgba(59, 59, 59, 0.5) 100%)`
+                    background: `linear-gradient(to right, #388262 0%, #388262 ${percentage}%, rgba(59, 59, 59, 0.5) ${percentage}%, rgba(59, 59, 59, 0.5) 100%)`,
                   }}
                 />
                 <input
@@ -352,7 +359,9 @@ function BusinessPositionModal({ isOpen, onClose, action, position }) {
               <div className="summary-row">
                 <span className="summary-label">Amount</span>
                 <span className="summary-value">
-                  {amount || '0.00'} {isLoadingToken ? '...' : (tokenSymbol || 'USDC')}
+                  {amount || '0.00'}
+                  {' '}
+                  {isLoadingToken ? '...' : (tokenSymbol || 'USDC')}
                 </span>
               </div>
               <div className="summary-row">
@@ -369,35 +378,43 @@ function BusinessPositionModal({ isOpen, onClose, action, position }) {
               </div>
             </div>
 
-            {action !== 'supply' ? (<div className="transaction-summary">
-              <div className="summary-row liquidation-price">
-                <span className="summary-label">Liqd. Low Price</span>
-                <span className="summary-value">
-                  {position.liqdLowPrice}
-                </span>
+            {action !== 'supply' ? (
+              <div className="transaction-summary">
+                <div className="summary-row liquidation-price">
+                  <span className="summary-label">Liqd. Low Price</span>
+                  <span className="summary-value">
+                    {position.liqdLowPrice}
+                  </span>
+                </div>
               </div>
-            </div>) : ''}
+            ) : ''}
 
             <div className="action-buttons">
               {!isConnected ? (
-                <button className="action-btn connect-btn" disabled>
+                <button type="button" className="action-btn connect-btn" disabled>
                   Connect Wallet to Continue
                 </button>
               ) : (
                 <>
                   {action === 'supply' ? (
-                    <button 
-                      className="action-btn supply-btn" 
+                    <button
+                      type="button"
+                      className="action-btn supply-btn"
                       disabled={!amount || parseFloat(amount) === 0 || isLoadingToken || isLoadingActionToken}
                     >
-                      Supply {isLoadingActionToken ? '...' : (actionTokenSymbol || 'USDC')}
+                      Supply
+                      {' '}
+                      {isLoadingActionToken ? '...' : (actionTokenSymbol || 'USDC')}
                     </button>
                   ) : (
-                    <button 
-                      className="action-btn borrow-btn" 
+                    <button
+                      type="button"
+                      className="action-btn borrow-btn"
                       disabled={!amount || parseFloat(amount) === 0 || isLoadingToken || isLoadingActionToken}
                     >
-                      Borrow {isLoadingActionToken ? '...' : (actionTokenSymbol || 'USDC')}
+                      Borrow
+                      {' '}
+                      {isLoadingActionToken ? '...' : (actionTokenSymbol || 'USDC')}
                     </button>
                   )}
                 </>
@@ -405,7 +422,14 @@ function BusinessPositionModal({ isOpen, onClose, action, position }) {
             </div>
 
             <div className="risk-disclaimer">
-              <p>⚠️ <strong>Risk Disclaimer:</strong> Investing in real-world asset positions carries unique risks including business performance, market conditions, and regulatory changes. Please review all terms and conditions before proceeding.</p>
+              <p>
+                ⚠️
+                <strong>Risk Disclaimer:</strong>
+                {' '}
+                Investing in real-world asset positions carries unique risks including business
+                performance, market conditions, and regulatory changes. Please review all terms
+                and conditions before proceeding.
+              </p>
             </div>
           </div>
         </div>
