@@ -1,20 +1,21 @@
 import { useState, useEffect, useCallback } from 'react'
 import PropTypes from 'prop-types'
-import { useAccount, usePublicClient } from 'wagmi'
+import { useAccount } from 'wagmi'
 import './PositionOfferingModal.scss'
-import { fetchTokenData } from '../../utils/tokenUtils'
+import { getTokenData } from '../../utils/tokenUtilsOptimized'
 import { formatPercent, formatDollar } from '../../utils/positionUtils'
+import { formatTokenBalance, parseTokenAmount, hasSufficientBalance } from '../../utils/tokenDisplayUtils'
 
 function PositionOfferingModal({
   isOpen, onClose, action, position,
 }) {
-  // Wagmi hooks for wallet connection and blockchain data
+  // Wagmi hooks for wallet connection
   const { address, isConnected } = useAccount()
-  const publicClient = usePublicClient()
 
   // Token data state for the input form (collateral/deposit asset)
   const [tokenSymbol, setTokenSymbol] = useState('')
-  const [tokenBalance, setTokenBalance] = useState('0')
+  const [tokenDecimals, setTokenDecimals] = useState(18)
+  const [tokenBalance, setTokenBalance] = useState('0') // Stored as integer string (wei)
   const [isLoadingToken, setIsLoadingToken] = useState(false)
 
   // Token data for the action (what you're getting/borrowing)
@@ -49,11 +50,10 @@ function PositionOfferingModal({
     return position.liquiditySupplierAsset
   }, [position, action])
 
-  // Check if balance is numeric or a placeholder message
-  const isBalanceNumeric = tokenBalance && !Number.isNaN(parseFloat(tokenBalance))
-  const userBalance = isBalanceNumeric ? parseFloat(tokenBalance) : 0
+  // Check if balance is numeric (integer string) or a placeholder message
+  const isBalanceNumeric = tokenBalance && tokenBalance !== '0' && !tokenBalance.includes('connect')
   const balanceDisplay = isBalanceNumeric
-    ? `${userBalance.toLocaleString(undefined, { maximumFractionDigits: 6 })} ${tokenSymbol}`
+    ? `${formatTokenBalance(tokenBalance, tokenDecimals)} ${tokenSymbol}`
     : tokenBalance || '0'
 
   // Fetch collateral token data (for input form - what you're providing)
@@ -72,17 +72,23 @@ function PositionOfferingModal({
 
       setIsLoadingToken(true)
       try {
-        // Get chainId from position, pass to fetchTokenData for network-aware caching
+        // Get chainId from position
         const chainId = position?.chainId || 1
 
-        // Pass address, publicClient, and chainId
-        const data = await fetchTokenData(
+        // Use optimized getTokenData with automatic caching and batching
+        const data = await getTokenData(
           assetAddress,
           isConnected ? address : null,
-          publicClient,
           chainId,
+          // Callback for real-time balance updates
+          (freshData) => {
+            setTokenSymbol(freshData.symbol)
+            setTokenDecimals(freshData.decimals)
+            setTokenBalance(freshData.balance)
+          },
         )
         setTokenSymbol(data.symbol)
+        setTokenDecimals(data.decimals)
         setTokenBalance(data.balance)
       } catch (error) {
         console.error('Failed to fetch collateral token data:', error)
@@ -94,7 +100,7 @@ function PositionOfferingModal({
     }
 
     loadTokenData()
-  }, [isOpen, address, isConnected, publicClient, getCollateralAssetAddress])
+  }, [isOpen, address, isConnected, getCollateralAssetAddress, position?.chainId])
 
   // Fetch action token symbol (for button - what you're getting)
   useEffect(() => {
@@ -112,14 +118,13 @@ function PositionOfferingModal({
 
       setIsLoadingActionToken(true)
       try {
-        // Get chainId from position for network-aware caching
+        // Get chainId from position
         const chainId = position?.chainId || 1
 
-        // Only need symbol, no need for balance
-        const data = await fetchTokenData(
+        // Only need symbol, no need for balance - optimized call
+        const data = await getTokenData(
           assetAddress,
           null, // No user address needed, we only want the symbol
-          publicClient,
           chainId,
         )
         setActionTokenSymbol(data.symbol)
@@ -132,7 +137,7 @@ function PositionOfferingModal({
     }
 
     loadActionTokenData()
-  }, [isOpen, publicClient, getActionAssetAddress])
+  }, [isOpen, getActionAssetAddress, position?.chainId])
 
   // Reset input when modal opens/closes or action type changes
   useEffect(() => {
@@ -150,12 +155,13 @@ function PositionOfferingModal({
     if (value === '' || /^\d*\.?\d*$/.test(value)) {
       setAmount(value)
 
-      // Update slider percentage
+      // Update slider percentage based on balance
       if (value === '' || parseFloat(value) === 0) {
         setPercentage(0)
-      } else {
+      } else if (isBalanceNumeric) {
         const numValue = parseFloat(value)
-        const pct = Math.min((numValue / userBalance) * 100, 100)
+        const userBalanceFloat = parseFloat(formatTokenBalance(tokenBalance, tokenDecimals))
+        const pct = Math.min((numValue / userBalanceFloat) * 100, 100)
         setPercentage(Math.round(pct))
       }
     }
@@ -167,8 +173,11 @@ function PositionOfferingModal({
     setPercentage(pct)
 
     // Update input amount
-    const amt = (userBalance * pct) / 100
-    setAmount(amt > 0 ? amt.toFixed(6) : '')
+    if (isBalanceNumeric) {
+      const userBalanceFloat = parseFloat(formatTokenBalance(tokenBalance, tokenDecimals))
+      const amt = (userBalanceFloat * pct) / 100
+      setAmount(amt > 0 ? amt.toFixed(6) : '')
+    }
   }
 
   // Handle percentage input change
@@ -180,8 +189,11 @@ function PositionOfferingModal({
       setPercentage(pct)
 
       // Update input amount
-      const amt = (userBalance * pct) / 100
-      setAmount(amt > 0 ? amt.toFixed(6) : '')
+      if (isBalanceNumeric) {
+        const userBalanceFloat = parseFloat(formatTokenBalance(tokenBalance, tokenDecimals))
+        const amt = (userBalanceFloat * pct) / 100
+        setAmount(amt > 0 ? amt.toFixed(6) : '')
+      }
     }
   }
   // Handle ESC key to close modal

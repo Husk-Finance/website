@@ -10,10 +10,19 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import { http } from 'viem'
 import App from './App'
 import { hyperevm } from './constants/chains'
+import { createSmartTransport } from './services/rpcLoadBalancer'
 
 Porto.create()
 
-const queryClient = new QueryClient()
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: 30000, // 30 seconds
+      cacheTime: 5 * 60 * 1000, // 5 minutes
+      refetchOnWindowFocus: false,
+    },
+  },
+})
 
 const RPC_URLS = {
   [mainnet.id]: 'https://lb.drpc.live/ethereum/ApV7qFFPZUNojcZQujPHrTH9b6q7rvcR8LoqQrxF2MGT',
@@ -80,7 +89,8 @@ export function isSupportedChain(chainId) {
 
 const transports = {}
 Object.keys(RPC_URLS).forEach((key) => {
-  transports[key] = http(RPC_URLS[key])
+  // Use smart transport with load balancing and failover
+  transports[key] = createSmartTransport(parseInt(key), RPC_URLS[key])
 })
 
 const config = getDefaultConfig({

@@ -235,7 +235,7 @@ export const mockDeFiPositions = [
     quotedAsset: 'USDe',
   },
   {
-    id: 402,
+    id: 403,
     chainId: 5000,
     protocol: 'MerchantMoe Staking',
     createdAt: 1761453090000,
