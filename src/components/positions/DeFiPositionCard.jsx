@@ -62,7 +62,7 @@ export default function DeFiPositionCard({ position, onSupplyClick, onBorrowClic
 
         <div className="grid-item">
           <div className="grid-label">{GRID_LABELS.participationRisk}</div>
-          <div className="grid-value">{position.participationRisk}</div>
+          <div className="grid-value">{formatPercent(position.participationRisk)}</div>
         </div>
 
         <div className="button-item">

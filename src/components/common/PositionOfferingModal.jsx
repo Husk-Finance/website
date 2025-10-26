@@ -332,7 +332,7 @@ function PositionOfferingModal({
                   <p className="value">
                     {isDexPosition
                       ? formatPercent(position.borrowRisk)
-                      : position.participationRisk}
+                      : formatPercent(position.participationRisk)}
                   </p>
                 </div>
               </div>

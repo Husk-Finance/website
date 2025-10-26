@@ -25,7 +25,7 @@ export const mockBusinessPositions = [
     distribution: 'Biquarter',
     nextDistribution: '21/12/2025',
     supplyAPY: '2500', // 25%
-    participationRisk: '0.13',
+    participationRisk: '13',
     liquidityProviderAsset: '0x0000000000000000000000000000000000000001', // RWA Business Token (placeholder)
     liquiditySupplierAsset: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // USDC
   },
@@ -48,7 +48,7 @@ export const mockBusinessPositions = [
     distribution: 'Quarter',
     nextDistribution: '01/01/2026',
     supplyAPY: '2200', // 22%
-    participationRisk: '0.18',
+    participationRisk: '18',
     liquidityProviderAsset: '0x0000000000000000000000000000000000000002', // RWA Business Token (placeholder)
     liquiditySupplierAsset: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // USDC
   },
@@ -73,7 +73,7 @@ export const mockBusinessPositions = [
     distribution: 'Biquarter',
     nextDistribution: '15/01/2026',
     supplyAPY: '3000', // 30%
-    participationRisk: '0.22',
+    participationRisk: '22',
     liquidityProviderAsset: '0x0000000000000000000000000000000000000003', // RWA Business Token (placeholder)
     liquiditySupplierAsset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913', // USDC on Base
   },
@@ -96,7 +96,7 @@ export const mockBusinessPositions = [
     distribution: 'Quarter',
     nextDistribution: '10/01/2026',
     supplyAPY: '2800', // 28%
-    participationRisk: '0.15',
+    participationRisk: '15',
     liquidityProviderAsset: '0x0000000000000000000000000000000000000004', // RWA Business Token (placeholder)
     liquiditySupplierAsset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913', // USDC on Base
   },
@@ -121,7 +121,7 @@ export const mockBusinessPositions = [
     distribution: 'Biquarter',
     nextDistribution: '25/12/2025',
     supplyAPY: '3200', // 32%
-    participationRisk: '0.20',
+    participationRisk: '20',
     liquidityProviderAsset: '0x0000000000000000000000000000000000000005', // RWA Business Token (placeholder)
     liquiditySupplierAsset: '0xb88339CB7199b77E23DB6E890353E22632Ba630f', // USDC (placeholder for HyperEVM)
   },
@@ -144,7 +144,7 @@ export const mockBusinessPositions = [
     distribution: 'Quarter',
     nextDistribution: '05/01/2026',
     supplyAPY: '2400', // 24%
-    participationRisk: '0.16',
+    participationRisk: '16',
     liquidityProviderAsset: '0x0000000000000000000000000000000000000006', // RWA Business Token (placeholder)
     liquiditySupplierAsset: '0xb88339CB7199b77E23DB6E890353E22632Ba630f', // USDC (placeholder for HyperEVM)
   },
@@ -168,7 +168,7 @@ export const mockBusinessPositions = [
     distribution: 'Biquarter',
     nextDistribution: '30/12/2025',
     supplyAPY: '2300', // 23%
-    participationRisk: '0.17',
+    participationRisk: '17',
     liquidityProviderAsset: '0x0000000000000000000000000000000000000007', // RWA Business Token (placeholder)
     liquiditySupplierAsset: '0xb88339CB7199b77E23DB6E890353E22632Ba630f', // USDC (placeholder for HyperEVM)
   },
@@ -191,7 +191,7 @@ export const mockBusinessPositions = [
     distribution: 'Quarter',
     nextDistribution: '15/01/2026',
     supplyAPY: '2900', // 29%
-    participationRisk: '0.19',
+    participationRisk: '19',
     liquidityProviderAsset: '0x0000000000000000000000000000000000000008', // RWA Business Token (placeholder)
     liquiditySupplierAsset: '0xb88339CB7199b77E23DB6E890353E22632Ba630f', // USDC (placeholder for HyperEVM)
   },
