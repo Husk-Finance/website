@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import { useAccount, usePublicClient } from 'wagmi'
 import './PositionOfferingModal.scss'
 import { fetchTokenData } from '../../utils/tokenUtils'
+import { formatPercent, formatDollar } from '../../utils/positionUtils'
 
 function PositionOfferingModal({ isOpen, onClose, action, position, positionType }) {
   // Wagmi hooks for wallet connection and blockchain data
@@ -250,7 +251,7 @@ function PositionOfferingModal({ isOpen, onClose, action, position, positionType
               </div>
               <div className="husk-apy">
                 <p className="label">Husk APY</p>
-                <p className="value">{position.huskAPY}</p>
+                <p className="value">{formatPercent(position.huskAPY)}</p>
               </div>
             </div>
 
@@ -258,11 +259,11 @@ function PositionOfferingModal({ isOpen, onClose, action, position, positionType
               <div className="info-grid">
                 <div className="info-item">
                   <p className="label">TVL</p>
-                  <p className="value">{position.tvl}</p>
+                  <p className="value">{formatDollar(position.tvl)}</p>
                 </div>
                 <div className="info-item">
                   <p className="label">24h rev.</p>
-                  <p className="value">{position.revenue24h}</p>
+                  <p className="value">{formatDollar(position.revenue24h)}</p>
                 </div>
                 {isDexPosition ? (
                   <>
@@ -289,7 +290,7 @@ function PositionOfferingModal({ isOpen, onClose, action, position, positionType
                 )}
                 <div className="info-item">
                   <p className="label">Supply APY</p>
-                  <p className="value">{position.supplyAPY}</p>
+                  <p className="value">{formatPercent(position.supplyAPY)}</p>
                 </div>
                 <div className="info-item">
                   <p className="label">{isDexPosition ? 'Borrow Risk' : 'Participation Risk'}</p>
