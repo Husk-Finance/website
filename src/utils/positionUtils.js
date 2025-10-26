@@ -41,6 +41,16 @@ export function formatPercent(value) {
 }
 
 /**
+ * Formats a dollar amount with compact notation and $ prefix
+ * @param {string|number} value - Dollar amount as string or number
+ * @returns {string} Formatted dollar amount (e.g., "$1.23K", "$4.56M")
+ */
+export function formatDollar(value) {
+  const formatted = formatCompactNumber(value)
+  return '$' + formatted
+}
+
+/**
  * Sorts positions by creation time (newest first)
  * @param {Array} positions - Array of position objects
  * @returns {Array} Sorted array of positions

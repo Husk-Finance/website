@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types'
 import './DeFiPositionCard.scss'
 import { GRID_LABELS } from '../../constants'
-import { getQuotedTokenSymbol } from '../../utils/positionUtils'
+import { getQuotedTokenSymbol, formatPercent, formatDollar } from '../../utils/positionUtils'
 
 export default function DeFiPositionCard({ position, onSupplyClick, onBorrowClick }) {
   // Both buttons show the same token for DeFi positions
@@ -30,19 +30,19 @@ export default function DeFiPositionCard({ position, onSupplyClick, onBorrowClic
 
         <div className="rate-info">
           <div className="rate-label">{GRID_LABELS.huskAPY}</div>
-          <div className="rate-value">{position.huskAPY}</div>
+          <div className="rate-value">{formatPercent(position.huskAPY)}</div>
         </div>
       </div>
 
       <div className="card-grid">
         <div className="grid-item">
           <div className="grid-label">{GRID_LABELS.tvl}</div>
-          <div className="grid-value">{position.tvl}</div>
+          <div className="grid-value">{formatDollar(position.tvl)}</div>
         </div>
 
         <div className="grid-item">
           <div className="grid-label">{GRID_LABELS.revenue24h}</div>
-          <div className="grid-value">{position.revenue24h}</div>
+          <div className="grid-value">{formatDollar(position.revenue24h)}</div>
         </div>
 
         <div className="grid-item">
@@ -57,7 +57,7 @@ export default function DeFiPositionCard({ position, onSupplyClick, onBorrowClic
 
         <div className="grid-item">
           <div className="grid-label">{GRID_LABELS.supplyAPY}</div>
-          <div className="grid-value">{position.supplyAPY}</div>
+          <div className="grid-value">{formatPercent(position.supplyAPY)}</div>
         </div>
 
         <div className="grid-item">

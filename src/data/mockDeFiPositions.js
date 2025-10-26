@@ -1,6 +1,11 @@
 /**
  * Mock DeFi position data for development.
  * Contains positions from multiple networks - filter by chainId as needed.
+ * 
+ * Data Format:
+ * - huskAPY, supplyAPY: Integer strings representing percentages (e.g., "4325" = 43.25%)
+ * - tvl, revenue24h: Integer strings representing dollar amounts (e.g., "10620" = $10.62K)
+ * - liquidationLow: Formatted strings or empty for positions without liquidation risk
  */
 
 export const mockDeFiPositions = [
@@ -14,12 +19,12 @@ export const mockDeFiPositions = [
       { label: 'RWA', bg: '#2485c7', color: '#000000' },
       { label: 'AutoC', bg: '#0d9aa2', color: '#ffffff' },
     ],
-    huskAPY: '43.25%',
+    huskAPY: '4325', // 43.25%
     distribution: 'Thursday',
     nextDistribution: 'in 7 days 3 hours',
-    supplyAPY: '25%',
-    tvl: '$10.62k',
-    revenue24h: '$850',
+    supplyAPY: '2500', // 25%
+    tvl: '10620', // $10.62k
+    revenue24h: '850', // $850
     liquidationLow: '0.99 USDC',
     participationRisk: '0.13',
     liquidityProviderAsset: '0x0000000000000000000000000000000000000001', // Mock AETHIR address
@@ -34,12 +39,12 @@ export const mockDeFiPositions = [
     tags: [
       { label: 'AutoC', bg: '#0d9aa2', color: '#ffffff' },
     ],
-    huskAPY: '12.45%',
+    huskAPY: '1245', // 12.45%
     distribution: 'Weekly',
     nextDistribution: 'in 3 days',
-    supplyAPY: '2.84%',
-    tvl: '$860k',
-    revenue24h: '$310',
+    supplyAPY: '284', // 2.84%
+    tvl: '860000', // $860k
+    revenue24h: '310', // $310
     liquidationLow: '0.997 USDC',
     participationRisk: '0.08',
     liquidityProviderAsset: '0xc00e94Cb662C3520282E6f5717214004A7f26888', // COMP
@@ -52,12 +57,12 @@ export const mockDeFiPositions = [
     protocol: 'Maker DAI Savings',
     createdAt: 1726387200000, // Sep 15, 2025 08:00:00 - 36 days ago - no NEW tag
     tags: [],
-    huskAPY: '8.1%',
+    huskAPY: '810', // 8.1%
     distribution: 'Monthly',
     nextDistribution: 'in 14 days',
-    supplyAPY: '1.20%',
-    tvl: '$2.3M',
-    revenue24h: '$940',
+    supplyAPY: '120', // 1.20%
+    tvl: '2300000', // $2.3M
+    revenue24h: '940', // $940
     liquidationLow: '0.995 USDC',
     participationRisk: '0.04',
     liquidityProviderAsset: '0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2', // MKR
@@ -70,12 +75,12 @@ export const mockDeFiPositions = [
     protocol: 'Euler ETH Borrow',
     createdAt: 1761022590000, // should get NEW tag
     tags: [],
-    huskAPY: '7.2%',
+    huskAPY: '720', // 7.2%
     distribution: 'Daily',
     nextDistribution: 'in 12 hours',
-    supplyAPY: '4.50%',
-    tvl: '$420k',
-    revenue24h: '$120',
+    supplyAPY: '450', // 4.50%
+    tvl: '420000', // $420k
+    revenue24h: '120', // $120
     liquidationLow: '2,800 USDC',
     participationRisk: '0.35',
     liquidityProviderAsset: '0xd9Fcd98c322942075A5C3860693e9f4f03AAE07b', // EUL
@@ -92,12 +97,12 @@ export const mockDeFiPositions = [
     tags: [
       { label: 'AutoC', bg: '#0d9aa2', color: '#ffffff' },
     ],
-    huskAPY: '15.85%',
+    huskAPY: '1585', // 15.85%
     distribution: 'Weekly',
     nextDistribution: 'in 5 days',
-    supplyAPY: '4.2%',
-    tvl: '$1.2M',
-    revenue24h: '$520',
+    supplyAPY: '420', // 4.2%
+    tvl: '1200000', // $1.2M
+    revenue24h: '520', // $520
     liquidationLow: '0.997 USDbC',
     participationRisk: '0.09',
     liquidityProviderAsset: '0x0000000000000000000000000000000000000002', // Mock AAVE on Base
@@ -112,12 +117,12 @@ export const mockDeFiPositions = [
     tags: [
       { label: 'AutoC', bg: '#0d9aa2', color: '#ffffff' },
     ],
-    huskAPY: '18.45%',
+    huskAPY: '1845', // 18.45%
     distribution: 'Daily',
     nextDistribution: 'in 18 hours',
-    supplyAPY: '5.8%',
-    tvl: '$780k',
-    revenue24h: '$340',
+    supplyAPY: '580', // 5.8%
+    tvl: '780000', // $780k
+    revenue24h: '340', // $340
     liquidationLow: '3,100 USDbC',
     participationRisk: '0.32',
     liquidityProviderAsset: '0x0000000000000000000000000000000000000003', // Mock WELL on Base
@@ -132,12 +137,12 @@ export const mockDeFiPositions = [
     tags: [
       { label: 'BTC', bg: '#f7931a', color: '#ffffff' },
     ],
-    huskAPY: '22.67%',
+    huskAPY: '2267', // 22.67%
     distribution: 'Weekly',
     nextDistribution: 'in 4 days',
-    supplyAPY: '6.5%',
-    tvl: '$540k',
-    revenue24h: '$280',
+    supplyAPY: '650', // 6.5%
+    tvl: '540000', // $540k
+    revenue24h: '280', // $280
     liquidationLow: '94,000 USDbC',
     participationRisk: '0.42',
     liquidityProviderAsset: '0x0000000000000000000000000000000000000004', // Mock SEAM on Base
@@ -152,12 +157,12 @@ export const mockDeFiPositions = [
     tags: [
       { label: 'Stable', bg: '#10b981', color: '#ffffff' },
     ],
-    huskAPY: '9.2%',
+    huskAPY: '920', // 9.2%
     distribution: 'Weekly',
     nextDistribution: 'in 2 days',
-    supplyAPY: '3.1%',
-    tvl: '$2.1M',
-    revenue24h: '$180',
+    supplyAPY: '310', // 3.1%
+    tvl: '2100000', // $2.1M
+    revenue24h: '180', // $180
     liquidationLow: '0.998 USDC',
     participationRisk: '0.05',
     liquidityProviderAsset: '0x0000000000000000000000000000000000000005', // Mock AERO on Base
@@ -174,12 +179,12 @@ export const mockDeFiPositions = [
     tags: [
       { label: 'LST', bg: '#8b5cf6', color: '#ffffff' },
     ],
-    huskAPY: '2.1%',
+    huskAPY: '210', // 2.1%
     distribution: 'Daily',
     nextDistribution: 'in 6 hours',
-    supplyAPY: '0.43%',
-    tvl: '$44k',
-    revenue24h: '$40',
+    supplyAPY: '43', // 0.43%
+    tvl: '44000', // $44k
+    revenue24h: '40', // $40
     liquidationLow: '',
     participationRisk: '0.01',
     liquidityProviderAsset: '0xfFaa4a3D97fE9107Cef8a3F48c069F577Ff76cC1', // stHYPE
@@ -196,12 +201,12 @@ export const mockDeFiPositions = [
     tags: [
       { label: 'LST', bg: '#8b5cf6', color: '#ffffff' },
     ],
-    huskAPY: '0.2%',
-    supplyAPY: '0.05%',
+    huskAPY: '20', // 0.2%
+    supplyAPY: '5', // 0.05%
     distribution: 'Daily',
     nextDistribution: 'in 6 hours',
-    tvl: '$10k',
-    revenue24h: '$2',
+    tvl: '10000', // $10k
+    revenue24h: '2', // $2
     liquidationLow: '',
     participationRisk: '0.01',
     liquidityProviderAsset: '0x93919784C523f39CACaa98Ee0a9d96c3F32b593e', // uniBTC
@@ -217,12 +222,12 @@ export const mockDeFiPositions = [
       { label: 'CLM', bg: '#3b82f6', color: '#ffffff' },
       { label: 'UniV3', bg: '#ff7777', color: '#000000' },
     ],
-    huskAPY: '4.64%',
-    supplyAPY: '1.32%',
+    huskAPY: '464', // 4.64%
+    supplyAPY: '132', // 1.32%
     distribution: 'Daily',
     nextDistribution: 'in 6 hours',
-    tvl: '$62.16k',
-    revenue24h: '$2.77',
+    tvl: '62160', // $62.16k
+    revenue24h: '277', // $2.77
     liquidationLow: '',
     participationRisk: '0.01',
     liquidityProviderAsset: '0xEBDC36506adCFF3c64E7da11215D7Bf1d4700Ee3', // Cow Uniswap mETH-WETH
