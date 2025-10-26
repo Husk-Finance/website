@@ -3,11 +3,14 @@ import './DexPositionCard.scss'
 import uniswapIcon from '../../assets/uniswap-icon.svg'
 import aerodromeIcon from '../../assets/aerodrome-icon.svg'
 import { GRID_LABELS } from '../../constants'
-import { getQuotedTokenSymbol } from '../../utils/positionUtils'
+import { getQuotedTokenSymbol, formatPercent, formatDollar, formatTokenAmount, getTokenDecimals } from '../../utils/positionUtils'
 
 export default function DexPositionCard({ position, onSupplyClick, onBorrowClick }) {
   // Both buttons show the quote asset (what you're getting/depositing)
   const quotedToken = getQuotedTokenSymbol(position, 'supply')
+  
+  // Get decimals for the quote asset (liquiditySupplierAsset)
+  const quoteDecimals = getTokenDecimals(position.liquiditySupplierAsset)
   
   return (
     <div className="dex-position-card">
@@ -34,7 +37,7 @@ export default function DexPositionCard({ position, onSupplyClick, onBorrowClick
         <div className="pair-info">
           <div className="pair-name">{position.pair}</div>
           <div className="pair-meta">
-            {position.version} {position.fee}{' '}
+            {position.version} {formatPercent(position.fee)}{' '}
             <span className="protocol-name">
               {position.protocol.charAt(0).toUpperCase() + position.protocol.slice(1)}
             </span>
@@ -42,34 +45,34 @@ export default function DexPositionCard({ position, onSupplyClick, onBorrowClick
         </div>
         <div className="apy-info">
           <div className="apy-label">{GRID_LABELS.huskAPY}</div>
-          <div className="apy-value">{position.huskAPY}</div>
+          <div className="apy-value">{formatPercent(position.huskAPY)}</div>
         </div>
       </div>
 
       <div className="card-grid">
         <div className="grid-item">
           <div className="grid-label">{GRID_LABELS.tvl}</div>
-          <div className="grid-value">{position.tvl}</div>
+          <div className="grid-value">{formatDollar(position.tvl)}</div>
         </div>
         <div className="grid-item">
           <div className="grid-label">{GRID_LABELS.revenue24h}</div>
-          <div className="grid-value">{position.revenue24h}</div>
+          <div className="grid-value">{formatDollar(position.revenue24h)}</div>
         </div>
         <div className="grid-item">
           <div className="grid-label">{GRID_LABELS.liquidationLow}</div>
-          <div className="grid-value">{position.liquidationLow}</div>
+          <div className="grid-value">{formatTokenAmount(position.liquidationLow, quoteDecimals, quotedToken)}</div>
         </div>
         <div className="grid-item">
           <div className="grid-label">{GRID_LABELS.liquidationHigh}</div>
-          <div className="grid-value">{position.liquidationHigh}</div>
+          <div className="grid-value">{formatTokenAmount(position.liquidationHigh, quoteDecimals, quotedToken)}</div>
         </div>
         <div className="grid-item">
           <div className="grid-label">{GRID_LABELS.supplyAPY}</div>
-          <div className="grid-value">{position.supplyAPY}</div>
+          <div className="grid-value">{formatPercent(position.supplyAPY)}</div>
         </div>
         <div className="grid-item">
           <div className="grid-label">{GRID_LABELS.borrowRisk}</div>
-          <div className="grid-value">{position.borrowRisk}</div>
+          <div className="grid-value">{formatPercent(position.borrowRisk)}</div>
         </div>
         <div className="button-item">
           <button className="action-button" onClick={onSupplyClick}>

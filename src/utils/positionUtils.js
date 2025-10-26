@@ -51,6 +51,68 @@ export function formatDollar(value) {
 }
 
 /**
+ * Formats a token amount from smallest unit to human-readable format
+ * @param {string|number} value - Token amount in smallest unit (e.g., wei for 18 decimals, microunits for 6 decimals)
+ * @param {number} decimals - Number of decimals for the token (e.g., 18 for ETH, 6 for USDC)
+ * @param {string} symbol - Token symbol (e.g., "ETH", "USDC")
+ * @returns {string} Formatted token amount (e.g., "16.5 ETH", "4,000 USDC")
+ */
+export function formatTokenAmount(value, decimals, symbol) {
+  const num = typeof value === 'string' ? BigInt(value) : BigInt(value)
+  const divisor = BigInt(10 ** decimals)
+  
+  // Convert to number for formatting
+  const amount = Number(num) / Number(divisor)
+  
+  // Format based on size
+  let formatted
+  if (amount >= 1000) {
+    formatted = amount.toLocaleString('en-US', { 
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 2
+    })
+  } else if (amount >= 1) {
+    formatted = amount.toLocaleString('en-US', {
+      minimumFractionDigits: 0,
+      maximumFractionDigits: 2
+    })
+  } else {
+    // For small amounts, show more precision
+    formatted = amount.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 6
+    })
+  }
+  
+  return `${formatted} ${symbol}`
+}
+
+/**
+ * Gets the number of decimals for a token based on its address
+ * @param {string} tokenAddress - Token contract address
+ * @returns {number} Number of decimals (default: 18)
+ */
+export function getTokenDecimals(tokenAddress) {
+  // Common token decimals mapping
+  const decimalsMap = {
+    // USDC addresses (6 decimals)
+    '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48': 6, // USDC on Ethereum
+    '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913': 6, // USDC on Base
+    '0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA': 6, // USDbC on Base
+    '0x09Bc4E0D864854c6aFB6eB9A9cdF58aC190D0dF9': 6, // USDC on Mantle
+    
+    // USDT (6 decimals)
+    '0xdAC17F958D2ee523a2206206994597C13D831ec7': 6, // USDT on Ethereum
+    
+    // WBTC (8 decimals)
+    '0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599': 8, // WBTC on Ethereum
+    '0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf': 8, // cbBTC on Base
+  }
+  
+  return decimalsMap[tokenAddress] || 18 // Default to 18 decimals for ETH and most ERC20s
+}
+
+/**
  * Sorts positions by creation time (newest first)
  * @param {Array} positions - Array of position objects
  * @returns {Array} Sorted array of positions
