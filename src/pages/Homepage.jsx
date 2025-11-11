@@ -5,6 +5,9 @@ import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
 import { DexPositionCard } from '../components/positions'
 import DeFiPositionCard from '../components/positions/DeFiPositionCard'
+import DexPositionTable from '../components/positions/DexPositionTable'
+import DeFiPositionTable from '../components/positions/DeFiPositionTable'
+import ViewToggle from '../components/common/ViewToggle'
 import { HERO_CONTENT, SECTION_TITLES } from '../constants'
 import {
   processDexPositions,
@@ -50,6 +53,10 @@ export default function Homepage() {
     position: null,
     actionType: null, // 'supply' or 'borrow'
   })
+
+  // View mode state for each section
+  const [dexView, setDexView] = useState('grid')
+  const [defiView, setDefiView] = useState('grid')
 
   const openModal = (position, actionType) => {
     setModalState({
@@ -116,18 +123,29 @@ export default function Homepage() {
       </section> */}
 
       <section className="positions-section">
-        <h2>{SECTION_TITLES.dexPositionMarket}</h2>
+        <div className="section-header">
+          <h2>{SECTION_TITLES.dexPositionMarket}</h2>
+          <ViewToggle view={dexView} onViewChange={setDexView} />
+        </div>
         {sortedDexPositions.length > 0 ? (
-          <div className="positions-grid">
-            {sortedDexPositions.map((position) => (
-              <DexPositionCard
-                key={position.id}
-                position={position}
-                onSupplyClick={() => openModal(position, 'supply')}
-                onBorrowClick={() => openModal(position, 'borrow')}
-              />
-            ))}
-          </div>
+          dexView === 'grid' ? (
+            <div className="positions-grid">
+              {sortedDexPositions.map((position) => (
+                <DexPositionCard
+                  key={position.id}
+                  position={position}
+                  onSupplyClick={() => openModal(position, 'supply')}
+                  onBorrowClick={() => openModal(position, 'borrow')}
+                />
+              ))}
+            </div>
+          ) : (
+            <DexPositionTable
+              positions={sortedDexPositions}
+              onSupplyClick={(position) => openModal(position, 'supply')}
+              onBorrowClick={(position) => openModal(position, 'borrow')}
+            />
+          )
         ) : (
           <div className="empty-state">
             <p>No DEX positions available on this network.</p>
@@ -137,18 +155,29 @@ export default function Homepage() {
       </section>
 
       <section className="positions-section">
-        <h2>{SECTION_TITLES.defiPositionMarket}</h2>
+        <div className="section-header">
+          <h2>{SECTION_TITLES.defiPositionMarket}</h2>
+          <ViewToggle view={defiView} onViewChange={setDefiView} />
+        </div>
         {sortedDeFiPositions.length > 0 ? (
-          <div className="positions-grid">
-            {sortedDeFiPositions.map((position) => (
-              <DeFiPositionCard
-                key={position.id}
-                position={position}
-                onSupplyClick={() => openModal(position, 'supply')}
-                onBorrowClick={() => openModal(position, 'borrow')}
-              />
-            ))}
-          </div>
+          defiView === 'grid' ? (
+            <div className="positions-grid">
+              {sortedDeFiPositions.map((position) => (
+                <DeFiPositionCard
+                  key={position.id}
+                  position={position}
+                  onSupplyClick={() => openModal(position, 'supply')}
+                  onBorrowClick={() => openModal(position, 'borrow')}
+                />
+              ))}
+            </div>
+          ) : (
+            <DeFiPositionTable
+              positions={sortedDeFiPositions}
+              onSupplyClick={(position) => openModal(position, 'supply')}
+              onBorrowClick={(position) => openModal(position, 'borrow')}
+            />
+          )
         ) : (
           <div className="empty-state">
             <p>No DeFi positions available on this network.</p>

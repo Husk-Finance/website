@@ -1,3 +1,5 @@
 export { default as DexPositionCard } from './DexPositionCard'
 export { default as DeFiPositionCard } from './DeFiPositionCard'
 export { default as BusinessPositionCard } from './BusinessPositionCard'
+export { default as DexPositionTable } from './DexPositionTable'
+export { default as DeFiPositionTable } from './DeFiPositionTable'
