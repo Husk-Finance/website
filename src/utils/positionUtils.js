@@ -1,5 +1,8 @@
+import { processTags } from '../constants/tags'
+
 /**
- * Utility functions for position data management
+ * Utility functions for position data processing and formatting.
+ * Provides common operations for DEX and DeFi positions.
  */
 
 import { getNetworkByChainId } from '../constants/networks'
@@ -194,17 +197,20 @@ export function autoTagNewPositions(positions) {
 }
 
 /**
- * Processes DeFi positions: auto-tags and sorts by creation time
+ * Processes DeFi positions: adds NEW tags and processes tag names into full tag objects
  * @param {Array} positions - Array of DeFi position objects
- * @returns {Array} Processed positions
+ * @returns {Array} Processed positions with full tag objects
  */
 export function processDeFiPositions(positions) {
   const tagged = autoTagNewPositions(positions)
-  return sortByCreationTime(tagged)
+  return sortByCreationTime(tagged).map(position => ({
+    ...position,
+    tags: processTags(position.tags)
+  }))
 }
 
 /**
- * Processes DEX positions: sorts by creation time
+ * Processes DEX positions: sorts by creation time (DEX positions don't have tags)
  * @param {Array} positions - Array of DEX position objects
  * @returns {Array} Processed positions
  */
@@ -213,12 +219,15 @@ export function processDexPositions(positions) {
 }
 
 /**
- * Processes Business positions: sorts by creation time
+ * Processes Business positions: sorts by creation time and processes tag names into full tag objects
  * @param {Array} positions - Array of Business position objects
- * @returns {Array} Processed positions
+ * @returns {Array} Processed positions with full tag objects
  */
 export function processBusinessPositions(positions) {
-  return sortByCreationTime(positions)
+  return sortByCreationTime(positions).map(position => ({
+    ...position,
+    tags: processTags(position.tags)
+  }))
 }
 
 /**

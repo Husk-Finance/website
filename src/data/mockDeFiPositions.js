@@ -6,6 +6,7 @@
  * - huskAPY, supplyAPY: Integer strings representing percentages (e.g., "4325" = 43.25%)
  * - tvl, revenue24h: Integer strings representing dollar amounts (e.g., "10620" = $10.62K)
  * - liquidationLow: Formatted strings or empty for positions without liquidation risk
+ * - tags: Array of tag names (strings) - styling is defined in constants/tags.js
  */
 
 export const mockDeFiPositions = [
@@ -15,10 +16,7 @@ export const mockDeFiPositions = [
     chainId: 1, // Ethereum Mainnet
     protocol: 'Aethir Gaming Pool',
     createdAt: 1761022597000, // should get NEW tag
-    tags: [
-      { label: 'RWA', bg: '#2485c7', color: '#000000' },
-      { label: 'AutoC', bg: '#0d9aa2', color: '#ffffff' },
-    ],
+    tags: ['RWA', 'AutoC'],
     huskAPY: '4325', // 43.25%
     distribution: 'Thursday',
     nextDistribution: 'in 7 days 3 hours',
@@ -36,9 +34,7 @@ export const mockDeFiPositions = [
     chainId: 1,
     protocol: 'Compound USDC Market',
     createdAt: 1728567000000, // Oct 10, 2025 14:30:00 - 11 days ago - no NEW tag
-    tags: [
-      { label: 'AutoC', bg: '#0d9aa2', color: '#ffffff' },
-    ],
+    tags: ['AutoC'],
     huskAPY: '1245', // 12.45%
     distribution: 'Weekly',
     nextDistribution: 'in 3 days',
@@ -94,9 +90,7 @@ export const mockDeFiPositions = [
     chainId: 8453, // Base
     protocol: 'Aave Base USDC',
     createdAt: 1729433700000, // Oct 20, 2025 - should get NEW tag
-    tags: [
-      { label: 'AutoC', bg: '#0d9aa2', color: '#ffffff' },
-    ],
+    tags: ['AutoC'],
     huskAPY: '1585', // 15.85%
     distribution: 'Weekly',
     nextDistribution: 'in 5 days',
@@ -114,9 +108,7 @@ export const mockDeFiPositions = [
     chainId: 8453,
     protocol: 'Moonwell ETH Market',
     createdAt: 1729247400000, // Oct 18, 2025 - should get NEW tag
-    tags: [
-      { label: 'AutoC', bg: '#0d9aa2', color: '#ffffff' },
-    ],
+    tags: ['AutoC'],
     huskAPY: '1845', // 18.45%
     distribution: 'Daily',
     nextDistribution: 'in 18 hours',
@@ -134,9 +126,7 @@ export const mockDeFiPositions = [
     chainId: 8453,
     protocol: 'Seamless cbBTC Pool',
     createdAt: 1728993600000, // Oct 15, 2025 - should get NEW tag
-    tags: [
-      { label: 'BTC', bg: '#f7931a', color: '#ffffff' },
-    ],
+    tags: ['BTC'],
     huskAPY: '2267', // 22.67%
     distribution: 'Weekly',
     nextDistribution: 'in 4 days',
@@ -154,9 +144,7 @@ export const mockDeFiPositions = [
     chainId: 8453,
     protocol: 'Aerodrome Stable Pool',
     createdAt: 1727280000000, // Sep 25, 2025 16:00:00 - no NEW tag
-    tags: [
-      { label: 'Stable', bg: '#10b981', color: '#ffffff' },
-    ],
+    tags: ['Stable'],
     huskAPY: '920', // 9.2%
     distribution: 'Weekly',
     nextDistribution: 'in 2 days',
@@ -176,9 +164,7 @@ export const mockDeFiPositions = [
     chainId: 999,
     protocol: 'StakedHYPE stHYPE',
     createdAt: 1727280000000,
-    tags: [
-      { label: 'LST', bg: '#8b5cf6', color: '#ffffff' },
-    ],
+    tags: ['LST'],
     huskAPY: '210', // 2.1%
     distribution: 'Daily',
     nextDistribution: 'in 6 hours',
@@ -198,9 +184,7 @@ export const mockDeFiPositions = [
     chainId: 5000,
     protocol: 'Bedrock uniBTC',
     createdAt: 1761453070825,
-    tags: [
-      { label: 'LST', bg: '#8b5cf6', color: '#ffffff' },
-    ],
+    tags: ['LST'],
     huskAPY: '20', // 0.2%
     supplyAPY: '5', // 0.05%
     distribution: 'Daily',
@@ -218,10 +202,7 @@ export const mockDeFiPositions = [
     chainId: 5000,
     protocol: 'Beefy mETH-WETH CLM',
     createdAt: 1761453090000,
-    tags: [
-      { label: 'CLM', bg: '#3b82f6', color: '#ffffff' },
-      { label: 'UniV3', bg: '#ff7777', color: '#000000' },
-    ],
+    tags: ['CLM', 'UniV3'],
     huskAPY: '464', // 4.64%
     supplyAPY: '132', // 1.32%
     distribution: 'Daily',

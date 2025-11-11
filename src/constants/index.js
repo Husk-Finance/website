@@ -6,6 +6,9 @@
 // Re-export network constants
 export * from './networks'
 
+// Re-export tag constants
+export * from './tags'
+
 // Navigation Links
 export const NAV_LINKS = [
   { label: 'Docs', href: '#docs' },

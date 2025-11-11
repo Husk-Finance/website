@@ -2,6 +2,9 @@
  * Mock business position data for testing and development.
  * This data simulates RWA (Real World Asset) business positions for the Husk Finance platform.
  * Contains positions from multiple networks - filter by chainId as needed.
+ * 
+ * Data Format:
+ * - tags: Array of tag names (strings) - styling is defined in constants/tags.js
  */
 
 export const mockBusinessPositions = [
@@ -12,10 +15,7 @@ export const mockBusinessPositions = [
     businessName: 'Finding Nemo Live Action',
     businessImage: 'https://images.unsplash.com/photo-1544552866-d3ed42536cfd?w=800&q=80',
     network: 'Onyx',
-    tags: [
-      { label: 'Onyx', bg: '#1e442a', color: '#fdb85b' },
-      { label: 'RWA', bg: '#2485c7', color: '#000000' },
-    ],
+    tags: ['Onyx', 'RWA'],
     createdAt: 1729416600000, // Oct 20, 2025 09:30:00
     huskAPY: '4325', // 43.25%
     tvl: '10620', // $10.62k
@@ -35,10 +35,7 @@ export const mockBusinessPositions = [
     businessName: 'Fishing Ship Rentals',
     businessImage: 'https://images.unsplash.com/photo-1567899378494-47b22a2ae96a?w=800&q=80',
     network: 'Onyx',
-    tags: [
-      { label: 'Onyx', bg: '#1e442a', color: '#fdb85b' },
-      { label: 'RWA', bg: '#2485c7', color: '#000000' },
-    ],
+    tags: ['Onyx', 'RWA'],
     createdAt: 1729330200000, // Oct 19, 2025 09:30:00
     huskAPY: '3850', // 38.50%
     tvl: '25300', // $25.3k
@@ -60,10 +57,7 @@ export const mockBusinessPositions = [
     businessName: 'Maritime Cargo Fleet',
     businessImage: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800&q=80',
     network: 'Onyx',
-    tags: [
-      { label: 'Onyx', bg: '#1e442a', color: '#fdb85b' },
-      { label: 'RWA', bg: '#2485c7', color: '#000000' },
-    ],
+    tags: ['Onyx', 'RWA'],
     createdAt: 1729243800000, // Oct 18, 2025 09:30:00
     huskAPY: '5275', // 52.75%
     tvl: '45800', // $45.8k
@@ -83,10 +77,7 @@ export const mockBusinessPositions = [
     businessName: 'Commercial Fishing Fleet',
     businessImage: 'https://images.unsplash.com/photo-1589182337358-2cb63099350c?w=800&q=80',
     network: 'Onyx',
-    tags: [
-      { label: 'Onyx', bg: '#1e442a', color: '#fdb85b' },
-      { label: 'RWA', bg: '#2485c7', color: '#000000' },
-    ],
+    tags: ['Onyx', 'RWA'],
     createdAt: 1729157400000, // Oct 17, 2025 09:30:00
     huskAPY: '4620', // 46.20%
     tvl: '18500', // $18.5k
@@ -108,10 +99,7 @@ export const mockBusinessPositions = [
     businessName: 'Naval Defense Systems',
     businessImage: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800&q=80',
     network: 'Onyx',
-    tags: [
-      { label: 'Onyx', bg: '#1e442a', color: '#fdb85b' },
-      { label: 'RWA', bg: '#2485c7', color: '#000000' },
-    ],
+    tags: ['Onyx', 'RWA'],
     createdAt: 1729071000000, // Oct 16, 2025 09:30:00
     huskAPY: '5580', // 55.80%
     tvl: '32400', // $32.4k
@@ -131,10 +119,7 @@ export const mockBusinessPositions = [
     businessName: 'Ocean Research Vessels',
     businessImage: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800&q=80',
     network: 'Onyx',
-    tags: [
-      { label: 'Onyx', bg: '#1e442a', color: '#fdb85b' },
-      { label: 'RWA', bg: '#2485c7', color: '#000000' },
-    ],
+    tags: ['Onyx', 'RWA'],
     createdAt: 1728984600000, // Oct 15, 2025 09:30:00
     huskAPY: '4130', // 41.30%
     tvl: '15200', // $15.2k
@@ -155,10 +140,7 @@ export const mockBusinessPositions = [
     businessName: 'Cruise Line Operations',
     businessImage: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800&q=80',
     network: 'Onyx',
-    tags: [
-      { label: 'Onyx', bg: '#1e442a', color: '#fdb85b' },
-      { label: 'RWA', bg: '#2485c7', color: '#000000' },
-    ],
+    tags: ['Onyx', 'RWA'],
     createdAt: 1728898200000, // Oct 14, 2025 09:30:00
     huskAPY: '3990', // 39.90%
     tvl: '28700', // $28.7k
@@ -178,10 +160,7 @@ export const mockBusinessPositions = [
     businessName: 'Port Infrastructure',
     businessImage: 'https://images.unsplash.com/photo-1578575437130-527eed3abbec?w=800&q=80',
     network: 'Onyx',
-    tags: [
-      { label: 'Onyx', bg: '#1e442a', color: '#fdb85b' },
-      { label: 'RWA', bg: '#2485c7', color: '#000000' },
-    ],
+    tags: ['Onyx', 'RWA'],
     createdAt: 1728811800000, // Oct 13, 2025 09:30:00
     huskAPY: '4860', // 48.60%
     tvl: '52100', // $52.1k
