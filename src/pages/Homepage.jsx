@@ -3,21 +3,25 @@ import { useChainId, useAccount } from 'wagmi'
 import './Homepage.scss'
 import Header from '../components/layout/Header'
 import Footer from '../components/layout/Footer'
-import { DexPositionCard } from '../components/positions'
+import { DexPositionCard, BusinessPositionCard } from '../components/positions'
 import DeFiPositionCard from '../components/positions/DeFiPositionCard'
 import DexPositionTable from '../components/positions/DexPositionTable'
 import DeFiPositionTable from '../components/positions/DeFiPositionTable'
+import BusinessPositionTable from '../components/positions/BusinessPositionTable'
 import ViewToggle from '../components/common/ViewToggle'
 import { HERO_CONTENT, SECTION_TITLES } from '../constants'
 import {
   processDexPositions,
   processDeFiPositions,
+  processBusinessPositions,
 } from '../utils/positionUtils'
 import {
   getDexPositionsByChain,
   getDeFiPositionsByChain,
+  getBusinessPositionsByChain,
   getAllDexPositions,
   getAllDeFiPositions,
+  getAllBusinessPositions,
 } from '../utils/networkUtils'
 import PositionOfferingModal from '../components/common/PositionOfferingModal'
 import BusinessPositionModal from '../components/common/BusinessPositionModal'
@@ -36,9 +40,14 @@ export default function Homepage() {
     ? getDeFiPositionsByChain(walletChainId)
     : getAllDeFiPositions()
 
+  const networkBusinessPositions = isConnected && walletChainId
+    ? getBusinessPositionsByChain(walletChainId)
+    : getAllBusinessPositions()
+
   // Process positions: sort by creation time and auto-tag NEW for DeFi positions
   const sortedDexPositions = processDexPositions(networkDexPositions)
   const sortedDeFiPositions = processDeFiPositions(networkDeFiPositions)
+  const sortedBusinessPositions = processBusinessPositions(networkBusinessPositions)
 
   // Modal state for DEX/DeFi positions
   const [modalState, setModalState] = useState({
@@ -57,6 +66,7 @@ export default function Homepage() {
   // View mode state for each section
   const [dexView, setDexView] = useState('grid')
   const [defiView, setDefiView] = useState('grid')
+  const [businessView, setBusinessView] = useState('grid')
 
   const openModal = (position, actionType) => {
     setModalState({
@@ -74,7 +84,6 @@ export default function Homepage() {
     })
   }
 
-  /* Disabled for now
   const openBusinessModal = (position, actionType) => {
     setBusinessModalState({
       isOpen: true,
@@ -82,7 +91,6 @@ export default function Homepage() {
       actionType,
     })
   }
-  */
 
   const closeBusinessModal = () => {
     setBusinessModalState({
@@ -101,26 +109,37 @@ export default function Homepage() {
         <p>{HERO_CONTENT.subtitle}</p>
       </section>
 
-      {/* <section className="positions-section">
-        <h2>{SECTION_TITLES.businessPositionMarket}</h2>
+      <section className="positions-section">
+        <div className="section-header">
+          <h2>{SECTION_TITLES.businessPositionMarket}</h2>
+          <ViewToggle view={businessView} onViewChange={setBusinessView} />
+        </div>
         {sortedBusinessPositions.length > 0 ? (
-          <div className="business-positions-grid">
-            {sortedBusinessPositions.map((position) => (
-              <BusinessPositionCard
-                key={position.id}
-                position={position}
-                onSupplyClick={() => openBusinessModal(position, 'supply')}
-                onBorrowClick={() => openBusinessModal(position, 'borrow')}
-              />
-            ))}
-          </div>
+          businessView === 'grid' ? (
+            <div className="business-positions-grid">
+              {sortedBusinessPositions.map((position) => (
+                <BusinessPositionCard
+                  key={position.id}
+                  position={position}
+                  onSupplyClick={() => openBusinessModal(position, 'supply')}
+                  onBorrowClick={() => openBusinessModal(position, 'borrow')}
+                />
+              ))}
+            </div>
+          ) : (
+            <BusinessPositionTable
+              positions={sortedBusinessPositions}
+              onSupplyClick={(position) => openBusinessModal(position, 'supply')}
+              onBorrowClick={(position) => openBusinessModal(position, 'borrow')}
+            />
+          )
         ) : (
           <div className="empty-state">
             <p>No business positions available on this network.</p>
             {isConnected && <p className="empty-state-hint">Try switching to a different network or disconnect to see all positions.</p>}
           </div>
         )}
-      </section> */}
+      </section>
 
       <section className="positions-section">
         <div className="section-header">
