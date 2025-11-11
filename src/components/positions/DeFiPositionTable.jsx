@@ -164,6 +164,16 @@ export default function DeFiPositionTable({ positions, onSupplyClick, onBorrowCl
                           style={{ background: tag.bg, color: tag.color }}
                         >
                           {tag.label}
+                          <span 
+                            className="tag-tooltip"
+                            style={{ 
+                              background: tag.bg, 
+                              color: tag.color,
+                              borderTopColor: tag.bg
+                            }}
+                          >
+                            {tag.label}
+                          </span>
                         </span>
                       ))}
                     </div>
