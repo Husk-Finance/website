@@ -157,7 +157,7 @@ export default function DeFiPositionTable({ positions, onSupplyClick, onBorrowCl
                 <td data-label="Tags">
                   {position.tags && position.tags.length > 0 && (
                     <div className="tags-cell">
-                      {position.tags.map((tag) => (
+                      {[...position.tags].reverse().map((tag) => (
                         <span
                           key={tag.label}
                           className="tag-pill"
