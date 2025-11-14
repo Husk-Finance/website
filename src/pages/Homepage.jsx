@@ -68,6 +68,16 @@ export default function Homepage() {
   const [defiView, setDefiView] = useState('grid')
   const [businessView, setBusinessView] = useState('grid')
 
+  // Pagination state for grid view
+  const [businessShowAll, setBusinessShowAll] = useState(false)
+  const [dexShowAll, setDexShowAll] = useState(false)
+  const [defiShowAll, setDefiShowAll] = useState(false)
+
+  // Max items to show before "Load More"
+  const BUSINESS_INITIAL_LIMIT = 4
+  const DEX_INITIAL_LIMIT = 8
+  const DEFI_INITIAL_LIMIT = 8
+
   const openModal = (position, actionType) => {
     setModalState({
       isOpen: true,
@@ -116,16 +126,31 @@ export default function Homepage() {
         </div>
         {sortedBusinessPositions.length > 0 ? (
           businessView === 'grid' ? (
-            <div className="business-positions-grid">
-              {sortedBusinessPositions.map((position) => (
-                <BusinessPositionCard
-                  key={position.id}
-                  position={position}
-                  onSupplyClick={() => openBusinessModal(position, 'supply')}
-                  onBorrowClick={() => openBusinessModal(position, 'borrow')}
-                />
-              ))}
-            </div>
+            <>
+              <div className="business-positions-grid">
+                {(businessShowAll 
+                  ? sortedBusinessPositions 
+                  : sortedBusinessPositions.slice(0, BUSINESS_INITIAL_LIMIT)
+                ).map((position) => (
+                  <BusinessPositionCard
+                    key={position.id}
+                    position={position}
+                    onSupplyClick={() => openBusinessModal(position, 'supply')}
+                    onBorrowClick={() => openBusinessModal(position, 'borrow')}
+                  />
+                ))}
+              </div>
+              {!businessShowAll && sortedBusinessPositions.length > BUSINESS_INITIAL_LIMIT && (
+                <div className="load-more-container">
+                  <button 
+                    className="load-more-btn" 
+                    onClick={() => setBusinessShowAll(true)}
+                  >
+                    Load More ({sortedBusinessPositions.length - BUSINESS_INITIAL_LIMIT} more)
+                  </button>
+                </div>
+              )}
+            </>
           ) : (
             <BusinessPositionTable
               positions={sortedBusinessPositions}
@@ -148,16 +173,31 @@ export default function Homepage() {
         </div>
         {sortedDexPositions.length > 0 ? (
           dexView === 'grid' ? (
-            <div className="positions-grid">
-              {sortedDexPositions.map((position) => (
-                <DexPositionCard
-                  key={position.id}
-                  position={position}
-                  onSupplyClick={() => openModal(position, 'supply')}
-                  onBorrowClick={() => openModal(position, 'borrow')}
-                />
-              ))}
-            </div>
+            <>
+              <div className="positions-grid">
+                {(dexShowAll 
+                  ? sortedDexPositions 
+                  : sortedDexPositions.slice(0, DEX_INITIAL_LIMIT)
+                ).map((position) => (
+                  <DexPositionCard
+                    key={position.id}
+                    position={position}
+                    onSupplyClick={() => openModal(position, 'supply')}
+                    onBorrowClick={() => openModal(position, 'borrow')}
+                  />
+                ))}
+              </div>
+              {!dexShowAll && sortedDexPositions.length > DEX_INITIAL_LIMIT && (
+                <div className="load-more-container">
+                  <button 
+                    className="load-more-btn" 
+                    onClick={() => setDexShowAll(true)}
+                  >
+                    Load More ({sortedDexPositions.length - DEX_INITIAL_LIMIT} more)
+                  </button>
+                </div>
+              )}
+            </>
           ) : (
             <DexPositionTable
               positions={sortedDexPositions}
@@ -180,16 +220,31 @@ export default function Homepage() {
         </div>
         {sortedDeFiPositions.length > 0 ? (
           defiView === 'grid' ? (
-            <div className="positions-grid">
-              {sortedDeFiPositions.map((position) => (
-                <DeFiPositionCard
-                  key={position.id}
-                  position={position}
-                  onSupplyClick={() => openModal(position, 'supply')}
-                  onBorrowClick={() => openModal(position, 'borrow')}
-                />
-              ))}
-            </div>
+            <>
+              <div className="positions-grid">
+                {(defiShowAll 
+                  ? sortedDeFiPositions 
+                  : sortedDeFiPositions.slice(0, DEFI_INITIAL_LIMIT)
+                ).map((position) => (
+                  <DeFiPositionCard
+                    key={position.id}
+                    position={position}
+                    onSupplyClick={() => openModal(position, 'supply')}
+                    onBorrowClick={() => openModal(position, 'borrow')}
+                  />
+                ))}
+              </div>
+              {!defiShowAll && sortedDeFiPositions.length > DEFI_INITIAL_LIMIT && (
+                <div className="load-more-container">
+                  <button 
+                    className="load-more-btn" 
+                    onClick={() => setDefiShowAll(true)}
+                  >
+                    Load More ({sortedDeFiPositions.length - DEFI_INITIAL_LIMIT} more)
+                  </button>
+                </div>
+              )}
+            </>
           ) : (
             <DeFiPositionTable
               positions={sortedDeFiPositions}

@@ -124,6 +124,38 @@
         color: rgba(255, 255, 255, 0.4);
       }
     }
+
+    .load-more-container {
+      display: flex;
+      justify-content: center;
+      margin-top: $spacing-md;
+      padding: $spacing-md 0;
+
+      .load-more-btn {
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        color: $text-primary;
+        padding: 12px 32px;
+        border-radius: 8px;
+        font-size: $font-size-sm;
+        font-weight: 500;
+        letter-spacing: $letter-spacing-tight;
+        cursor: pointer;
+        transition: all 0.08s ease-out;
+        font-family: $font-family;
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.08);
+          border-color: rgba(255, 255, 255, 0.3);
+          transform: translateY(-1px);
+        }
+
+        &:active {
+          transform: translateY(0);
+          transition: all 0.05s ease-out;
+        }
+      }
+    }
   }
 }
 
