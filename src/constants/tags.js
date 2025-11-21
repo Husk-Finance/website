@@ -17,8 +17,8 @@ export const TAG_DEFINITIONS = {
   
   // Asset Type Tags
   'RWA': {
-    bg: '#2485c7',
-    color: '#000000',
+    bg: 'linear-gradient(135deg, #434343 0%, #000000 100%)',
+    color: '#ffffff',
     description: 'Real World Assets - Tokenized physical or business assets'
   },
   
@@ -42,7 +42,7 @@ export const TAG_DEFINITIONS = {
   
   // Strategy Tags
   'AutoC': {
-    bg: '#0d9aa2',
+    bg: 'linear-gradient(135deg, #134E5E 0%, #71B280 100%)',
     color: '#ffffff',
     description: 'Auto-Compounding - Automatically reinvests rewards for compound growth'
   },
