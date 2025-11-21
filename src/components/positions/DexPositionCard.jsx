@@ -7,8 +7,11 @@ import { GRID_LABELS } from '../../constants'
 import {
   getQuotedTokenSymbol, formatPercent, formatDollar, formatTokenAmount, getTokenDecimals,
 } from '../../utils/positionUtils'
+import {
+  CardContainer, CardGrid, CardGridItem, CardButtons,
+} from '../common/CardBase'
 
-export default function DexPositionCard({ position, onSupplyClick, onBorrowClick }) {
+export default function DexPositionCard({ position, onSupplyClick = null, onBorrowClick = null }) {
   // Both buttons show the quote asset (what you're getting/depositing)
   const quotedToken = getQuotedTokenSymbol(position, 'supply')
 
@@ -16,7 +19,7 @@ export default function DexPositionCard({ position, onSupplyClick, onBorrowClick
   const quoteDecimals = getTokenDecimals(position.liquiditySupplierAsset)
 
   return (
-    <div className="dex-position-card">
+    <CardContainer className="dex-position-card">
       <div className="card-background">
         {position.protocol === 'uniswap' && (
           <img
@@ -63,47 +66,27 @@ export default function DexPositionCard({ position, onSupplyClick, onBorrowClick
         </div>
       </div>
 
-      <div className="card-grid">
-        <div className="grid-item">
-          <div className="grid-label">{GRID_LABELS.tvl}</div>
-          <div className="grid-value">{formatDollar(position.tvl)}</div>
-        </div>
-        <div className="grid-item">
-          <div className="grid-label">{GRID_LABELS.revenue24h}</div>
-          <div className="grid-value">{formatDollar(position.revenue24h)}</div>
-        </div>
-        <div className="grid-item">
-          <div className="grid-label">{GRID_LABELS.liquidationLow}</div>
-          <div className="grid-value">{formatTokenAmount(position.liquidationLow, quoteDecimals, quotedToken)}</div>
-        </div>
-        <div className="grid-item">
-          <div className="grid-label">{GRID_LABELS.liquidationHigh}</div>
-          <div className="grid-value">{formatTokenAmount(position.liquidationHigh, quoteDecimals, quotedToken)}</div>
-        </div>
-        <div className="grid-item">
-          <div className="grid-label">{GRID_LABELS.supplyAPY}</div>
-          <div className="grid-value">{formatPercent(position.supplyAPY)}</div>
-        </div>
-        <div className="grid-item">
-          <div className="grid-label">{GRID_LABELS.borrowRisk}</div>
-          <div className="grid-value">{formatPercent(position.borrowRisk)}</div>
-        </div>
-        <div className="button-item">
-          <button type="button" className="action-button" onClick={onSupplyClick}>
-            Supply
-            {' '}
-            {quotedToken}
-          </button>
-        </div>
-        <div className="button-item">
-          <button type="button" className="action-button borrow-button" onClick={onBorrowClick}>
-            Borrow
-            {' '}
-            {quotedToken}
-          </button>
-        </div>
-      </div>
-    </div>
+      <CardGrid>
+        <CardGridItem label={GRID_LABELS.tvl} value={formatDollar(position.tvl)} />
+        <CardGridItem label={GRID_LABELS.revenue24h} value={formatDollar(position.revenue24h)} />
+        <CardGridItem
+          label={GRID_LABELS.liquidationLow}
+          value={formatTokenAmount(position.liquidationLow, quoteDecimals, quotedToken)}
+        />
+        <CardGridItem
+          label={GRID_LABELS.liquidationHigh}
+          value={formatTokenAmount(position.liquidationHigh, quoteDecimals, quotedToken)}
+        />
+        <CardGridItem label={GRID_LABELS.supplyAPY} value={formatPercent(position.supplyAPY)} />
+        <CardGridItem label={GRID_LABELS.borrowRisk} value={formatPercent(position.borrowRisk)} />
+        <CardButtons
+          onSupply={onSupplyClick}
+          onBorrow={onBorrowClick}
+          supplyLabel={`Supply ${quotedToken}`}
+          borrowLabel={`Borrow ${quotedToken}`}
+        />
+      </CardGrid>
+    </CardContainer>
   )
 }
 
@@ -126,9 +109,4 @@ DexPositionCard.propTypes = {
   }).isRequired,
   onSupplyClick: PropTypes.func,
   onBorrowClick: PropTypes.func,
-}
-
-DexPositionCard.defaultProps = {
-  onSupplyClick: null,
-  onBorrowClick: null,
 }

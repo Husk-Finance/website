@@ -1,0 +1,90 @@
+@use '../../styles/variables' as *;
+
+.card-container {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  background: $card-bg;
+  border: 1px solid $border-color;
+  border-radius: $border-radius-md;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease, transform 0.3s ease;
+  cursor: pointer;
+  user-select: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+
+  &:hover {
+    background: $card-bg-hover;
+    border-color: rgba(59, 59, 59, 0.7);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  &:active {
+    // transform: translateY(-2px);
+    transition: all 0.1s ease;
+  }
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: $spacing-md;
+  width: 100%;
+
+  .grid-item {
+    display: flex;
+    flex-direction: column;
+    gap: $spacing-xs;
+
+    .grid-label {
+      font-size: $font-size-sm;
+      color: $text-secondary;
+      font-weight: 400;
+      letter-spacing: $letter-spacing-tight;
+    }
+
+    .grid-value {
+      font-size: $font-size-base;
+      color: $text-primary;
+      font-weight: 400;
+      letter-spacing: $letter-spacing-tight;
+    }
+  }
+
+  .button-item {
+    grid-column: span 1;
+    margin-top: $spacing-xs;
+
+    .action-button {
+      width: 100%;
+      padding: $spacing-sm 0;
+      border-radius: $border-radius-sm;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      background: rgba(255, 255, 255, 0.05);
+      color: $text-primary;
+      font-size: $font-size-sm;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      letter-spacing: $letter-spacing-tight;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        border-color: rgba(255, 255, 255, 0.2);
+      }
+
+      &.borrow-button {
+        background: transparent;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: $text-secondary;
+
+        &:hover {
+          border-color: rgba(255, 255, 255, 0.2);
+          color: $text-primary;
+        }
+      }
+    }
+  }
+}

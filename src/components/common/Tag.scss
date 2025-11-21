@@ -2,13 +2,59 @@
   position: relative;
   display: inline-flex;
   align-items: center;
-  padding: 0.25rem 0.5rem;
-  border-radius: 12px;
-  font-size: 0.75rem;
-  font-weight: 600;
+  padding: 2px 6px;
+  border-radius: 6px;
+  font-size: 10px;
+  font-weight: 400;
   line-height: 1;
   cursor: help;
-  transition: transform 0.1s ease;
+  transition: all 0.2s ease;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.tags-group-horizontal {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 6px;
+
+  .tag-pill {
+    margin-left: 0;
+  }
+}
+
+.tags-group-table {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex-wrap: wrap;
+  padding-left: 4px;
+
+  .tag-pill {
+    margin-left: -28px;
+    
+    &:first-child {
+      margin-left: 0;
+    }
+  }
+}
+
+.tags-group-vertical {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 4px; // Space for hover effect
+
+  .tag-pill {
+    margin-top: -6px;
+    
+    &:first-child {
+      margin-top: 0;
+    }
+  }
 }
 
 .tag-tooltip {

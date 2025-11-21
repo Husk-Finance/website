@@ -23,21 +23,7 @@
     }
 
     .tag-row {
-      display: flex;
-      gap: $spacing-xs;
-      align-items: center;
-
-      .tag-pill {
-        padding: 2px $spacing-xs;
-        border-radius: $border-radius-sm;
-        font-size: 10px;
-        line-height: normal;
-        font-weight: 400;
-        letter-spacing: -0.2px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-      }
+      // Styles handled by tags-group-horizontal in Tag.scss
     }
 
     .rate-info {

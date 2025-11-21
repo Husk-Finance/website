@@ -1,0 +1,148 @@
+@import '../../styles/variables.scss';
+
+.position-table-container {
+  width: 100%;
+  overflow-x: auto;
+  max-height: 600px; // Max height for table scrolling
+  overflow-y: auto;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  
+  // Improve scrollbar appearance
+  &::-webkit-scrollbar {
+    height: 8px;
+    width: 8px;
+  }
+  
+  &::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 4px;
+  }
+  
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 4px;
+    
+    &:hover {
+      background: rgba(255, 255, 255, 0.3);
+    }
+  }
+}
+
+.position-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem; // Smaller font: 13px
+  
+  thead {
+    background: #0a0a0a;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    
+    tr {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    th {
+      padding: 0.75rem 0.875rem; // Reduced padding
+      text-align: left;
+      font-weight: 600;
+      font-size: 0.75rem; // Smaller header font: 12px
+      color: rgba(255, 255, 255, 0.8);
+      white-space: nowrap;
+      
+      &.actions-column {
+        text-align: right;
+        padding-right: 1rem;
+        min-width: auto;
+      }
+      
+      .sort-button {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: none;
+        border: none;
+        color: inherit;
+        font: inherit;
+        font-weight: 600;
+        cursor: pointer;
+        padding: 0;
+        transition: color 0.1s ease-out;
+        
+        &:hover {
+          color: #ffffff;
+        }
+        
+        &:focus-visible {
+          outline: 2px solid #4a9eff;
+          outline-offset: 2px;
+          border-radius: 4px;
+        }
+        
+        svg {
+          flex-shrink: 0;
+        }
+      }
+    }
+  }
+  
+  tbody {
+    tr {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      transition: background-color 0.08s ease-out;
+      will-change: background-color;
+      
+      &:hover {
+        background: rgba(255, 255, 255, 0.03);
+      }
+      
+      td {
+        padding: 0.75rem 0.875rem;
+        color: rgba(255, 255, 255, 0.9);
+        white-space: nowrap;
+        vertical-align: middle;
+        
+        &.actions-cell {
+          text-align: right;
+          padding-right: 1rem;
+          
+          .action-buttons {
+            display: flex;
+            justify-content: flex-end;
+            gap: 0.5rem;
+            
+            button {
+              padding: 0.375rem 0.75rem;
+              border-radius: 6px;
+              font-size: 0.75rem;
+              font-weight: 500;
+              cursor: pointer;
+              transition: all 0.1s ease-out;
+              border: 1px solid rgba(255, 255, 255, 0.1);
+              background: rgba(255, 255, 255, 0.05);
+              color: #ffffff;
+              
+              &:hover {
+                background: rgba(255, 255, 255, 0.1);
+                border-color: rgba(255, 255, 255, 0.2);
+              }
+              
+              &.borrow-button {
+                background: transparent;
+                color: rgba(255, 255, 255, 0.7);
+                
+                &:hover {
+                  color: #ffffff;
+                  border-color: rgba(255, 255, 255, 0.2);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,28 +1,26 @@
 import PropTypes from 'prop-types'
 import './DeFiPositionCard.scss'
+import Tag from '../common/Tag'
 import { GRID_LABELS } from '../../constants'
 import { getQuotedTokenSymbol, formatPercent, formatDollar } from '../../utils/positionUtils'
+import {
+  CardContainer, CardGrid, CardGridItem, CardButtons,
+} from '../common/CardBase'
 
-export default function DeFiPositionCard({ position, onSupplyClick, onBorrowClick }) {
+export default function DeFiPositionCard({ position, onSupplyClick = null, onBorrowClick = null }) {
   // Both buttons show the same token for DeFi positions
   const quotedToken = getQuotedTokenSymbol(position, 'supply')
 
   return (
-    <div className="defi-position-card">
+    <CardContainer className="defi-position-card">
       <div className="card-header">
         <div className="protocol-info">
           <div className="protocol-name">{position.protocol}</div>
 
           {position.tags && position.tags.length > 0 && (
-            <div className="tag-row">
+            <div className="tag-row tags-group-horizontal">
               {position.tags.map((t) => (
-                <span
-                  key={t.label}
-                  className="tag-pill"
-                  style={{ background: t.bg, color: t.color }}
-                >
-                  {t.label}
-                </span>
+                <Tag key={t.label} tag={t} />
               ))}
             </div>
           )}
@@ -34,54 +32,21 @@ export default function DeFiPositionCard({ position, onSupplyClick, onBorrowClic
         </div>
       </div>
 
-      <div className="card-grid">
-        <div className="grid-item">
-          <div className="grid-label">{GRID_LABELS.tvl}</div>
-          <div className="grid-value">{formatDollar(position.tvl)}</div>
-        </div>
-
-        <div className="grid-item">
-          <div className="grid-label">{GRID_LABELS.revenue24h}</div>
-          <div className="grid-value">{formatDollar(position.revenue24h)}</div>
-        </div>
-
-        <div className="grid-item">
-          <div className="grid-label">Distribution</div>
-          <div className="grid-value">{position.distribution}</div>
-        </div>
-
-        <div className="grid-item">
-          <div className="grid-label">Next Distribution</div>
-          <div className="grid-value">{position.nextDistribution}</div>
-        </div>
-
-        <div className="grid-item">
-          <div className="grid-label">{GRID_LABELS.supplyAPY}</div>
-          <div className="grid-value">{formatPercent(position.supplyAPY)}</div>
-        </div>
-
-        <div className="grid-item">
-          <div className="grid-label">{GRID_LABELS.participationRisk}</div>
-          <div className="grid-value">{formatPercent(position.participationRisk)}</div>
-        </div>
-
-        <div className="button-item">
-          <button type="button" className="action-button" onClick={onSupplyClick}>
-            Supply
-            {' '}
-            {quotedToken}
-          </button>
-        </div>
-
-        <div className="button-item">
-          <button type="button" className="action-button borrow-button" onClick={onBorrowClick}>
-            Borrow
-            {' '}
-            {quotedToken}
-          </button>
-        </div>
-      </div>
-    </div>
+      <CardGrid>
+        <CardGridItem label={GRID_LABELS.tvl} value={formatDollar(position.tvl)} />
+        <CardGridItem label={GRID_LABELS.revenue24h} value={formatDollar(position.revenue24h)} />
+        <CardGridItem label="Distribution" value={position.distribution} />
+        <CardGridItem label="Next Distribution" value={position.nextDistribution} />
+        <CardGridItem label={GRID_LABELS.supplyAPY} value={formatPercent(position.supplyAPY)} />
+        <CardGridItem label={GRID_LABELS.participationRisk} value={formatPercent(position.participationRisk)} />
+        <CardButtons
+          onSupply={onSupplyClick}
+          onBorrow={onBorrowClick}
+          supplyLabel={`Supply ${quotedToken}`}
+          borrowLabel={`Borrow ${quotedToken}`}
+        />
+      </CardGrid>
+    </CardContainer>
   )
 }
 
@@ -110,7 +75,4 @@ DeFiPositionCard.propTypes = {
   onBorrowClick: PropTypes.func,
 }
 
-DeFiPositionCard.defaultProps = {
-  onSupplyClick: null,
-  onBorrowClick: null,
-}
+

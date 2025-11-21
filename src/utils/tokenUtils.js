@@ -176,6 +176,9 @@ export function createViemPublicClient(chainId = CHAIN_IDS.MAINNET) {
   return createPublicClient({
     chain,
     transport: http(rpcUrl),
+    batch: {
+      multicall: true,
+    },
   })
 }
 

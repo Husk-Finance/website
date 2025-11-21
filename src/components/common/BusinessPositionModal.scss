@@ -475,7 +475,7 @@
 
         &:hover:not(:disabled) {
           background: $button-bg-hover;
-          transform: translateY(-2px);
+          // transform: translateY(-2px);
         }
 
         &:disabled {
@@ -489,7 +489,7 @@
 
         &:hover:not(:disabled) {
           opacity: 0.9;
-          transform: translateY(-2px);
+          // transform: translateY(-2px);
         }
 
         &:disabled {
@@ -499,7 +499,7 @@
       }
 
       &:active:not(:disabled) {
-        transform: translateY(0);
+        // transform: translateY(0);
       }
     }
   }

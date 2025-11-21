@@ -1,4 +1,5 @@
 @use '../../styles/variables' as *;
+@use 'sass:color';
 
 .business-position-card {
   backdrop-filter: blur(10px);
@@ -15,6 +16,7 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  min-height: 295px;
   height: 295px;
 
   &:hover {
@@ -36,7 +38,7 @@
   }
 
   &:active {
-    transform: translateY(-2px);
+    // transform: translateY(-2px);
     transition: all 0.1s ease;
   }
 
@@ -44,7 +46,7 @@
     position: relative;
     flex: 1;
     min-width: 0;
-    height: 295px;
+    // height: 295px; // Removed fixed height to allow stretching
     overflow: hidden;
 
     .business-image {
@@ -98,18 +100,9 @@
         }
 
         .business-tags {
+          // Styles handled by tags-group-horizontal in Tag.scss
           display: flex;
-          gap: $spacing-xs;
-          align-items: center;
-          flex-wrap: wrap;
-
-          .business-tag {
-            font-size: 10px;
-            padding: 2px $spacing-xs;
-            border-radius: $border-radius-sm;
-            letter-spacing: -0.2px;
-            line-height: normal;
-          }
+          gap: 6px;
         }
       }
 
@@ -137,77 +130,142 @@
       }
     }
 
-    .business-grid {
+    .card-grid {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       grid-template-rows: repeat(4, auto);
       gap: $spacing-sm;
       flex: 1;
+      height: auto;
 
       .grid-item {
         display: flex;
         flex-direction: column;
         gap: $spacing-xs;
-        justify-content: flex-start;
 
         .grid-label {
-          font-size: $font-size-base;
+          font-size: 14px;
+          font-weight: 400;
           letter-spacing: $letter-spacing-tight;
           color: $text-secondary;
-          line-height: normal;
         }
 
         .grid-value {
-          font-size: $font-size-base;
+          font-size: 14px;
+          font-weight: 400;
           letter-spacing: $letter-spacing-tight;
           color: $text-primary;
-          line-height: normal;
-          word-wrap: break-word;
-          overflow-wrap: break-word;
+          word-break: break-word;
         }
       }
 
       .button-item {
         display: flex;
-        align-items: center;
         justify-content: center;
+        align-items: center;
 
         .action-button {
           width: 100%;
           padding: $spacing-sm;
-          font-size: $font-size-base;
-          letter-spacing: $letter-spacing-tight;
-          color: $text-primary;
+          backdrop-filter: blur(4px);
+          -webkit-backdrop-filter: blur(4px);
           background: $button-bg;
           border: none;
           border-radius: $border-radius-sm;
+          color: $text-primary;
+          font-size: $font-size-base;
+          font-weight: 400;
+          letter-spacing: $letter-spacing-tight;
           cursor: pointer;
-          transition: all 0.3s ease;
-          backdrop-filter: blur(10px);
-          -webkit-backdrop-filter: blur(10px);
-          font-family: $font-family;
-          -webkit-font-smoothing: antialiased;
-          -moz-osx-font-smoothing: grayscale;
-          text-rendering: optimizeLegibility;
+          transition: all $transition-fast;
+          position: relative;
+          overflow: hidden;
 
-          &:hover {
-            background: $button-bg-hover;
-            transform: translateY(-1px);
-          }
-
-          &:active {
-            transform: translateY(0);
+          // Ripple effect base
+          &::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
           }
 
           &.borrow-button {
             background: $borrow-button-gradient;
+            box-shadow: 0 1px 3px rgba(56, 130, 98, 0.12);
+            font-weight: 500;
+            position: relative;
+            overflow: hidden;
+
+            // Animated gradient shimmer
+            &::after {
+              content: '';
+              position: absolute;
+              top: -50%;
+              left: -50%;
+              width: 200%;
+              height: 200%;
+              background: linear-gradient(
+                45deg,
+                transparent 30%,
+                rgba(255, 255, 255, 0.1) 50%,
+                transparent 70%
+              );
+              transform: translateX(-100%) translateY(-100%) rotate(45deg);
+              transition: transform 0.6s ease;
+            }
 
             &:hover {
-              opacity: 0.9;
+              box-shadow: 
+                0 2px 8px rgba(56, 130, 98, 0.2),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1);
+              // transform: translateY(-3px) scale(1.01);
+              background: radial-gradient(276.97% 180.37% at 16.4% 132.95%, 
+                color.adjust($green-dark, $lightness: 5%) 0%, 
+                color.adjust($green-accent, $lightness: 8%) 100%);
+
+              &::after {
+                transform: translateX(100%) translateY(100%) rotate(45deg);
+              }
+
+              &::before {
+                width: 300px;
+                height: 300px;
+                background: rgba(255, 255, 255, 0.08);
+              }
             }
+
+            &:active {
+              // transform: translateY(-1px) scale(1.0);
+              box-shadow: 0 1px 4px rgba(56, 130, 98, 0.15);
+            }
+          }
+
+          &:hover {
+            // transform: translateY(-2px);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            background: $button-bg-hover;
+  
+            &::before {
+              width: 300px;
+              height: 300px;
+            }
+          }
+  
+          &:active {
+            // transform: translateY(0);
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+            transition: all 0.1s ease;
           }
         }
       }
+
+
     }
   }
 
@@ -221,12 +279,6 @@
 
       .image-overlay {
         background: linear-gradient(to top, rgba(0, 0, 0, 0.8) 0%, transparent 100%);
-      }
-    }
-
-    .business-info {
-      .business-grid {
-        grid-template-rows: repeat(4, auto);
       }
     }
   }
@@ -245,7 +297,7 @@
         }
       }
 
-      .business-grid {
+      .card-grid {
         grid-template-columns: 1fr;
         
         .button-item {

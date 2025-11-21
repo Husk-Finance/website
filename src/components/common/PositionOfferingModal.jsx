@@ -2,7 +2,7 @@ import { useState, useEffect, useCallback } from 'react'
 import PropTypes from 'prop-types'
 import { useAccount } from 'wagmi'
 import './PositionOfferingModal.scss'
-import { getTokenData } from '../../utils/tokenUtilsOptimized'
+import { fetchTokenData } from '../../utils/tokenUtils'
 import {
   formatPercent, formatDollar, formatTokenAmount, getTokenDecimals,
 } from '../../utils/positionUtils'
@@ -77,17 +77,12 @@ function PositionOfferingModal({
         // Get chainId from position
         const chainId = position?.chainId || 1
 
-        // Use optimized getTokenData with automatic caching and batching
-        const data = await getTokenData(
+        // Use standard fetchTokenData
+        const data = await fetchTokenData(
           assetAddress,
           isConnected ? address : null,
+          null, // publicClient
           chainId,
-          // Callback for real-time balance updates
-          (freshData) => {
-            setTokenSymbol(freshData.symbol)
-            setTokenDecimals(freshData.decimals)
-            setTokenBalance(freshData.balance)
-          },
         )
         setTokenSymbol(data.symbol)
         setTokenDecimals(data.decimals)
@@ -124,9 +119,10 @@ function PositionOfferingModal({
         const chainId = position?.chainId || 1
 
         // Only need symbol, no need for balance - optimized call
-        const data = await getTokenData(
+        const data = await fetchTokenData(
           assetAddress,
           null, // No user address needed, we only want the symbol
+          null, // publicClient
           chainId,
         )
         setActionTokenSymbol(data.symbol)
