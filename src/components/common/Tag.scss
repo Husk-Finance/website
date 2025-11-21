@@ -1,0 +1,55 @@
+.tag-pill {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
+  cursor: help;
+  transition: transform 0.1s ease;
+}
+
+.tag-tooltip {
+  position: absolute;
+  transform: translate(-50%, -100%);
+  width: max-content;
+  max-width: 200px;
+  padding: 0.75rem;
+  background: rgba(0, 0, 0, 0.9);
+  color: #ffffff;
+  border-radius: 8px;
+  font-size: 0.75rem;
+  font-weight: 400;
+  text-align: left;
+  white-space: normal;
+  z-index: 9999;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+  pointer-events: none;
+  
+  // Arrow
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border: 6px solid transparent;
+    border-top-color: rgba(0, 0, 0, 0.9);
+  }
+
+  .tag-tooltip-title {
+    display: block;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+    font-size: 0.8rem;
+  }
+
+  .tag-tooltip-desc {
+    display: block;
+    line-height: 1.4;
+    color: #e0e0e0;
+  }
+}

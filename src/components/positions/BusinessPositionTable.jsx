@@ -1,6 +1,7 @@
 import { useState, useMemo } from 'react'
 import PropTypes from 'prop-types'
 import './PositionTable.scss'
+import Tag from '../common/Tag'
 import { GRID_LABELS } from '../../constants'
 import { formatPercent, formatDollar, formatCompactNumber } from '../../utils/positionUtils'
 
@@ -155,23 +156,7 @@ export default function BusinessPositionTable({ positions, onSupplyClick, onBorr
                 {position.tags && position.tags.length > 0 && (
                   <div className="tags-cell">
                     {[...position.tags].reverse().map((tag) => (
-                      <span
-                        key={tag.label}
-                        className="tag-pill"
-                        style={{ background: tag.bg, color: tag.color }}
-                      >
-                        {tag.label}
-                        <span 
-                          className="tag-tooltip"
-                          style={{ 
-                            background: tag.bg, 
-                            color: tag.color,
-                            borderTopColor: tag.bg
-                          }}
-                        >
-                          {tag.label}
-                        </span>
-                      </span>
+                      <Tag key={tag.label} tag={tag} />
                     ))}
                   </div>
                 )}
