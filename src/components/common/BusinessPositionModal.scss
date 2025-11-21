@@ -23,7 +23,9 @@
   max-width: 1200px;
   width: 100%;
   max-height: 80vh;
-  overflow-y: auto;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
   position: relative;
 
   /* Custom scrollbar styling */
@@ -50,6 +52,8 @@
   display: flex;
   gap: 0;
   min-height: 600px;
+  flex: 1;
+  overflow: hidden;
 }
 
 .business-modal-left {
@@ -58,6 +62,7 @@
   flex-direction: column;
   min-width: 0;
   background: rgba(0, 0, 0, 0.2);
+  overflow-y: auto;
 }
 
 .business-modal-image-section {
@@ -186,6 +191,7 @@
   padding: 30px;
   gap: $spacing-md;
   min-width: 0;
+  overflow-y: auto;
 
   .action-header {
     display: flex;
