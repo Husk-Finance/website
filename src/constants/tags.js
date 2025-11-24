@@ -9,10 +9,22 @@
 
 export const TAG_DEFINITIONS = {
   // Network/Platform Tags
+  'NEW': {
+    bg: '#a6c724',
+    color: '#000000',
+    description: 'Newly added position'
+  },
+
   'Onyx': {
     bg: '#1e442a',
     color: '#fdb85b',
     description: 'Onyx Network - Specialized blockchain for RWA tokenization'
+  },
+
+  'MNT': {
+    bg: 'linear-gradient(135deg, #FF69B4 0%, #32CD32 100%)',
+    color: '#ffffff',
+    description: 'Mantle bridged asset - Live on Mantle Network with lower gas fees'
   },
   
   // Asset Type Tags

@@ -178,18 +178,14 @@ export function autoTagNewPositions(positions) {
     }
 
     // Check if NEW tag already exists
-    const hasNewTag = updatedPosition.tags.some((tag) => tag.label === 'NEW')
+    const hasNewTag = updatedPosition.tags.includes('NEW')
 
     if (isNew && !hasNewTag) {
       // Add NEW tag at the beginning
-      updatedPosition.tags.unshift({
-        label: 'NEW',
-        bg: '#a6c724',
-        color: '#000000',
-      })
+      updatedPosition.tags.unshift('NEW')
     } else if (!isNew && hasNewTag) {
       // Remove NEW tag if position is older than 7 days
-      updatedPosition.tags = updatedPosition.tags.filter((tag) => tag.label !== 'NEW')
+      updatedPosition.tags = updatedPosition.tags.filter((tag) => tag !== 'NEW')
     }
 
     return updatedPosition

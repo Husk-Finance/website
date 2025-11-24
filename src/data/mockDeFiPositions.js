@@ -233,4 +233,22 @@ export const mockDeFiPositions = [
     liquiditySupplierAsset: '0x09Bc4E0D864854c6aFB6eB9A9cdF58aC190D0dF9', // USDC
     quotedAsset: 'USDC',
   },
+  {
+    id: 404,
+    chainId: 5000,
+    protocol: 'Aethir Gaming Pool Staking',
+    createdAt: 1763979640000,
+    tags: ['MNT'],
+    huskAPY: '4600',
+    supplyAPY: '2300',
+    distribution: 'Thursday',
+    nextDistribution: 'in 2 days',
+    tvl: '12345',
+    revenue24h: '9876',
+    liquidationLow: '',
+    participationRisk: '44',
+    liquidityProviderAsset: '0x0000000000000000000000000000000000000006', // Placeholder
+    liquiditySupplierAsset: '0x09Bc4E0D864854c6aFB6eB9A9cdF58aC190D0dF9', // USDC
+    quotedAsset: 'USDC',
+  },
 ]
