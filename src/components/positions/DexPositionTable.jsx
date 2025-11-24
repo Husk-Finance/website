@@ -9,7 +9,7 @@ import {
   getTokenDecimals,
 } from '../../utils/positionUtils'
 
-export default function DexPositionTable({ positions, onSupplyClick, onBorrowClick }) {
+export default function DexPositionTable({ positions, onSupplyClick, onProvideClick }) {
   const columns = [
     {
       key: 'pair',
@@ -77,10 +77,10 @@ export default function DexPositionTable({ positions, onSupplyClick, onBorrowCli
       render: (row) => formatPercent(row.supplyAPY),
     },
     {
-      key: 'borrowRisk',
-      header: GRID_LABELS.borrowRisk,
+      key: 'provideRisk',
+      header: GRID_LABELS.provideRisk,
       sortable: true,
-      render: (row) => formatPercent(row.borrowRisk),
+      render: (row) => formatPercent(row.provideRisk),
     },
     {
       key: 'actions',
@@ -96,8 +96,8 @@ export default function DexPositionTable({ positions, onSupplyClick, onBorrowCli
               {' '}
               {quotedToken}
             </button>
-            <button type="button" className="borrow-button" onClick={() => onBorrowClick(row)}>
-              Borrow
+            <button type="button" className="provide-button" onClick={() => onProvideClick(row)}>
+              Provide
               {' '}
               {quotedToken}
             </button>
@@ -124,10 +124,10 @@ DexPositionTable.propTypes = {
       liquidationLow: PropTypes.string.isRequired,
       liquidationHigh: PropTypes.string.isRequired,
       supplyAPY: PropTypes.string.isRequired,
-      borrowRisk: PropTypes.string.isRequired,
+      provideRisk: PropTypes.string.isRequired,
       liquiditySupplierAsset: PropTypes.string.isRequired,
     })
   ).isRequired,
   onSupplyClick: PropTypes.func.isRequired,
-  onBorrowClick: PropTypes.func.isRequired,
+  onProvideClick: PropTypes.func.isRequired,
 }

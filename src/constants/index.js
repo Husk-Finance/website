@@ -33,7 +33,7 @@ export const SECTION_TITLES = {
 export const BUTTON_LABELS = {
   connect: 'Connect',
   supply: 'Supply USDC',
-  borrow: 'Borrow USDC',
+  provide: 'Provide USDC',
 }
 
 // Grid Labels
@@ -43,7 +43,7 @@ export const GRID_LABELS = {
   liquidationLow: 'Liqd. Low Price',
   liquidationHigh: 'Liqd. High Price',
   supplyAPY: 'Supply APY',
-  borrowRisk: 'Borrow Risk',
+  provideRisk: 'Provide Risk',
   participationRisk: 'Participation Risk',
   huskAPY: 'Husk APY',
 }

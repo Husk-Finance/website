@@ -4,7 +4,7 @@ import Tag from '../common/Tag'
 import { GRID_LABELS } from '../../constants'
 import { formatPercent, formatCompactNumber } from '../../utils/positionUtils'
 
-export default function BusinessPositionTable({ positions, onSupplyClick, onBorrowClick }) {
+export default function BusinessPositionTable({ positions, onSupplyClick, onProvideClick }) {
   const columns = [
     {
       key: 'businessName',
@@ -83,8 +83,8 @@ export default function BusinessPositionTable({ positions, onSupplyClick, onBorr
           <button type="button" onClick={() => onSupplyClick(row)}>
             Supply
           </button>
-          <button type="button" className="borrow-button" onClick={() => onBorrowClick(row)}>
-            Borrow
+          <button type="button" className="provide-button" onClick={() => onProvideClick(row)}>
+            Provide
           </button>
         </div>
       ),
@@ -113,5 +113,5 @@ BusinessPositionTable.propTypes = {
     participationRisk: PropTypes.string.isRequired,
   })).isRequired,
   onSupplyClick: PropTypes.func.isRequired,
-  onBorrowClick: PropTypes.func.isRequired,
+  onProvideClick: PropTypes.func.isRequired,
 }

@@ -18,7 +18,7 @@ function BusinessPositionModal({
   const [tokenBalance, setTokenBalance] = useState('0') // Stored as integer string (wei)
   const [isLoadingToken, setIsLoadingToken] = useState(false)
 
-  // Token data for the action (what you're getting/borrowing)
+  // Token data for the action (what you're getting/providing)
   const [actionTokenSymbol, setActionTokenSymbol] = useState('')
   const [isLoadingActionToken, setIsLoadingActionToken] = useState(false)
 
@@ -34,7 +34,7 @@ function BusinessPositionModal({
       // Supply action: user deposits USDC (liquiditySupplierAsset)
       return position.liquiditySupplierAsset
     }
-    // Borrow action: user supplies RWA Business Token as collateral (liquidityProviderAsset)
+    // Provide action: user supplies RWA Business Token as collateral (liquidityProviderAsset)
     return position.liquidityProviderAsset
   }, [position, action])
 
@@ -46,7 +46,7 @@ function BusinessPositionModal({
       // Supply action: you're supplying USDC
       return position.liquiditySupplierAsset
     }
-    // Borrow action: you're borrowing USDC (liquiditySupplierAsset)
+    // Provide action: you're providing USDC (liquiditySupplierAsset)
     return position.liquiditySupplierAsset
   }, [position, action])
 
@@ -300,7 +300,7 @@ function BusinessPositionModal({
           <div className="business-modal-right">
             <div className="action-header">
               <h2 className="action-title">
-                {action === 'supply' ? 'Supply Capital' : 'Borrow Capital'}
+                {action === 'supply' ? 'Supply Capital' : 'Provide Capital'}
               </h2>
               <button type="button" className="close-button" onClick={onClose}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
@@ -313,7 +313,7 @@ function BusinessPositionModal({
               <p>
                 {action === 'supply'
                   ? 'Supply USDC to earn yield from real-world business revenue. Your capital will be used to fund operational expenses and growth initiatives.'
-                  : 'Borrow USDC using your position as collateral. Interest rates are determined by the business performance and market conditions.'}
+                  : 'Provide USDC using your position as collateral. Interest rates are determined by the business performance and market conditions.'}
               </p>
             </div>
 
@@ -417,10 +417,10 @@ function BusinessPositionModal({
                   ) : (
                     <button
                       type="button"
-                      className="action-btn borrow-btn"
+                      className="action-btn provide-btn"
                       disabled={!amount || parseFloat(amount) === 0 || isLoadingToken || isLoadingActionToken}
                     >
-                      Borrow
+                      Provide
                       {' '}
                       {isLoadingActionToken ? '...' : (actionTokenSymbol || 'USDC')}
                     </button>
@@ -449,7 +449,7 @@ function BusinessPositionModal({
 BusinessPositionModal.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   onClose: PropTypes.func.isRequired,
-  action: PropTypes.oneOf(['supply', 'borrow']),
+  action: PropTypes.oneOf(['supply', 'provide']),
   position: PropTypes.shape({
     chainId: PropTypes.number.isRequired,
     businessName: PropTypes.string.isRequired,

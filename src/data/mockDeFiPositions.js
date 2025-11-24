@@ -68,7 +68,7 @@ export const mockDeFiPositions = [
   {
     id: 104,
     chainId: 1,
-    protocol: 'Euler ETH Borrow',
+    protocol: 'Euler ETH Provide',
     createdAt: 1761022590000, // should get NEW tag
     tags: [],
     huskAPY: '720', // 7.2%

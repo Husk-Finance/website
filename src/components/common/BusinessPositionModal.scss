@@ -490,8 +490,8 @@
         }
       }
 
-      &.borrow-btn {
-        background: $borrow-button-gradient;
+      &.provide-btn {
+        background: $provide-button-gradient;
 
         &:hover:not(:disabled) {
           opacity: 0.9;

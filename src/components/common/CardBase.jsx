@@ -48,7 +48,7 @@ CardGridItem.propTypes = {
 }
 
 export function CardButtons({
-  onSupply, onBorrow, supplyLabel = 'Supply', borrowLabel = 'Borrow',
+  onSupply, onProvide, supplyLabel = 'Supply', provideLabel = 'Provide',
 }) {
   return (
     <>
@@ -67,13 +67,13 @@ export function CardButtons({
       <div className="button-item">
         <button
           type="button"
-          className="action-button borrow-button"
+          className="action-button provide-button"
           onClick={(e) => {
             e.stopPropagation()
-            onBorrow && onBorrow(e)
+            onProvide && onProvide(e)
           }}
         >
-          {borrowLabel}
+          {provideLabel}
         </button>
       </div>
     </>
@@ -82,7 +82,7 @@ export function CardButtons({
 
 CardButtons.propTypes = {
   onSupply: PropTypes.func,
-  onBorrow: PropTypes.func,
+  onProvide: PropTypes.func,
   supplyLabel: PropTypes.node,
-  borrowLabel: PropTypes.node,
+  provideLabel: PropTypes.node,
 }

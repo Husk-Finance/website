@@ -7,7 +7,7 @@ import {
   CardContainer, CardGrid, CardGridItem, CardButtons,
 } from '../common/CardBase'
 
-export default function BusinessPositionCard({ position, onSupplyClick, onBorrowClick }) {
+export default function BusinessPositionCard({ position, onSupplyClick, onProvideClick }) {
   return (
     <CardContainer className="business-position-card">
       <div className="business-image-container">
@@ -53,9 +53,9 @@ export default function BusinessPositionCard({ position, onSupplyClick, onBorrow
           <CardGridItem label={GRID_LABELS.participationRisk} value={position.participationRisk} />
           <CardButtons
             onSupply={onSupplyClick}
-            onBorrow={onBorrowClick}
+            onProvide={onProvideClick}
             supplyLabel="Supply USDC"
-            borrowLabel="Borrow USDC"
+            provideLabel="Provide USDC"
           />
         </CardGrid>
       </div>
@@ -89,5 +89,5 @@ BusinessPositionCard.propTypes = {
     liquiditySupplierAsset: PropTypes.string.isRequired, // ERC20 token address (typically USDC)
   }).isRequired,
   onSupplyClick: PropTypes.func.isRequired,
-  onBorrowClick: PropTypes.func.isRequired,
+  onProvideClick: PropTypes.func.isRequired,
 }

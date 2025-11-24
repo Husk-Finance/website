@@ -53,14 +53,14 @@ export default function Homepage() {
   const [modalState, setModalState] = useState({
     isOpen: false,
     position: null,
-    actionType: null, // 'supply' or 'borrow'
+    actionType: null, // 'supply' or 'provide'
   })
 
   // Modal state for Business positions
   const [businessModalState, setBusinessModalState] = useState({
     isOpen: false,
     position: null,
-    actionType: null, // 'supply' or 'borrow'
+    actionType: null, // 'supply' or 'provide'
   })
 
   // View mode state for each section
@@ -136,7 +136,7 @@ export default function Homepage() {
                     key={position.id}
                     position={position}
                     onSupplyClick={() => openBusinessModal(position, 'supply')}
-                    onBorrowClick={() => openBusinessModal(position, 'borrow')}
+                    onProvideClick={() => openBusinessModal(position, 'provide')}
                   />
                 ))}
               </div>
@@ -155,7 +155,7 @@ export default function Homepage() {
             <BusinessPositionTable
               positions={sortedBusinessPositions}
               onSupplyClick={(position) => openBusinessModal(position, 'supply')}
-              onBorrowClick={(position) => openBusinessModal(position, 'borrow')}
+              onProvideClick={(position) => openBusinessModal(position, 'provide')}
             />
           )
         ) : (
@@ -183,7 +183,7 @@ export default function Homepage() {
                     key={position.id}
                     position={position}
                     onSupplyClick={() => openModal(position, 'supply')}
-                    onBorrowClick={() => openModal(position, 'borrow')}
+                    onProvideClick={() => openModal(position, 'provide')}
                   />
                 ))}
               </div>
@@ -202,7 +202,7 @@ export default function Homepage() {
             <DexPositionTable
               positions={sortedDexPositions}
               onSupplyClick={(position) => openModal(position, 'supply')}
-              onBorrowClick={(position) => openModal(position, 'borrow')}
+              onProvideClick={(position) => openModal(position, 'provide')}
             />
           )
         ) : (
@@ -230,7 +230,7 @@ export default function Homepage() {
                     key={position.id}
                     position={position}
                     onSupplyClick={() => openModal(position, 'supply')}
-                    onBorrowClick={() => openModal(position, 'borrow')}
+                    onProvideClick={() => openModal(position, 'provide')}
                   />
                 ))}
               </div>
@@ -249,7 +249,7 @@ export default function Homepage() {
             <DeFiPositionTable
               positions={sortedDeFiPositions}
               onSupplyClick={(position) => openModal(position, 'supply')}
-              onBorrowClick={(position) => openModal(position, 'borrow')}
+              onProvideClick={(position) => openModal(position, 'provide')}
             />
           )
         ) : (

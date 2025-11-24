@@ -231,7 +231,7 @@ export function processBusinessPositions(positions) {
 }
 
 /**
- * Extracts the quoted token symbol from a position (what you're supplying/borrowing)
+ * Extracts the quoted token symbol from a position (what you're supplying/providing)
  * For DEX positions: extracts from pair name (e.g., "WBTC/USDC" → "USDC")
  * For DeFi positions: uses the quotedAsset property (e.g., "USDC", "WETH", "DAI")
  * @param {Object} position - Position object

@@ -6,7 +6,7 @@ import {
   getQuotedTokenSymbol, formatPercent, formatDollar,
 } from '../../utils/positionUtils'
 
-export default function DeFiPositionTable({ positions, onSupplyClick, onBorrowClick }) {
+export default function DeFiPositionTable({ positions, onSupplyClick, onProvideClick }) {
   const columns = [
     {
       key: 'protocol',
@@ -76,8 +76,8 @@ export default function DeFiPositionTable({ positions, onSupplyClick, onBorrowCl
             <button type="button" onClick={() => onSupplyClick(row)}>
               Supply {quotedToken}
             </button>
-            <button type="button" className="borrow-button" onClick={() => onBorrowClick(row)}>
-              Borrow {quotedToken}
+            <button type="button" className="provide-button" onClick={() => onProvideClick(row)}>
+              Provide {quotedToken}
             </button>
           </div>
         )
@@ -107,8 +107,9 @@ DeFiPositionTable.propTypes = {
       nextDistribution: PropTypes.string.isRequired,
       supplyAPY: PropTypes.string.isRequired,
       participationRisk: PropTypes.string.isRequired,
+      liquiditySupplierAsset: PropTypes.string, // ERC20 token address
     })
   ).isRequired,
   onSupplyClick: PropTypes.func.isRequired,
-  onBorrowClick: PropTypes.func.isRequired,
+  onProvideClick: PropTypes.func.isRequired,
 }

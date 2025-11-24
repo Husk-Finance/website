@@ -11,7 +11,7 @@ import {
   CardContainer, CardGrid, CardGridItem, CardButtons,
 } from '../common/CardBase'
 
-export default function DexPositionCard({ position, onSupplyClick = null, onBorrowClick = null }) {
+export default function DexPositionCard({ position, onSupplyClick = null, onProvideClick = null }) {
   // Both buttons show the quote asset (what you're getting/depositing)
   const quotedToken = getQuotedTokenSymbol(position, 'supply')
 
@@ -78,12 +78,12 @@ export default function DexPositionCard({ position, onSupplyClick = null, onBorr
           value={formatTokenAmount(position.liquidationHigh, quoteDecimals, quotedToken)}
         />
         <CardGridItem label={GRID_LABELS.supplyAPY} value={formatPercent(position.supplyAPY)} />
-        <CardGridItem label={GRID_LABELS.borrowRisk} value={formatPercent(position.borrowRisk)} />
+        <CardGridItem label={GRID_LABELS.provideRisk} value={formatPercent(position.provideRisk)} />
         <CardButtons
           onSupply={onSupplyClick}
-          onBorrow={onBorrowClick}
+          onProvide={onProvideClick}
           supplyLabel={`Supply ${quotedToken}`}
-          borrowLabel={`Borrow ${quotedToken}`}
+          provideLabel={`Provide ${quotedToken}`}
         />
       </CardGrid>
     </CardContainer>
@@ -104,9 +104,9 @@ DexPositionCard.propTypes = {
     supplyAPY: PropTypes.string.isRequired,
     liquidationLow: PropTypes.string.isRequired,
     liquidationHigh: PropTypes.string.isRequired,
-    borrowRisk: PropTypes.string.isRequired,
+    provideRisk: PropTypes.string.isRequired,
     liquiditySupplierAsset: PropTypes.string, // ERC20 token address
   }).isRequired,
   onSupplyClick: PropTypes.func,
-  onBorrowClick: PropTypes.func,
+  onProvideClick: PropTypes.func,
 }

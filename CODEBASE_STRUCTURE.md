@@ -40,7 +40,7 @@ All design tokens are centralized in `variables.scss`:
 - **Colors**: `$primary-bg`, `$text-primary`, `$border-color`, etc.
 - **Spacing**: `$spacing-xs`, `$spacing-sm`, `$spacing-md`, `$spacing-lg`, `$spacing-xl`
 - **Typography**: `$font-size-base`, `$font-size-lg`, `$letter-spacing-tight`
-- **Gradients**: `$borrow-button-gradient`, `$bg-gradient-*`
+- **Gradients**: `$provide-button-gradient`, `$bg-gradient-*`
 - **Breakpoints**: `$breakpoint-md` (768px), `$breakpoint-xl` (1200px)
 - **Transitions**: `$transition-fast`, `$transition-normal`
 

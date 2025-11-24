@@ -6,8 +6,8 @@ This implementation uses viem to efficiently fetch token data (symbol, decimals,
 
 ### 1. Token Addresses
 All positions use actual token addresses instead of symbols:
-- `liquidityProviderAsset`: Token address for the provider asset (collateral for borrowing)
-- `liquiditySupplierAsset`: Token address for the supplier asset (what you deposit/borrow)
+- `liquidityProviderAsset`: Token address for the provider asset (collateral for providing)
+- `liquiditySupplierAsset`: Token address for the supplier asset (what you deposit/provide)
 
 ### 2. Native ETH Support (EIP-7528)
 The implementation follows [EIP-7528](https://ethereum-magicians.org/t/eip-7528-eth-native-asset-address-convention/15989) for native ETH:
@@ -23,7 +23,7 @@ Implements a two-tier caching system using `sessionStorage`:
 - Reduces blockchain calls and improves load times
 
 ### 4. Data Flow
-1. Modal opens → Determines which token address to use (based on supply/borrow action)
+1. Modal opens → Determines which token address to use (based on supply/provide action)
 2. Checks cache first for existing data
 3. If not cached or expired, fetches from blockchain using viem
 4. For native ETH: Uses `getBalance()` directly

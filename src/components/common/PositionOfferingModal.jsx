@@ -20,7 +20,7 @@ function PositionOfferingModal({
   const [tokenBalance, setTokenBalance] = useState('0') // Stored as integer string (wei)
   const [isLoadingToken, setIsLoadingToken] = useState(false)
 
-  // Token data for the action (what you're getting/borrowing)
+  // Token data for the action (what you're getting/providing)
   const [actionTokenSymbol, setActionTokenSymbol] = useState('')
   const [isLoadingActionToken, setIsLoadingActionToken] = useState(false)
 
@@ -36,7 +36,7 @@ function PositionOfferingModal({
       // Supply action: user deposits the quote asset (e.g., USDC in WBTC/USDC)
       return position.liquiditySupplierAsset
     }
-    // Borrow action: user supplies collateral (base asset, e.g., WBTC in WBTC/USDC)
+    // Provide action: user supplies collateral (base asset, e.g., WBTC in WBTC/USDC)
     return position.liquidityProviderAsset || position.liquiditySupplierAsset
   }, [position, action])
 
@@ -48,7 +48,7 @@ function PositionOfferingModal({
       // Supply action: you're supplying the same asset you input
       return position.liquiditySupplierAsset
     }
-    // Borrow action: you're borrowing the quote asset (e.g., USDC in WBTC/USDC)
+    // Provide action: you're providing the quote asset (e.g., USDC in WBTC/USDC)
     return position.liquiditySupplierAsset
   }, [position, action])
 
@@ -324,10 +324,10 @@ function PositionOfferingModal({
                   <p className="value">{formatPercent(position.supplyAPY)}</p>
                 </div>
                 <div className="info-item">
-                  <p className="label">{isDexPosition ? 'Borrow Risk' : 'Participation Risk'}</p>
+                  <p className="label">{isDexPosition ? 'Provide Risk' : 'Participation Risk'}</p>
                   <p className="value">
                     {isDexPosition
-                      ? formatPercent(position.borrowRisk)
+                      ? formatPercent(position.provideRisk)
                       : formatPercent(position.participationRisk)}
                   </p>
                 </div>
@@ -388,8 +388,8 @@ function PositionOfferingModal({
                     {isLoadingActionToken ? '...' : (actionTokenSymbol || 'USDC')}
                   </button>
                 ) : (
-                  <button type="button" className="action-btn borrow-btn active">
-                    Borrow
+                  <button type="button" className="action-btn provide-btn active">
+                    Provide
                     {' '}
                     {isLoadingActionToken ? '...' : (actionTokenSymbol || 'USDC')}
                   </button>
@@ -473,14 +473,14 @@ PositionOfferingModal.propTypes = {
     tvl: PropTypes.string,
     revenue24h: PropTypes.string,
     supplyAPY: PropTypes.string,
-    borrowRisk: PropTypes.string,
+    provideRisk: PropTypes.string,
     participationRisk: PropTypes.string,
     chainId: PropTypes.number,
     // Asset fields (token addresses)
     liquidityProviderAsset: PropTypes.string, // ERC20 token address
     liquiditySupplierAsset: PropTypes.string, // ERC20 token address
   }),
-  action: PropTypes.oneOf(['supply', 'borrow']),
+  action: PropTypes.oneOf(['supply', 'provide']),
 }
 
 export default PositionOfferingModal

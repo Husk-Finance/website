@@ -7,7 +7,7 @@ import {
   CardContainer, CardGrid, CardGridItem, CardButtons,
 } from '../common/CardBase'
 
-export default function DeFiPositionCard({ position, onSupplyClick = null, onBorrowClick = null }) {
+export default function DeFiPositionCard({ position, onSupplyClick = null, onProvideClick = null }) {
   // Both buttons show the same token for DeFi positions
   const quotedToken = getQuotedTokenSymbol(position, 'supply')
 
@@ -41,9 +41,9 @@ export default function DeFiPositionCard({ position, onSupplyClick = null, onBor
         <CardGridItem label={GRID_LABELS.participationRisk} value={formatPercent(position.participationRisk)} />
         <CardButtons
           onSupply={onSupplyClick}
-          onBorrow={onBorrowClick}
+          onProvide={onProvideClick}
           supplyLabel={`Supply ${quotedToken}`}
-          borrowLabel={`Borrow ${quotedToken}`}
+          provideLabel={`Provide ${quotedToken}`}
         />
       </CardGrid>
     </CardContainer>
@@ -67,12 +67,12 @@ DeFiPositionCard.propTypes = {
     distribution: PropTypes.string,
     nextDistribution: PropTypes.string,
     liquidationLow: PropTypes.string,
-    borrowRisk: PropTypes.string,
+    provideRisk: PropTypes.string,
     participationRisk: PropTypes.string,
     quotedAsset: PropTypes.string, // Token symbol for button labels (e.g., "USDC", "WETH", "DAI")
   }).isRequired,
   onSupplyClick: PropTypes.func,
-  onBorrowClick: PropTypes.func,
+  onProvideClick: PropTypes.func,
 }
 
 
