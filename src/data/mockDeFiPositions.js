@@ -236,9 +236,9 @@ export const mockDeFiPositions = [
   {
     id: 404,
     chainId: 5000,
-    protocol: 'Aethir Gaming Pool Staking',
+    protocol: 'Aethir Gaming Pool',
     createdAt: 1763979640000,
-    tags: ['MNT'],
+    tags: ['MNT', 'RWA'],
     huskAPY: '4600',
     supplyAPY: '2300',
     distribution: 'Thursday',

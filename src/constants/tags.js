@@ -24,7 +24,7 @@ export const TAG_DEFINITIONS = {
   'MNT': {
     bg: 'linear-gradient(135deg, #FF69B4 0%, #32CD32 100%)',
     color: '#ffffff',
-    description: 'Mantle bridged asset - Live on Mantle Network with lower gas fees'
+    description: 'Mantle bridged asset - Assets from Ethereum that lives on Mantle Network with lower gas fees'
   },
   
   // Asset Type Tags
