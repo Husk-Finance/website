@@ -18,6 +18,8 @@ export const mockPositions = [
     tvl: '15770',
     revenue24h: '850',
     supplyAPY: '2500',
+    supplyShare: '5000', // 50%
+    provideShare: '4500', // 45%
     liquidationLow: '4000000000', // 4,000 USDC (6 decimals)
     liquidationHigh: '5000000000', // 5,000 USDC (6 decimals)
     provideRisk: '24',
@@ -36,6 +38,8 @@ export const mockPositions = [
     tvl: '2400000',
     revenue24h: '12300',
     supplyAPY: '1344',
+    supplyShare: '6000', // 60%
+    provideShare: '3500', // 35%
     liquidationLow: '95000000000', // 95,000 USDC (6 decimals)
     liquidationHigh: '105000000000', // 105,000 USDC (6 decimals)
     provideRisk: '67',
@@ -54,6 +58,8 @@ export const mockPositions = [
     tvl: '1200000',
     revenue24h: '8500',
     supplyAPY: '2870',
+    supplyShare: '4500', // 45%
+    provideShare: '5000', // 50%
     liquidationLow: '3200000000', // 3,200 USDC (6 decimals)
     liquidationHigh: '3800000000', // 3,800 USDC (6 decimals)
     provideRisk: '31',
@@ -73,6 +79,8 @@ export const mockPositions = [
     tvl: '856000',
     revenue24h: '1200',
     supplyAPY: '820',
+    supplyShare: '7000', // 70%
+    provideShare: '2500', // 25%
     liquidationLow: '998000000000000000000', // 0.998 DAI (18 decimals)
     liquidationHigh: '1002000000000000000000', // 1.002 DAI (18 decimals)
     provideRisk: '5',
@@ -91,6 +99,8 @@ export const mockPositions = [
     tvl: '3100000',
     revenue24h: '18600',
     supplyAPY: '1930',
+    supplyShare: '5500', // 55%
+    provideShare: '4000', // 40%
     liquidationLow: '16500000000000000000', // 16.5 ETH (18 decimals)
     liquidationHigh: '18200000000000000000', // 18.2 ETH (18 decimals)
     provideRisk: '42',
@@ -109,6 +119,8 @@ export const mockPositions = [
     tvl: '487000',
     revenue24h: '3800',
     supplyAPY: '2210',
+    supplyShare: '4000', // 40%
+    provideShare: '5500', // 55%
     liquidationLow: '850000', // 0.85 USDC (6 decimals)
     liquidationHigh: '950000', // 0.95 USDC (6 decimals)
     provideRisk: '38',
@@ -127,6 +139,8 @@ export const mockPositions = [
     tvl: '672000',
     revenue24h: '5100',
     supplyAPY: '1780',
+    supplyShare: '6500', // 65%
+    provideShare: '3000', // 30%
     liquidationLow: '4800000000000000', // 0.0048 ETH (18 decimals)
     liquidationHigh: '5200000000000000', // 0.0052 ETH (18 decimals)
     provideRisk: '29',
@@ -145,6 +159,8 @@ export const mockPositions = [
     tvl: '923000',
     revenue24h: '6700',
     supplyAPY: '1450',
+    supplyShare: '5000', // 50%
+    provideShare: '4500', // 45%
     liquidationLow: '8500000', // 8.5 USDC (6 decimals)
     liquidationHigh: '9500000', // 9.5 USDC (6 decimals)
     provideRisk: '33',
@@ -165,6 +181,8 @@ export const mockPositions = [
     tvl: '890000',
     revenue24h: '6200',
     supplyAPY: '2650',
+    supplyShare: '5500', // 55%
+    provideShare: '4000', // 40%
     liquidationLow: '3100000000', // 3,100 USDbC (6 decimals)
     liquidationHigh: '3900000000', // 3,900 USDbC (6 decimals)
     provideRisk: '28',
@@ -183,6 +201,8 @@ export const mockPositions = [
     tvl: '1800000',
     revenue24h: '9800',
     supplyAPY: '1284',
+    supplyShare: '6000', // 60%
+    provideShare: '3500', // 35%
     liquidationLow: '94000000000', // 94,000 USDbC (6 decimals)
     liquidationHigh: '106000000000', // 106,000 USDbC (6 decimals)
     provideRisk: '64',
@@ -201,6 +221,8 @@ export const mockPositions = [
     tvl: '2100000',
     revenue24h: '1500',
     supplyAPY: '320',
+    supplyShare: '8000', // 80%
+    provideShare: '1500', // 15%
     liquidationLow: '998000', // 0.998 USDbC (6 decimals)
     liquidationHigh: '1002000', // 1.002 USDbC (6 decimals)
     provideRisk: '3',
@@ -219,6 +241,8 @@ export const mockPositions = [
     tvl: '340000',
     revenue24h: '4200',
     supplyAPY: '4250',
+    supplyShare: '4500', // 45%
+    provideShare: '5000', // 50%
     liquidationLow: '85000000000000', // 0.000085 ETH (18 decimals)
     liquidationHigh: '95000000000000', // 0.000095 ETH (18 decimals)
     provideRisk: '72',
@@ -239,6 +263,8 @@ export const mockPositions = [
     tvl: '40000',
     revenue24h: '200',
     supplyAPY: '530',
+    supplyShare: '5000', // 50%
+    provideShare: '4500', // 45%
     liquidationLow: '850000', // 0.85 USDC (6 decimals)
     liquidationHigh: '1300000', // 1.3 USDC (6 decimals)
     provideRisk: '72',
