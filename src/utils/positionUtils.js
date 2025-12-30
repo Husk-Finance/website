@@ -1,11 +1,9 @@
-import { processTags } from '../constants/tags'
-
 /**
  * Utility functions for position data processing and formatting.
  * Provides common operations for DEX and DeFi positions.
  */
-
 import { getNetworkByChainId } from '../constants/networks'
+import { processTags } from '../constants/tags'
 
 // EIP-7528: ETH native asset address convention
 const ETH_NATIVE_ADDRESS = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE'

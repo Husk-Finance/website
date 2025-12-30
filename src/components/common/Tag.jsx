@@ -1,7 +1,8 @@
-import React, { useState, useRef } from 'react'
-import { createPortal } from 'react-dom'
-import PropTypes from 'prop-types'
 import './Tag.scss'
+
+import PropTypes from 'prop-types'
+import React, { useRef, useState } from 'react'
+import { createPortal } from 'react-dom'
 
 export default function Tag({ tag }) {
   const [showTooltip, setShowTooltip] = useState(false)

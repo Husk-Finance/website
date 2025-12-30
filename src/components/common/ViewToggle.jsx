@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types'
 import './ViewToggle.scss'
+
+import PropTypes from 'prop-types'
 
 export default function ViewToggle({ view, onViewChange }) {
   return (

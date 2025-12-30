@@ -1,8 +1,9 @@
 import PropTypes from 'prop-types'
+
+import { GRID_LABELS } from '../../constants'
+import { formatCompactNumber, formatPercent } from '../../utils/positionUtils'
 import GenericTable from '../common/GenericTable'
 import Tag from '../common/Tag'
-import { GRID_LABELS } from '../../constants'
-import { formatPercent, formatCompactNumber } from '../../utils/positionUtils'
 
 export default function BusinessPositionTable({ positions, onSupplyClick, onProvideClick }) {
   const columns = [

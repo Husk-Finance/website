@@ -1,10 +1,12 @@
 import PropTypes from 'prop-types'
-import GenericTable from '../common/GenericTable'
-import Tag from '../common/Tag'
+
 import { GRID_LABELS } from '../../constants'
 import {
-  getQuotedTokenSymbol, formatPercent, formatDollar,
+  formatDollar,
+  formatPercent, getQuotedTokenSymbol,
 } from '../../utils/positionUtils'
+import GenericTable from '../common/GenericTable'
+import Tag from '../common/Tag'
 
 export default function DeFiPositionTable({ positions, onSupplyClick, onProvideClick }) {
   const columns = [

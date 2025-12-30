@@ -1,6 +1,7 @@
-import { useState, useMemo } from 'react'
-import PropTypes from 'prop-types'
 import './GenericTable.scss'
+
+import PropTypes from 'prop-types'
+import { useMemo, useState } from 'react'
 
 export default function GenericTable({
   data, columns, className = '',

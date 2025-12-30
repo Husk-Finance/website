@@ -1,16 +1,19 @@
-import PropTypes from 'prop-types'
 import './DexPositionCard.scss'
+
+import PropTypes from 'prop-types'
 import { useReadContracts } from 'wagmi'
-import uniswapIcon from '../../assets/uniswap-icon.svg'
+
 import aerodromeIcon from '../../assets/aerodrome-icon.svg'
 import agniIcon from '../../assets/agni-icon.svg'
-import { ERC20_ABI } from '../../constants/contracts'
+import uniswapIcon from '../../assets/uniswap-icon.svg'
 import { GRID_LABELS } from '../../constants'
+import { ERC20_ABI } from '../../constants/contracts'
 import {
-  getQuotedTokenSymbol, formatPercent, formatDollar, formatTokenAmount, getTokenDecimals,
+  formatDollar, formatPercent, formatTokenAmount, getQuotedTokenSymbol, getTokenDecimals,
 } from '../../utils/positionUtils'
 import {
-  CardContainer, CardGrid, CardGridItem, CardButtons,
+  CardButtons,
+  CardContainer, CardGrid, CardGridItem,
 } from '../common/CardBase'
 
 export default function DexPositionCard({ position, onSupplyClick = null, onProvideClick = null }) {

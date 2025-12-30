@@ -1,13 +1,14 @@
 import PropTypes from 'prop-types'
-import GenericTable from '../common/GenericTable'
+
 import { GRID_LABELS } from '../../constants'
 import {
-  getQuotedTokenSymbol,
-  formatPercent,
   formatDollar,
+  formatPercent,
   formatTokenAmount,
+  getQuotedTokenSymbol,
   getTokenDecimals,
 } from '../../utils/positionUtils'
+import GenericTable from '../common/GenericTable'
 
 export default function DexPositionTable({ positions, onSupplyClick, onProvideClick }) {
   const columns = [

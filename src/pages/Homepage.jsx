@@ -1,30 +1,32 @@
-import { useState } from 'react'
-import { useChainId, useAccount } from 'wagmi'
 import './Homepage.scss'
-import Header from '../components/layout/Header'
-import Footer from '../components/layout/Footer'
-import { DexPositionCard, BusinessPositionCard } from '../components/positions'
-import DeFiPositionCard from '../components/positions/DeFiPositionCard'
-import DexPositionTable from '../components/positions/DexPositionTable'
-import DeFiPositionTable from '../components/positions/DeFiPositionTable'
-import BusinessPositionTable from '../components/positions/BusinessPositionTable'
+
+import { useState } from 'react'
+import { useAccount, useChainId } from 'wagmi'
+
+import BusinessPositionModal from '../components/common/BusinessPositionModal'
+import PositionOfferingModal from '../components/common/PositionOfferingModal'
 import ViewToggle from '../components/common/ViewToggle'
+import Footer from '../components/layout/Footer'
+import Header from '../components/layout/Header'
+import { BusinessPositionCard, DexPositionCard } from '../components/positions'
+import BusinessPositionTable from '../components/positions/BusinessPositionTable'
+import DeFiPositionCard from '../components/positions/DeFiPositionCard'
+import DeFiPositionTable from '../components/positions/DeFiPositionTable'
+import DexPositionTable from '../components/positions/DexPositionTable'
 import { HERO_CONTENT, SECTION_TITLES } from '../constants'
 import {
-  processDexPositions,
-  processDeFiPositions,
-  processBusinessPositions,
-} from '../utils/positionUtils'
-import {
-  getDexPositionsByChain,
-  getDeFiPositionsByChain,
-  getBusinessPositionsByChain,
-  getAllDexPositions,
-  getAllDeFiPositions,
   getAllBusinessPositions,
+  getAllDeFiPositions,
+  getAllDexPositions,
+  getBusinessPositionsByChain,
+  getDeFiPositionsByChain,
+  getDexPositionsByChain,
 } from '../utils/networkUtils'
-import PositionOfferingModal from '../components/common/PositionOfferingModal'
-import BusinessPositionModal from '../components/common/BusinessPositionModal'
+import {
+  processBusinessPositions,
+  processDeFiPositions,
+  processDexPositions,
+} from '../utils/positionUtils'
 
 export default function Homepage() {
   // Get wallet connection status and chain ID

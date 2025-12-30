@@ -8,6 +8,10 @@ module.exports = {
     'airbnb',
     'airbnb/hooks',
   ],
+  plugins: [
+    'simple-import-sort',
+    'unused-imports',
+  ],
   parserOptions: {
     ecmaVersion: 'latest',
     sourceType: 'module',
@@ -16,6 +20,20 @@ module.exports = {
     },
   },
   rules: {
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
+    'import/order': 'off',
+    'no-unused-vars': 'off',
+    'unused-imports/no-unused-imports': 'error',
+    'unused-imports/no-unused-vars': [
+      'warn',
+      {
+        vars: 'all',
+        varsIgnorePattern: '^_',
+        args: 'after-used',
+        argsIgnorePattern: '^_',
+      },
+    ],
     'react/react-in-jsx-scope': 'off',
     'react/jsx-filename-extension': [1, { extensions: ['.jsx', '.js'] }],
     'import/extensions': [

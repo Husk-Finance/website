@@ -2,10 +2,10 @@
  * Network and position filtering utilities
  */
 
-import { mockPositions } from '../data/mockPositions'
-import { mockDeFiPositions } from '../data/mockDeFiPositions'
-import { mockBusinessPositions } from '../data/mockBusinessPositions'
 import { CHAIN_IDS } from '../constants/networks'
+import { mockBusinessPositions } from '../data/mockBusinessPositions'
+import { mockDeFiPositions } from '../data/mockDeFiPositions'
+import { mockPositions } from '../data/mockPositions'
 
 /**
  * Get DEX positions for a specific chain

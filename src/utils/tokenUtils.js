@@ -1,7 +1,9 @@
 import {
-  createPublicClient, http, formatUnits, encodeFunctionData, decodeFunctionResult,
+  createPublicClient, decodeFunctionResult,
+  encodeFunctionData, formatUnits, http,
 } from 'viem'
-import { mainnet, base } from 'viem/chains'
+import { base, mainnet } from 'viem/chains'
+
 import { ERC20_ABI } from '../constants/contracts'
 import { CHAIN_IDS, getNetworkByChainId } from '../constants/networks'
 

@@ -1,12 +1,14 @@
-import { useState, useEffect, useCallback } from 'react'
-import PropTypes from 'prop-types'
-import { useAccount } from 'wagmi'
 import './PositionOfferingModal.scss'
-import { fetchTokenData } from '../../utils/tokenUtils'
+
+import PropTypes from 'prop-types'
+import { useCallback, useEffect, useState } from 'react'
+import { useAccount } from 'wagmi'
+
 import {
-  formatPercent, formatDollar, formatTokenAmount, getTokenDecimals,
+  formatDollar, formatPercent, formatTokenAmount, getTokenDecimals,
 } from '../../utils/positionUtils'
-import { formatTokenBalance, parseTokenAmount, hasSufficientBalance } from '../../utils/tokenDisplayUtils'
+import { formatTokenBalance } from '../../utils/tokenDisplayUtils'
+import { fetchTokenData } from '../../utils/tokenUtils'
 
 function PositionOfferingModal({
   isOpen, onClose, action, position,

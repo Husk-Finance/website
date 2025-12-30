@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types'
 import './CardBase.scss'
+
+import PropTypes from 'prop-types'
 
 export function CardContainer({ children, className = '', onClick }) {
   const props = {

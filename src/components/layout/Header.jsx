@@ -2,6 +2,7 @@ import '@rainbow-me/rainbowkit/styles.css'
 import './Header.scss'
 
 import { ConnectButton } from '@rainbow-me/rainbowkit'
+
 import logoGradient from '../../assets/logo-gradient.svg'
 import { NAV_LINKS } from '../../constants'
 

@@ -7,9 +7,9 @@
  */
 
 export {
-  NETWORKS,
   CHAIN_IDS,
   DEFAULT_CHAIN_ID,
   getNetworkByChainId,
   isSupportedChain,
+  NETWORKS,
 } from '../main'

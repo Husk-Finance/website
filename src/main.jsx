@@ -1,13 +1,15 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
 import './styles/main.scss'
 import '@rainbow-me/rainbowkit/styles.css'
-import { getDefaultConfig, RainbowKitProvider, darkTheme } from '@rainbow-me/rainbowkit'
-import { WagmiProvider } from 'wagmi'
-import { mainnet, base, mantle } from 'wagmi/chains'
-import { Porto } from 'porto'
+
+import { darkTheme, getDefaultConfig, RainbowKitProvider } from '@rainbow-me/rainbowkit'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { Porto } from 'porto'
+import React from 'react'
+import ReactDOM from 'react-dom/client'
 import { http } from 'viem'
+import { WagmiProvider } from 'wagmi'
+import { base, mainnet, mantle } from 'wagmi/chains'
+
 import App from './App'
 import { hyperevm } from './constants/chains'
 

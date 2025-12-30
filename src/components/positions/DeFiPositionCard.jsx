@@ -1,13 +1,16 @@
-import PropTypes from 'prop-types'
 import './DeFiPositionCard.scss'
+
+import PropTypes from 'prop-types'
 import { useReadContracts } from 'wagmi'
-import Tag from '../common/Tag'
+
 import { GRID_LABELS } from '../../constants'
 import { ERC20_ABI } from '../../constants/contracts'
-import { getQuotedTokenSymbol, formatPercent, formatDollar } from '../../utils/positionUtils'
+import { formatDollar, formatPercent, getQuotedTokenSymbol } from '../../utils/positionUtils'
 import {
-  CardContainer, CardGrid, CardGridItem, CardButtons,
+  CardButtons,
+  CardContainer, CardGrid, CardGridItem,
 } from '../common/CardBase'
+import Tag from '../common/Tag'
 
 export default function DeFiPositionCard({ position, onSupplyClick = null, onProvideClick = null }) {
   // Fetch token symbols for both assets
