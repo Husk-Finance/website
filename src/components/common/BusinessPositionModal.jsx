@@ -4,7 +4,7 @@ import PropTypes from 'prop-types'
 import { useCallback, useEffect, useState } from 'react'
 import { useAccount } from 'wagmi'
 
-import { formatCompactNumber, formatPercent } from '../../utils/positionUtils'
+import { formatCompactNumber, formatPercent, formatTokenAmount } from '../../utils/positionUtils'
 import { formatTokenBalance } from '../../utils/tokenDisplayUtils'
 import { fetchTokenData } from '../../utils/tokenUtils'
 
@@ -361,6 +361,13 @@ function BusinessPositionModal({
                   disabled={!isConnected || isLoadingToken}
                 />
                 <span className="percentage-label">%</span>
+              </div>
+              <div className="receive-estimate">
+                You will receive:
+                {' '}
+                {amount ? formatTokenAmount((parseFloat(amount) * 1.5).toString(), 0, '') : '0'}
+                {' '}
+                USDC
               </div>
             </div>
 

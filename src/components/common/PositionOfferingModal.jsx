@@ -357,6 +357,13 @@ function PositionOfferingModal({
                   />
                   <span className="percentage-label">%</span>
                 </div>
+                <div className="receive-estimate">
+                  You will receive:
+                  {' '}
+                  {amount ? formatTokenAmount((parseFloat(amount) * 1.5).toString(), 0, '') : '0'}
+                  {' '}
+                  {getQuotedTokenSymbol(position)}
+                </div>
               </div>
 
               <div className="action-buttons">
