@@ -46,8 +46,8 @@ function BusinessPositionModal({
       // Supply action: you're supplying USDC
       return position.liquiditySupplierAsset
     }
-    // Provide action: you're providing USDC (liquiditySupplierAsset)
-    return position.liquiditySupplierAsset
+    // Provide action: you're providing the RWA Business Token (liquidityProviderAsset)
+    return position.liquidityProviderAsset
   }, [position, action])
 
   // Check if balance is numeric (integer string) or a placeholder message

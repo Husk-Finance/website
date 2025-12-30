@@ -48,8 +48,8 @@ function PositionOfferingModal({
       // Supply action: you're supplying the same asset you input
       return position.liquiditySupplierAsset
     }
-    // Provide action: you're providing the quote asset (e.g., USDC in WBTC/USDC)
-    return position.liquiditySupplierAsset
+    // Provide action: you're providing the base asset (e.g., WBTC in WBTC/USDC)
+    return position.liquidityProviderAsset || position.liquiditySupplierAsset
   }, [position, action])
 
   // Check if balance is numeric (integer string) or a placeholder message

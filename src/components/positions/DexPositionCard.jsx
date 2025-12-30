@@ -3,6 +3,8 @@ import './DexPositionCard.scss'
 import uniswapIcon from '../../assets/uniswap-icon.svg'
 import aerodromeIcon from '../../assets/aerodrome-icon.svg'
 import agniIcon from '../../assets/agni-icon.svg'
+import { useReadContracts } from 'wagmi'
+import { ERC20_ABI } from '../../constants/contracts'
 import { GRID_LABELS } from '../../constants'
 import {
   getQuotedTokenSymbol, formatPercent, formatDollar, formatTokenAmount, getTokenDecimals,
@@ -12,8 +14,31 @@ import {
 } from '../common/CardBase'
 
 export default function DexPositionCard({ position, onSupplyClick = null, onProvideClick = null }) {
-  // Both buttons show the quote asset (what you're getting/depositing)
-  const quotedToken = getQuotedTokenSymbol(position, 'supply')
+  // Fetch token symbols for both assets
+  const { data: symbols } = useReadContracts({
+    contracts: [
+      {
+        address: position.liquiditySupplierAsset,
+        abi: ERC20_ABI,
+        functionName: 'symbol',
+        chainId: position.chainId,
+      },
+      {
+        address: position.liquidityProviderAsset,
+        abi: ERC20_ABI,
+        functionName: 'symbol',
+        chainId: position.chainId,
+      },
+    ],
+    query: {
+      enabled: !!position.liquiditySupplierAsset && !!position.liquidityProviderAsset,
+      staleTime: Infinity,
+    },
+  })
+
+  // Destructure results
+  const supplySymbol = symbols?.[0]?.result || getQuotedTokenSymbol(position, 'supply')
+  const provideSymbol = symbols?.[1]?.result || getQuotedTokenSymbol(position, 'provide')
 
   // Get decimals for the quote asset (liquiditySupplierAsset)
   const quoteDecimals = getTokenDecimals(position.liquiditySupplierAsset)
@@ -71,19 +96,19 @@ export default function DexPositionCard({ position, onSupplyClick = null, onProv
         <CardGridItem label={GRID_LABELS.revenue24h} value={formatDollar(position.revenue24h)} />
         <CardGridItem
           label={GRID_LABELS.liquidationLow}
-          value={formatTokenAmount(position.liquidationLow, quoteDecimals, quotedToken)}
+          value={formatTokenAmount(position.liquidationLow, quoteDecimals, supplySymbol)}
         />
         <CardGridItem
           label={GRID_LABELS.liquidationHigh}
-          value={formatTokenAmount(position.liquidationHigh, quoteDecimals, quotedToken)}
+          value={formatTokenAmount(position.liquidationHigh, quoteDecimals, supplySymbol)}
         />
         <CardGridItem label={GRID_LABELS.supplyAPY} value={formatPercent(position.supplyAPY)} />
         <CardGridItem label={GRID_LABELS.provideRisk} value={formatPercent(position.provideRisk)} />
         <CardButtons
           onSupply={onSupplyClick}
           onProvide={onProvideClick}
-          supplyLabel={`Supply ${quotedToken}`}
-          provideLabel={`Provide ${quotedToken}`}
+          supplyLabel={`Supply ${supplySymbol}`}
+          provideLabel={`Provide ${provideSymbol}`}
         />
       </CardGrid>
     </CardContainer>

@@ -2,12 +2,39 @@ import PropTypes from 'prop-types'
 import './BusinessPositionCard.scss'
 import Tag from '../common/Tag'
 import { GRID_LABELS } from '../../constants'
+import { useReadContracts } from 'wagmi'
+import { ERC20_ABI } from '../../constants/contracts'
 import { formatCompactNumber, formatPercent } from '../../utils/positionUtils'
 import {
   CardContainer, CardGrid, CardGridItem, CardButtons,
 } from '../common/CardBase'
 
 export default function BusinessPositionCard({ position, onSupplyClick, onProvideClick }) {
+  // Fetch token symbols for both assets
+  const { data: symbols } = useReadContracts({
+    contracts: [
+      {
+        address: position.liquiditySupplierAsset,
+        abi: ERC20_ABI,
+        functionName: 'symbol',
+        chainId: position.chainId,
+      },
+      {
+        address: position.liquidityProviderAsset,
+        abi: ERC20_ABI,
+        functionName: 'symbol',
+        chainId: position.chainId,
+      },
+    ],
+    query: {
+      enabled: !!position.liquiditySupplierAsset && !!position.liquidityProviderAsset,
+      staleTime: Infinity,
+    },
+  })
+
+  // Destructure results. Default to USDC if loading or error, as per previous hardcoding.
+  const supplySymbol = symbols?.[0]?.result || 'USDC'
+  const provideSymbol = symbols?.[1]?.result || 'USDC'
   return (
     <CardContainer className="business-position-card">
       <div className="business-image-container">
@@ -54,8 +81,8 @@ export default function BusinessPositionCard({ position, onSupplyClick, onProvid
           <CardButtons
             onSupply={onSupplyClick}
             onProvide={onProvideClick}
-            supplyLabel="Supply USDC"
-            provideLabel="Provide USDC"
+            supplyLabel={`Supply ${supplySymbol}`}
+            provideLabel={`Provide ${provideSymbol}`}
           />
         </CardGrid>
       </div>
