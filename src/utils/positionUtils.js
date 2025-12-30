@@ -13,7 +13,7 @@ const ETH_NATIVE_ADDRESS = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE'
  * @param {string} address - Token address
  * @returns {boolean} True if it's the native token address
  */
-function isNativeAddress(address) {
+export function isNativeAddress(address) {
   return address && address.toLowerCase() === ETH_NATIVE_ADDRESS.toLowerCase()
 }
 
@@ -237,22 +237,29 @@ export function processBusinessPositions(positions) {
 }
 
 /**
- * Extracts the quoted token symbol from a position (what you're supplying/providing)
- * For DEX positions: extracts from pair name (e.g., "WBTC/USDC" → "USDC")
- * For DeFi positions: uses the quotedAsset property (e.g., "USDC", "WETH", "DAI")
+ * Extracts the token symbol from a position based on the action type.
+ * For DEX positions: extracts from pair name (e.g., "WBTC/USDC")
+ *  - type='supply' -> "USDC" (Quote asset)
+ *  - type='provide' -> "WBTC" (Base asset)
+ * For DeFi positions: uses the quotedAsset property
  * @param {Object} position - Position object
+ * @param {string} type - Action type ('supply' or 'provide')
  * @returns {string} Token symbol
  */
-export function getQuotedTokenSymbol(position) {
-  // For DeFi positions with quotedAsset property
+export function getQuotedTokenSymbol(position, type = 'supply') {
+  // For DeFi positions with quotedAsset property (usually just one asset)
   if (position.quotedAsset) {
     return position.quotedAsset
   }
 
-  // For DEX positions, extract from pair name (always return quote asset)
+  // For DEX positions, extract from pair name
   if (position.pair) {
     const tokens = position.pair.split('/')
     if (tokens.length === 2) {
+      if (type === 'provide') {
+        // Return the first token (base asset, e.g., "WBTC" in "WBTC/USDC")
+        return tokens[0].trim()
+      }
       // Return the second token (quote asset, e.g., "USDC" in "WBTC/USDC")
       return tokens[1].trim()
     }

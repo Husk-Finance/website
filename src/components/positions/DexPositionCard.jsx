@@ -10,6 +10,7 @@ import { GRID_LABELS } from '../../constants'
 import { ERC20_ABI } from '../../constants/contracts'
 import {
   formatDollar, formatPercent, formatTokenAmount, formatTokenSymbol, getQuotedTokenSymbol, getTokenDecimals,
+  isNativeAddress, getNativeTokenSymbol,
 } from '../../utils/positionUtils'
 import {
   CardButtons,
@@ -40,8 +41,17 @@ export default function DexPositionCard({ position, onSupplyClick = null, onProv
   })
 
   // Destructure results
-  const rawSupplySymbol = symbols?.[0]?.result || getQuotedTokenSymbol(position, 'supply')
-  const rawProvideSymbol = symbols?.[1]?.result || getQuotedTokenSymbol(position, 'provide')
+  // Destructure results
+  const isSupplyNative = isNativeAddress(position.liquiditySupplierAsset)
+  const isProvideNative = isNativeAddress(position.liquidityProviderAsset)
+
+  const rawSupplySymbol = isSupplyNative
+    ? getNativeTokenSymbol(position.chainId)
+    : (symbols?.[0]?.result || getQuotedTokenSymbol(position, 'supply'))
+
+  const rawProvideSymbol = isProvideNative
+    ? getNativeTokenSymbol(position.chainId)
+    : (symbols?.[1]?.result || getQuotedTokenSymbol(position, 'provide'))
 
   const supplySymbol = formatTokenSymbol(rawSupplySymbol)
   const provideSymbol = formatTokenSymbol(rawProvideSymbol)
