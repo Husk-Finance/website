@@ -11,7 +11,7 @@ export * from './tags'
 
 // Navigation Links
 export const NAV_LINKS = [
-  { label: 'Docs', href: '#docs' },
+  { label: 'Docs', href: 'https://hackmd.io/@husk-finance' },
   { label: 'Explore', href: '#explore' },
   { label: 'Create Husk', href: '#create' },
 ]

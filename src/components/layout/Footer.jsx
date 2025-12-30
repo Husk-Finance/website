@@ -1,7 +1,10 @@
+import { NAV_LINKS } from '../../constants'
 import './Footer.scss'
 
 export default function Footer() {
   const currentYear = new Date().getFullYear()
+
+  const getLinkHref = (label) => NAV_LINKS.find((link) => link.label === label)?.href || '#'
 
   return (
     <footer className="footer">
@@ -17,8 +20,8 @@ export default function Footer() {
         <div className="footer-section">
           <h3 className="footer-section-title">ENVIRONMENT</h3>
           <ul className="footer-links">
-            <li><a href="#explore">Explore</a></li>
-            <li><a href="#create">Create Husk</a></li>
+            <li><a href={getLinkHref('Explore')}>Explore</a></li>
+            <li><a href={getLinkHref('Create Husk')}>Create Husk</a></li>
             <li><a href="#analytics">Analytics</a></li>
           </ul>
         </div>
@@ -26,7 +29,7 @@ export default function Footer() {
         <div className="footer-section">
           <h3 className="footer-section-title">RESOURCES</h3>
           <ul className="footer-links">
-            <li><a href="#docs">Docs</a></li>
+            <li><a href={getLinkHref('Docs')} target="_blank" rel="noopener noreferrer">Docs</a></li>
             <li><a href="#blog">Blog</a></li>
             <li><a href="#whitepaper">Whitepaper</a></li>
             <li><a href="#media-kit">Media Kit</a></li>
