@@ -400,46 +400,28 @@ function PositionOfferingModal({
           {/* Right Column - Description */}
           <div className="modal-right">
             <div className="description-content">
-              <p>
-                Dicta dolor dolorum blanditiis sunt error explicabo.
-                Aspernatur provident optio iure sapiente.
-                Rem quidem consequatur corrupti occaecati velit iure placeat.
-                Ab quibusdam dolor id necessitatibus quidem dolores ea ea.
-                Quibusdam omnis aut rerum repellendus ut dicta quod similique.
-              </p>
-              <p>&nbsp;</p>
-              <p>
-                Qui repudiandae et accusantium cum rerum aliquid debitis quo.
-                Molestias voluptatem nisi sapiente doloribus voluptatem.
-                Repudiandae nihil et veniam libero sunt ipsam sunt.
-                Quas voluptatem est consectetur.
-              </p>
-              <p>&nbsp;</p>
-              <p>
-                Quia illum voluptatem odit voluptas et.
-                Maiores fugit eum distinctio animi voluptatibus amet.
-                Sit quam assumenda nulla molestiae.
-                Possimus quo alias modi sit odio.
-                Culpa quidem eos itaque culpa et quisquam aut aut.
-              </p>
-              <p>&nbsp;</p>
-              <p>
-                Ea quis quaerat est consectetur molestiae quasi.
-                Et earum atque omnis atque.
-                Accusamus adipisci eveniet nihil neque et.
-                Officia deleniti ut eos repudiandae omnis est.
-                Voluptas nihil reiciendis amet voluptas fugiat laudantium.
-                Tenetur laudantium explicabo dolorum.
-              </p>
-              <p>&nbsp;</p>
-              <p>
-                Assumenda nemo cupiditate aperiam aut aliquid porro consectetur.
-                Quisquam minima non ad.
-                Rerum perspiciatis velit non id perferendis.
-                Architecto quia totam corrupti cupiditate dignissimos sunt nobis.
-                Deserunt odio dolorum rerum quia adipisci.
-                Asperiores asperiores excepturi ut.
-              </p>
+              {position.description ? (
+                position.description.split('\n\n').map((paragraph, index) => (
+                  <p key={index} style={{ marginBottom: '1rem' }}>{paragraph}</p>
+                ))
+              ) : (
+                <>
+                  <p>
+                    Dicta dolor dolorum blanditiis sunt error explicabo.
+                    Aspernatur provident optio iure sapiente.
+                    Rem quidem consequatur corrupti occaecati velit iure placeat.
+                    Ab quibusdam dolor id necessitatibus quidem dolores ea ea.
+                    Quibusdam omnis aut rerum repellendus ut dicta quod similique.
+                  </p>
+                  <p>&nbsp;</p>
+                  <p>
+                    Qui repudiandae et accusantium cum rerum aliquid debitis quo.
+                    Molestias voluptatem nisi sapiente doloribus voluptatem.
+                    Repudiandae nihil et veniam libero sunt ipsam sunt.
+                    Quas voluptatem est consectetur.
+                  </p>
+                </>
+              )}
             </div>
           </div>
         </div>
@@ -474,6 +456,7 @@ PositionOfferingModal.propTypes = {
     supplyAPY: PropTypes.string,
     provideRisk: PropTypes.string,
     participationRisk: PropTypes.string,
+    description: PropTypes.string,
     chainId: PropTypes.number,
     // Asset fields (token addresses)
     liquidityProviderAsset: PropTypes.string, // ERC20 token address
