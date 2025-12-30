@@ -249,3 +249,15 @@ export function getQuotedTokenSymbol(position) {
   // Default fallback
   return 'USDC'
 }
+
+/**
+ * Truncates token symbol if it exceeds the maximum length.
+ * @param {string} symbol - Token symbol to format
+ * @param {number} maxLength - Maximum length before truncation (default: 6)
+ * @returns {string} Formatted token symbol
+ */
+export function formatTokenSymbol(symbol, maxLength = 6) {
+  if (!symbol) return ''
+  if (symbol.length <= maxLength) return symbol
+  return `${symbol.substring(0, maxLength)}...`
+}

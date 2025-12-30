@@ -9,7 +9,7 @@ import uniswapIcon from '../../assets/uniswap-icon.svg'
 import { GRID_LABELS } from '../../constants'
 import { ERC20_ABI } from '../../constants/contracts'
 import {
-  formatDollar, formatPercent, formatTokenAmount, getQuotedTokenSymbol, getTokenDecimals,
+  formatDollar, formatPercent, formatTokenAmount, formatTokenSymbol, getQuotedTokenSymbol, getTokenDecimals,
 } from '../../utils/positionUtils'
 import {
   CardButtons,
@@ -40,8 +40,11 @@ export default function DexPositionCard({ position, onSupplyClick = null, onProv
   })
 
   // Destructure results
-  const supplySymbol = symbols?.[0]?.result || getQuotedTokenSymbol(position, 'supply')
-  const provideSymbol = symbols?.[1]?.result || getQuotedTokenSymbol(position, 'provide')
+  const rawSupplySymbol = symbols?.[0]?.result || getQuotedTokenSymbol(position, 'supply')
+  const rawProvideSymbol = symbols?.[1]?.result || getQuotedTokenSymbol(position, 'provide')
+
+  const supplySymbol = formatTokenSymbol(rawSupplySymbol)
+  const provideSymbol = formatTokenSymbol(rawProvideSymbol)
 
   // Get decimals for the quote asset (liquiditySupplierAsset)
   const quoteDecimals = getTokenDecimals(position.liquiditySupplierAsset)
@@ -134,6 +137,8 @@ DexPositionCard.propTypes = {
     liquidationHigh: PropTypes.string.isRequired,
     provideRisk: PropTypes.string.isRequired,
     liquiditySupplierAsset: PropTypes.string, // ERC20 token address
+    liquidityProviderAsset: PropTypes.string, // ERC20 token address
+    chainId: PropTypes.number,
   }).isRequired,
   onSupplyClick: PropTypes.func,
   onProvideClick: PropTypes.func,

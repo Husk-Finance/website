@@ -292,7 +292,7 @@ function BusinessPositionModal({
                 </div>
                 <div className="info-item">
                   <p className="label">Participation Risk</p>
-                  <p className="value">{position.participationRisk}</p>
+                  <p className="value">{formatPercent(position.participationRisk)}</p>
                 </div>
               </div>
             </div>

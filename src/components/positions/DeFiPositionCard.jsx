@@ -5,7 +5,9 @@ import { useReadContracts } from 'wagmi'
 
 import { GRID_LABELS } from '../../constants'
 import { ERC20_ABI } from '../../constants/contracts'
-import { formatDollar, formatPercent, getQuotedTokenSymbol } from '../../utils/positionUtils'
+import {
+  formatDollar, formatPercent, formatTokenSymbol, getQuotedTokenSymbol,
+} from '../../utils/positionUtils'
 import {
   CardButtons,
   CardContainer, CardGrid, CardGridItem,
@@ -36,8 +38,11 @@ export default function DeFiPositionCard({ position, onSupplyClick = null, onPro
   })
 
   // Destructure results
-  const supplySymbol = symbols?.[0]?.result || getQuotedTokenSymbol(position)
-  const provideSymbol = symbols?.[1]?.result || getQuotedTokenSymbol(position)
+  const rawSupplySymbol = symbols?.[0]?.result || getQuotedTokenSymbol(position)
+  const rawProvideSymbol = symbols?.[1]?.result || getQuotedTokenSymbol(position)
+
+  const supplySymbol = formatTokenSymbol(rawSupplySymbol)
+  const provideSymbol = formatTokenSymbol(rawProvideSymbol)
 
   return (
     <CardContainer className="defi-position-card">

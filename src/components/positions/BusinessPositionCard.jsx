@@ -5,7 +5,9 @@ import { useReadContracts } from 'wagmi'
 
 import { GRID_LABELS } from '../../constants'
 import { ERC20_ABI } from '../../constants/contracts'
-import { formatCompactNumber, formatPercent } from '../../utils/positionUtils'
+import {
+  formatCompactNumber, formatPercent, formatTokenSymbol,
+} from '../../utils/positionUtils'
 import {
   CardButtons,
   CardContainer, CardGrid, CardGridItem,
@@ -36,8 +38,12 @@ export default function BusinessPositionCard({ position, onSupplyClick, onProvid
   })
 
   // Destructure results. Default to USDC if loading or error, as per previous hardcoding.
-  const supplySymbol = symbols?.[0]?.result || 'USDC'
-  const provideSymbol = symbols?.[1]?.result || 'USDC'
+  const rawSupplySymbol = symbols?.[0]?.result || 'USDC'
+  const rawProvideSymbol = symbols?.[1]?.result || 'USDC'
+
+  const supplySymbol = formatTokenSymbol(rawSupplySymbol)
+  const provideSymbol = formatTokenSymbol(rawProvideSymbol)
+
   return (
     <CardContainer className="business-position-card">
       <div className="business-image-container">
@@ -80,7 +86,7 @@ export default function BusinessPositionCard({ position, onSupplyClick, onProvid
           <CardGridItem label="Distribution" value={position.distribution} />
           <CardGridItem label="Next Distribution" value={position.nextDistribution} />
           <CardGridItem label={GRID_LABELS.supplyAPY} value={formatPercent(position.supplyAPY)} />
-          <CardGridItem label={GRID_LABELS.participationRisk} value={position.participationRisk} />
+          <CardGridItem label={GRID_LABELS.participationRisk} value={formatPercent(position.participationRisk)} />
           <CardButtons
             onSupply={onSupplyClick}
             onProvide={onProvideClick}
