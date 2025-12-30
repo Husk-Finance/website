@@ -83,11 +83,23 @@ export function formatDollar(value) {
  * @returns {string} Formatted token amount (e.g., "16.5 ETH", "4,000 USDC")
  */
 export function formatTokenAmount(value, decimals, symbol) {
-  const num = typeof value === 'string' ? BigInt(value) : BigInt(value)
-  const divisor = BigInt(10 ** decimals)
+  let amount
 
-  // Convert to number for formatting
-  const amount = Number(num) / Number(divisor)
+  // Check if value is a string containing a decimal point (already human-readable)
+  if (typeof value === 'string' && value.includes('.')) {
+    amount = parseFloat(value)
+  } else {
+    // Treat as raw unit (integer)
+    try {
+      const num = BigInt(value)
+      const divisor = BigInt(10 ** decimals)
+      // Convert to number for formatting
+      amount = Number(num) / Number(divisor)
+    } catch (e) {
+      // Fallback for non-BigInt compatible values
+      amount = Number(value) / (10 ** decimals)
+    }
+  }
 
   // Format based on size
   let formatted

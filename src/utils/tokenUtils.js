@@ -14,7 +14,7 @@ const ETH_NATIVE_ADDRESS = '0xEeeeeEeeeEeEeeEeEeEeeEEEeeeeEeeeeeeeEEeE'
 // Cache key prefix for sessionStorage
 const TOKEN_CACHE_PREFIX = 'husk_token_'
 const BALANCE_CACHE_PREFIX = 'husk_balance_'
-const CACHE_DURATION = 5 * 60 * 1000 // 5 minutes for balance cache
+const CACHE_DURATION = 0 // no balance cache
 const TOKEN_INFO_CACHE_DURATION = 24 * 60 * 60 * 1000 // 24 hours for token info (symbol, decimals)
 
 /**
@@ -227,7 +227,7 @@ export async function fetchTokenData(tokenAddress, userAddress, publicClient, ch
       // Fetch native token balance directly
       try {
         const balanceRaw = await client.getBalance({ address: userAddress })
-        const balance = formatUnits(balanceRaw, decimals)
+        const balance = balanceRaw.toString()
 
         // Cache the balance with chainId
         setCachedBalance(tokenAddress, userAddress, balance, chainId)
@@ -286,14 +286,14 @@ export async function fetchTokenData(tokenAddress, userAddress, publicClient, ch
         data: symbolResult.data,
       })
 
-      decimals = decodeFunctionResult({
+      decimals = Number(decodeFunctionResult({
         abi: ERC20_ABI,
         functionName: 'decimals',
         data: decimalsResult.data,
-      })
+      }))
 
       // Cache the token info with chainId
-      setCachedTokenInfo(tokenAddress, { symbol, decimals: Number(decimals) }, chainId)
+      setCachedTokenInfo(tokenAddress, { symbol, decimals }, chainId)
     }
 
     // If no user address, return placeholder for balance
@@ -329,7 +329,7 @@ export async function fetchTokenData(tokenAddress, userAddress, publicClient, ch
       })
 
       // Format balance
-      balance = formatUnits(balanceRaw, decimals)
+      balance = balanceRaw.toString()
 
       // Cache the balance with chainId
       setCachedBalance(tokenAddress, userAddress, balance, chainId)
