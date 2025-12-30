@@ -128,8 +128,8 @@ export default function Homepage() {
           businessView === 'grid' ? (
             <>
               <div className="business-positions-grid">
-                {(businessShowAll 
-                  ? sortedBusinessPositions 
+                {(businessShowAll
+                  ? sortedBusinessPositions
                   : sortedBusinessPositions.slice(0, BUSINESS_INITIAL_LIMIT)
                 ).map((position) => (
                   <BusinessPositionCard
@@ -142,11 +142,14 @@ export default function Homepage() {
               </div>
               {!businessShowAll && sortedBusinessPositions.length > BUSINESS_INITIAL_LIMIT && (
                 <div className="load-more-container">
-                  <button 
-                    className="load-more-btn" 
+                  <button
+                    className="load-more-btn"
                     onClick={() => setBusinessShowAll(true)}
                   >
-                    Load More ({sortedBusinessPositions.length - BUSINESS_INITIAL_LIMIT} more)
+                    Load More (
+                    {sortedBusinessPositions.length - BUSINESS_INITIAL_LIMIT}
+                    {' '}
+                    more)
                   </button>
                 </div>
               )}
@@ -175,8 +178,8 @@ export default function Homepage() {
           dexView === 'grid' ? (
             <>
               <div className="positions-grid">
-                {(dexShowAll 
-                  ? sortedDexPositions 
+                {(dexShowAll
+                  ? sortedDexPositions
                   : sortedDexPositions.slice(0, DEX_INITIAL_LIMIT)
                 ).map((position) => (
                   <DexPositionCard
@@ -189,11 +192,14 @@ export default function Homepage() {
               </div>
               {!dexShowAll && sortedDexPositions.length > DEX_INITIAL_LIMIT && (
                 <div className="load-more-container">
-                  <button 
-                    className="load-more-btn" 
+                  <button
+                    className="load-more-btn"
                     onClick={() => setDexShowAll(true)}
                   >
-                    Load More ({sortedDexPositions.length - DEX_INITIAL_LIMIT} more)
+                    Load More (
+                    {sortedDexPositions.length - DEX_INITIAL_LIMIT}
+                    {' '}
+                    more)
                   </button>
                 </div>
               )}
@@ -222,8 +228,8 @@ export default function Homepage() {
           defiView === 'grid' ? (
             <>
               <div className="positions-grid">
-                {(defiShowAll 
-                  ? sortedDeFiPositions 
+                {(defiShowAll
+                  ? sortedDeFiPositions
                   : sortedDeFiPositions.slice(0, DEFI_INITIAL_LIMIT)
                 ).map((position) => (
                   <DeFiPositionCard
@@ -236,11 +242,14 @@ export default function Homepage() {
               </div>
               {!defiShowAll && sortedDeFiPositions.length > DEFI_INITIAL_LIMIT && (
                 <div className="load-more-container">
-                  <button 
-                    className="load-more-btn" 
+                  <button
+                    className="load-more-btn"
                     onClick={() => setDefiShowAll(true)}
                   >
-                    Load More ({sortedDeFiPositions.length - DEFI_INITIAL_LIMIT} more)
+                    Load More (
+                    {sortedDeFiPositions.length - DEFI_INITIAL_LIMIT}
+                    {' '}
+                    more)
                   </button>
                 </div>
               )}

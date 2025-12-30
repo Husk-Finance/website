@@ -199,9 +199,9 @@ export function autoTagNewPositions(positions) {
  */
 export function processDeFiPositions(positions) {
   const tagged = autoTagNewPositions(positions)
-  return sortByCreationTime(tagged).map(position => ({
+  return sortByCreationTime(tagged).map((position) => ({
     ...position,
-    tags: processTags(position.tags)
+    tags: processTags(position.tags),
   }))
 }
 
@@ -220,9 +220,9 @@ export function processDexPositions(positions) {
  * @returns {Array} Processed positions with full tag objects
  */
 export function processBusinessPositions(positions) {
-  return sortByCreationTime(positions).map(position => ({
+  return sortByCreationTime(positions).map((position) => ({
     ...position,
-    tags: processTags(position.tags)
+    tags: processTags(position.tags),
   }))
 }
 

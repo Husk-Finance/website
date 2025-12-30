@@ -74,10 +74,14 @@ export default function DeFiPositionTable({ positions, onSupplyClick, onProvideC
         return (
           <div className="action-buttons">
             <button type="button" onClick={() => onSupplyClick(row)}>
-              Supply {quotedToken}
+              Supply
+              {' '}
+              {quotedToken}
             </button>
             <button type="button" className="provide-button" onClick={() => onProvideClick(row)}>
-              Provide {quotedToken}
+              Provide
+              {' '}
+              {quotedToken}
             </button>
           </div>
         )
@@ -98,7 +102,7 @@ DeFiPositionTable.propTypes = {
           label: PropTypes.string,
           bg: PropTypes.string,
           color: PropTypes.string,
-        })
+        }),
       ),
       huskAPY: PropTypes.string.isRequired,
       tvl: PropTypes.string.isRequired,
@@ -108,7 +112,7 @@ DeFiPositionTable.propTypes = {
       supplyAPY: PropTypes.string.isRequired,
       participationRisk: PropTypes.string.isRequired,
       liquiditySupplierAsset: PropTypes.string, // ERC20 token address
-    })
+    }),
   ).isRequired,
   onSupplyClick: PropTypes.func.isRequired,
   onProvideClick: PropTypes.func.isRequired,

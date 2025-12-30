@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types'
 import './DexPositionCard.scss'
+import { useReadContracts } from 'wagmi'
 import uniswapIcon from '../../assets/uniswap-icon.svg'
 import aerodromeIcon from '../../assets/aerodrome-icon.svg'
 import agniIcon from '../../assets/agni-icon.svg'
-import { useReadContracts } from 'wagmi'
 import { ERC20_ABI } from '../../constants/contracts'
 import { GRID_LABELS } from '../../constants'
 import {

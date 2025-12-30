@@ -2,7 +2,7 @@
  * Mock business position data for testing and development.
  * This data simulates RWA (Real World Asset) business positions for the Husk Finance platform.
  * Contains positions from multiple networks - filter by chainId as needed.
- * 
+ *
  * Data Format:
  * - tags: Array of tag names (strings) - styling is defined in constants/tags.js
  */

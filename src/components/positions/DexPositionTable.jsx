@@ -126,7 +126,7 @@ DexPositionTable.propTypes = {
       supplyAPY: PropTypes.string.isRequired,
       provideRisk: PropTypes.string.isRequired,
       liquiditySupplierAsset: PropTypes.string.isRequired,
-    })
+    }),
   ).isRequired,
   onSupplyClick: PropTypes.func.isRequired,
   onProvideClick: PropTypes.func.isRequired,

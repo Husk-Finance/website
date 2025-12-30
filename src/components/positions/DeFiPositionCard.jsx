@@ -1,8 +1,8 @@
 import PropTypes from 'prop-types'
 import './DeFiPositionCard.scss'
+import { useReadContracts } from 'wagmi'
 import Tag from '../common/Tag'
 import { GRID_LABELS } from '../../constants'
-import { useReadContracts } from 'wagmi'
 import { ERC20_ABI } from '../../constants/contracts'
 import { getQuotedTokenSymbol, formatPercent, formatDollar } from '../../utils/positionUtils'
 import {
@@ -99,5 +99,3 @@ DeFiPositionCard.propTypes = {
   onSupplyClick: PropTypes.func,
   onProvideClick: PropTypes.func,
 }
-
-

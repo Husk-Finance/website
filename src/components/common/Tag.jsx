@@ -13,7 +13,7 @@ export default function Tag({ tag }) {
       const rect = tagRef.current.getBoundingClientRect()
       setCoords({
         top: rect.top + window.scrollY - 8, // 8px gap above the element
-        left: rect.left + window.scrollX + (rect.width / 2)
+        left: rect.left + window.scrollX + (rect.width / 2),
       })
       setShowTooltip(true)
     }
@@ -47,7 +47,7 @@ export default function Tag({ tag }) {
             <span className="tag-tooltip-desc">{tag.description}</span>
           )}
         </span>,
-        document.body
+        document.body,
       )}
     </>
   )
@@ -58,6 +58,6 @@ Tag.propTypes = {
     label: PropTypes.string.isRequired,
     bg: PropTypes.string,
     color: PropTypes.string,
-    description: PropTypes.string
-  }).isRequired
+    description: PropTypes.string,
+  }).isRequired,
 }
