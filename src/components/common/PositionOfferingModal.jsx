@@ -286,6 +286,19 @@ function PositionOfferingModal({
                   <p className="label">24h rev.</p>
                   <p className="value">{formatDollar(position.revenue24h)}</p>
                 </div>
+                <div className="info-item">
+                  <p className="label">24h rev.</p>
+                  <p className="value">{formatDollar(position.revenue24h)}</p>
+                </div>
+                {/* Available for both DEX and DeFi */}
+                <div className="info-item">
+                  <p className="label">Supply Share</p>
+                  <p className="value">{formatPercent(position.supplyShare)}</p>
+                </div>
+                <div className="info-item">
+                  <p className="label">Provide Share</p>
+                  <p className="value">{formatPercent(position.provideShare)}</p>
+                </div>
                 {isDexPosition ? null : (
                   <>
                     <div className="info-item">
@@ -452,6 +465,8 @@ PositionOfferingModal.propTypes = {
     pair: PropTypes.string,
     version: PropTypes.string,
     fee: PropTypes.string,
+    supplyShare: PropTypes.string,
+    provideShare: PropTypes.string,
     // Common fields
     huskAPY: PropTypes.string,
     tvl: PropTypes.string,

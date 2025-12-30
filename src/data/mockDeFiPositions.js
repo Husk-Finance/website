@@ -21,6 +21,8 @@ export const mockDeFiPositions = [
     distribution: 'Thursday',
     nextDistribution: 'in 7 days 3 hours',
     supplyAPY: '2500', // 25%
+    supplyShare: '5000', // 50%
+    provideShare: '4500', // 45%
     tvl: '10620', // $10.62k
     revenue24h: '850', // $850
     liquidationLow: '0.99 USDC',
@@ -38,6 +40,8 @@ export const mockDeFiPositions = [
     distribution: 'Weekly',
     nextDistribution: 'in 3 days',
     supplyAPY: '284', // 2.84%
+    supplyShare: '7000', // 70%
+    provideShare: '2500', // 25%
     tvl: '860000', // $860k
     revenue24h: '310', // $310
     liquidationLow: '0.997 USDC',
@@ -55,6 +59,8 @@ export const mockDeFiPositions = [
     distribution: 'Monthly',
     nextDistribution: 'in 14 days',
     supplyAPY: '120', // 1.20%
+    supplyShare: '8000', // 80%
+    provideShare: '1500', // 15%
     tvl: '2300000', // $2.3M
     revenue24h: '940', // $940
     liquidationLow: '0.995 USDC',
@@ -72,6 +78,8 @@ export const mockDeFiPositions = [
     distribution: 'Daily',
     nextDistribution: 'in 12 hours',
     supplyAPY: '450', // 4.50%
+    supplyShare: '6000', // 60%
+    provideShare: '3500', // 35%
     tvl: '420000', // $420k
     revenue24h: '120', // $120
     liquidationLow: '2,800 USDC',
@@ -91,6 +99,8 @@ export const mockDeFiPositions = [
     distribution: 'Weekly',
     nextDistribution: 'in 5 days',
     supplyAPY: '420', // 4.2%
+    supplyShare: '7500', // 75%
+    provideShare: '2000', // 20%
     tvl: '1200000', // $1.2M
     revenue24h: '520', // $520
     liquidationLow: '0.997 USDbC',
@@ -108,6 +118,8 @@ export const mockDeFiPositions = [
     distribution: 'Daily',
     nextDistribution: 'in 18 hours',
     supplyAPY: '580', // 5.8%
+    supplyShare: '6500', // 65%
+    provideShare: '3000', // 30%
     tvl: '780000', // $780k
     revenue24h: '340', // $340
     liquidationLow: '3,100 USDbC',
@@ -125,6 +137,8 @@ export const mockDeFiPositions = [
     distribution: 'Weekly',
     nextDistribution: 'in 4 days',
     supplyAPY: '650', // 6.5%
+    supplyShare: '6000', // 60%
+    provideShare: '3500', // 35%
     tvl: '540000', // $540k
     revenue24h: '280', // $280
     liquidationLow: '94,000 USDbC',
@@ -142,6 +156,8 @@ export const mockDeFiPositions = [
     distribution: 'Weekly',
     nextDistribution: 'in 2 days',
     supplyAPY: '310', // 3.1%
+    supplyShare: '7000', // 70%
+    provideShare: '2500', // 25%
     tvl: '2100000', // $2.1M
     revenue24h: '180', // $180
     liquidationLow: '0.998 USDC',
@@ -161,6 +177,8 @@ export const mockDeFiPositions = [
     distribution: 'Daily',
     nextDistribution: 'in 6 hours',
     supplyAPY: '43', // 0.43%
+    supplyShare: '9000', // 90%
+    provideShare: '500', // 5%
     tvl: '44000', // $44k
     revenue24h: '40', // $40
     liquidationLow: '',
@@ -178,6 +196,8 @@ export const mockDeFiPositions = [
     tags: ['LST'],
     huskAPY: '20', // 0.2%
     supplyAPY: '5', // 0.05%
+    supplyShare: '8500', // 85%
+    provideShare: '1000', // 10%
     distribution: 'Daily',
     nextDistribution: 'in 6 hours',
     tvl: '10000', // $10k
@@ -195,6 +215,8 @@ export const mockDeFiPositions = [
     tags: ['CLM', 'UniV3'],
     huskAPY: '464', // 4.64%
     supplyAPY: '132', // 1.32%
+    supplyShare: '4500', // 45%
+    provideShare: '5000', // 50%
     distribution: 'Daily',
     nextDistribution: 'in 6 hours',
     tvl: '62160', // $62.16k
@@ -212,6 +234,8 @@ export const mockDeFiPositions = [
     tags: [],
     huskAPY: '2888',
     supplyAPY: '722',
+    supplyShare: '5500', // 55%
+    provideShare: '4000', // 40%
     distribution: 'Daily',
     nextDistribution: 'in 6 hours',
     tvl: '69420',
@@ -229,6 +253,8 @@ export const mockDeFiPositions = [
     tags: ['MNT', 'RWA'],
     huskAPY: '4600',
     supplyAPY: '2300',
+    supplyShare: '6000', // 60%
+    provideShare: '3500', // 35%
     distribution: 'Thursday',
     nextDistribution: 'in 2 days',
     tvl: '12345',

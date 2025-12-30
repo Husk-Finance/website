@@ -68,8 +68,8 @@ export default function DeFiPositionCard({ position, onSupplyClick = null, onPro
       <CardGrid>
         <CardGridItem label={GRID_LABELS.tvl} value={formatDollar(position.tvl)} />
         <CardGridItem label={GRID_LABELS.revenue24h} value={formatDollar(position.revenue24h)} />
-        <CardGridItem label="Distribution" value={position.distribution} />
-        <CardGridItem label="Next Distribution" value={position.nextDistribution} />
+        <CardGridItem label="Supply Share" value={formatPercent(position.supplyShare)} />
+        <CardGridItem label="Provide Share" value={formatPercent(position.provideShare)} />
         <CardGridItem label={GRID_LABELS.supplyAPY} value={formatPercent(position.supplyAPY)} />
         <CardGridItem label={GRID_LABELS.participationRisk} value={formatPercent(position.participationRisk)} />
         <CardButtons
@@ -97,6 +97,8 @@ DeFiPositionCard.propTypes = {
     supplyAPY: PropTypes.string.isRequired,
     tvl: PropTypes.string.isRequired,
     revenue24h: PropTypes.string.isRequired,
+    supplyShare: PropTypes.string.isRequired,
+    provideShare: PropTypes.string.isRequired,
     distribution: PropTypes.string,
     nextDistribution: PropTypes.string,
     provideRisk: PropTypes.string,
