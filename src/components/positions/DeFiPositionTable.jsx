@@ -50,11 +50,13 @@ export default function DeFiPositionTable({ positions, onSupplyClick, onProvideC
     {
       key: 'distribution',
       header: 'Distribution',
+      sortable: true,
       render: (row) => row.distribution,
     },
     {
       key: 'nextDistribution',
       header: 'Next Dist.',
+      sortable: true,
       render: (row) => row.nextDistribution,
     },
     {
@@ -66,6 +68,7 @@ export default function DeFiPositionTable({ positions, onSupplyClick, onProvideC
     {
       key: 'participationRisk',
       header: GRID_LABELS.participationRisk,
+      sortable: true,
       render: (row) => formatPercent(row.participationRisk),
     },
     {

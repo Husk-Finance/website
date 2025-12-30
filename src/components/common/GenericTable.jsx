@@ -10,8 +10,15 @@ export default function GenericTable({
 
   const handleSort = (key) => {
     let direction = 'asc'
-    if (sortConfig.key === key && sortConfig.direction === 'asc') {
-      direction = 'desc'
+    // If already sorting by this key
+    if (sortConfig.key === key) {
+      if (sortConfig.direction === 'asc') {
+        direction = 'desc'
+      } else {
+        // If was desc, reset to no sort
+        setSortConfig({ key: null, direction: 'asc' })
+        return
+      }
     }
     setSortConfig({ key, direction })
   }
