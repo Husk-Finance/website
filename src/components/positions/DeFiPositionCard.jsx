@@ -2,14 +2,39 @@ import PropTypes from 'prop-types'
 import './DeFiPositionCard.scss'
 import Tag from '../common/Tag'
 import { GRID_LABELS } from '../../constants'
+import { useReadContracts } from 'wagmi'
+import { ERC20_ABI } from '../../constants/contracts'
 import { getQuotedTokenSymbol, formatPercent, formatDollar } from '../../utils/positionUtils'
 import {
   CardContainer, CardGrid, CardGridItem, CardButtons,
 } from '../common/CardBase'
 
 export default function DeFiPositionCard({ position, onSupplyClick = null, onProvideClick = null }) {
-  // Both buttons show the same token for DeFi positions
-  const quotedToken = getQuotedTokenSymbol(position, 'supply')
+  // Fetch token symbols for both assets
+  const { data: symbols } = useReadContracts({
+    contracts: [
+      {
+        address: position.liquiditySupplierAsset,
+        abi: ERC20_ABI,
+        functionName: 'symbol',
+        chainId: position.chainId,
+      },
+      {
+        address: position.liquidityProviderAsset,
+        abi: ERC20_ABI,
+        functionName: 'symbol',
+        chainId: position.chainId,
+      },
+    ],
+    query: {
+      enabled: !!position.liquiditySupplierAsset && !!position.liquidityProviderAsset,
+      staleTime: Infinity,
+    },
+  })
+
+  // Destructure results
+  const supplySymbol = symbols?.[0]?.result || getQuotedTokenSymbol(position)
+  const provideSymbol = symbols?.[1]?.result || getQuotedTokenSymbol(position)
 
   return (
     <CardContainer className="defi-position-card">
@@ -42,8 +67,8 @@ export default function DeFiPositionCard({ position, onSupplyClick = null, onPro
         <CardButtons
           onSupply={onSupplyClick}
           onProvide={onProvideClick}
-          supplyLabel={`Supply ${quotedToken}`}
-          provideLabel={`Provide ${quotedToken}`}
+          supplyLabel={`Supply ${supplySymbol}`}
+          provideLabel={`Provide ${provideSymbol}`}
         />
       </CardGrid>
     </CardContainer>

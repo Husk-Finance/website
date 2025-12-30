@@ -27,7 +27,6 @@ export const mockDeFiPositions = [
     participationRisk: '13',
     liquidityProviderAsset: '0x0000000000000000000000000000000000000001', // Mock AETHIR address
     liquiditySupplierAsset: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // USDC
-    quotedAsset: 'USDC', // Token symbol for button labels
   },
   {
     id: 102,
@@ -45,7 +44,6 @@ export const mockDeFiPositions = [
     participationRisk: '8',
     liquidityProviderAsset: '0xc00e94Cb662C3520282E6f5717214004A7f26888', // COMP
     liquiditySupplierAsset: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48', // USDC
-    quotedAsset: 'USDC', // Token symbol for button labels
   },
   {
     id: 103,
@@ -63,7 +61,6 @@ export const mockDeFiPositions = [
     participationRisk: '4',
     liquidityProviderAsset: '0x9f8F72aA9304c8B593d555F12eF6589cC3A579A2', // MKR
     liquiditySupplierAsset: '0x6B175474E89094C44Da98b954EedeAC495271d0F', // DAI
-    quotedAsset: 'DAI', // Token symbol for button labels
   },
   {
     id: 104,
@@ -81,7 +78,6 @@ export const mockDeFiPositions = [
     participationRisk: '35',
     liquidityProviderAsset: '0xd9Fcd98c322942075A5C3860693e9f4f03AAE07b', // EUL
     liquiditySupplierAsset: '0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2', // WETH
-    quotedAsset: 'WETH', // Token symbol for button labels
   },
 
   // Base Network DeFi Positions (chainId: 8453)
@@ -101,7 +97,6 @@ export const mockDeFiPositions = [
     participationRisk: '9',
     liquidityProviderAsset: '0x0000000000000000000000000000000000000002', // Mock AAVE on Base
     liquiditySupplierAsset: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913', // USDC on Base
-    quotedAsset: 'USDC', // Token symbol for button labels
   },
   {
     id: 202,
@@ -119,7 +114,6 @@ export const mockDeFiPositions = [
     participationRisk: '32',
     liquidityProviderAsset: '0x0000000000000000000000000000000000000003', // Mock WELL on Base
     liquiditySupplierAsset: '0x4200000000000000000000000000000000000006', // WETH on Base
-    quotedAsset: 'WETH', // Token symbol for button labels
   },
   {
     id: 203,
@@ -137,7 +131,6 @@ export const mockDeFiPositions = [
     participationRisk: '42',
     liquidityProviderAsset: '0x0000000000000000000000000000000000000004', // Mock SEAM on Base
     liquiditySupplierAsset: '0xcbB7C0000aB88B473b1f5aFd9ef808440eed33Bf', // cbBTC on Base
-    quotedAsset: 'cbBTC', // Token symbol for button labels
   },
   {
     id: 204,
@@ -155,7 +148,6 @@ export const mockDeFiPositions = [
     participationRisk: '5',
     liquidityProviderAsset: '0x0000000000000000000000000000000000000005', // Mock AERO on Base
     liquiditySupplierAsset: '0xd9aAEc86B65D86f6A7B5B1b0c42FFA531710b6CA', // USDbC on Base
-    quotedAsset: 'USDbC', // Token symbol for button labels
   },
 
   // HyperEVM DeFi Positions (chainId: 999)
@@ -175,7 +167,6 @@ export const mockDeFiPositions = [
     participationRisk: '1',
     liquidityProviderAsset: '0xfFaa4a3D97fE9107Cef8a3F48c069F577Ff76cC1', // stHYPE
     liquiditySupplierAsset: '0xb88339CB7199b77E23DB6E890353E22632Ba630f', // USDC
-    quotedAsset: 'USDC',
   },
 
   // Mantle DeFi Positions (chainId: 5000)
@@ -195,7 +186,6 @@ export const mockDeFiPositions = [
     participationRisk: '1',
     liquidityProviderAsset: '0x93919784C523f39CACaa98Ee0a9d96c3F32b593e', // uniBTC
     liquiditySupplierAsset: '0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34', // USDe
-    quotedAsset: 'USDe',
   },
   {
     id: 402,
@@ -213,7 +203,6 @@ export const mockDeFiPositions = [
     participationRisk: '1',
     liquidityProviderAsset: '0xEBDC36506adCFF3c64E7da11215D7Bf1d4700Ee3', // Cow Uniswap mETH-WETH
     liquiditySupplierAsset: '0x5d3a1Ff2b6BAb83b63cd9AD0787074081a52ef34', // USDe
-    quotedAsset: 'USDe',
   },
   {
     id: 403,
@@ -231,7 +220,6 @@ export const mockDeFiPositions = [
     participationRisk: '12',
     liquidityProviderAsset: '0x4515A45337F461A11Ff0FE8aBF3c606AE5dC00c9', // MOE
     liquiditySupplierAsset: '0x09Bc4E0D864854c6aFB6eB9A9cdF58aC190D0dF9', // USDC
-    quotedAsset: 'USDC',
   },
   {
     id: 404,
@@ -249,6 +237,5 @@ export const mockDeFiPositions = [
     participationRisk: '44',
     liquidityProviderAsset: '0x0000000000000000000000000000000000000006', // Placeholder
     liquiditySupplierAsset: '0x09Bc4E0D864854c6aFB6eB9A9cdF58aC190D0dF9', // USDC
-    quotedAsset: 'USDC',
   },
 ]
