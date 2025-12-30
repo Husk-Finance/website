@@ -100,14 +100,6 @@ export default function DexPositionCard({ position, onSupplyClick = null, onProv
       <CardGrid>
         <CardGridItem label={GRID_LABELS.tvl} value={formatDollar(position.tvl)} />
         <CardGridItem label={GRID_LABELS.revenue24h} value={formatDollar(position.revenue24h)} />
-        <CardGridItem
-          label={GRID_LABELS.liquidationLow}
-          value={formatTokenAmount(position.liquidationLow, quoteDecimals, supplySymbol)}
-        />
-        <CardGridItem
-          label={GRID_LABELS.liquidationHigh}
-          value={formatTokenAmount(position.liquidationHigh, quoteDecimals, supplySymbol)}
-        />
         <CardGridItem label={GRID_LABELS.supplyAPY} value={formatPercent(position.supplyAPY)} />
         <CardGridItem label={GRID_LABELS.provideRisk} value={formatPercent(position.provideRisk)} />
         <CardButtons
@@ -133,8 +125,6 @@ DexPositionCard.propTypes = {
     tvl: PropTypes.string.isRequired,
     revenue24h: PropTypes.string.isRequired,
     supplyAPY: PropTypes.string.isRequired,
-    liquidationLow: PropTypes.string.isRequired,
-    liquidationHigh: PropTypes.string.isRequired,
     provideRisk: PropTypes.string.isRequired,
     liquiditySupplierAsset: PropTypes.string, // ERC20 token address
     liquidityProviderAsset: PropTypes.string, // ERC20 token address

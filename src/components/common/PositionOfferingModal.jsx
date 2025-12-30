@@ -286,30 +286,7 @@ function PositionOfferingModal({
                   <p className="label">24h rev.</p>
                   <p className="value">{formatDollar(position.revenue24h)}</p>
                 </div>
-                {isDexPosition ? (
-                  <>
-                    <div className="info-item">
-                      <p className="label">Liquidation Low</p>
-                      <p className="value">
-                        {formatTokenAmount(
-                          position.liquidationLow,
-                          getTokenDecimals(position.liquiditySupplierAsset),
-                          getQuotedTokenSymbol(position),
-                        )}
-                      </p>
-                    </div>
-                    <div className="info-item">
-                      <p className="label">Liquidation High</p>
-                      <p className="value">
-                        {formatTokenAmount(
-                          position.liquidationHigh,
-                          getTokenDecimals(position.liquiditySupplierAsset),
-                          getQuotedTokenSymbol(position),
-                        )}
-                      </p>
-                    </div>
-                  </>
-                ) : (
+                {isDexPosition ? null : (
                   <>
                     <div className="info-item">
                       <p className="label">Distribution</p>
@@ -468,8 +445,6 @@ PositionOfferingModal.propTypes = {
     pair: PropTypes.string,
     version: PropTypes.string,
     fee: PropTypes.string,
-    liquidationLow: PropTypes.string,
-    liquidationHigh: PropTypes.string,
     // Common fields
     huskAPY: PropTypes.string,
     tvl: PropTypes.string,

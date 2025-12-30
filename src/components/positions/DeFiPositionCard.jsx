@@ -99,7 +99,6 @@ DeFiPositionCard.propTypes = {
     revenue24h: PropTypes.string.isRequired,
     distribution: PropTypes.string,
     nextDistribution: PropTypes.string,
-    liquidationLow: PropTypes.string,
     provideRisk: PropTypes.string,
     participationRisk: PropTypes.string,
     quotedAsset: PropTypes.string, // Token symbol for button labels (e.g., "USDC", "WETH", "DAI")

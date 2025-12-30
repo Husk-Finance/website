@@ -40,8 +40,6 @@ export const BUTTON_LABELS = {
 export const GRID_LABELS = {
   tvl: 'TVL',
   revenue24h: '24h rev.',
-  liquidationLow: 'Liqd. Low Price',
-  liquidationHigh: 'Liqd. High Price',
   supplyAPY: 'Supply APY',
   provideRisk: 'Provide Risk',
   participationRisk: 'Participation Risk',

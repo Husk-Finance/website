@@ -8,7 +8,7 @@ import {
   getQuotedTokenSymbol,
   getTokenDecimals,
 } from '../../utils/positionUtils'
-import { TableActionButtons, LiquidationValueDisplay } from './TableComponents'
+import { TableActionButtons } from './TableComponents'
 import GenericTable from '../common/GenericTable'
 
 export default function DexPositionTable({ positions, onSupplyClick, onProvideClick }) {
@@ -55,20 +55,6 @@ export default function DexPositionTable({ positions, onSupplyClick, onProvideCl
       render: (row) => formatDollar(row.revenue24h),
     },
     {
-      key: 'liquidationLow',
-      header: GRID_LABELS.liquidationLow,
-      render: (row) => (
-        <LiquidationValueDisplay position={row} value={row.liquidationLow} />
-      ),
-    },
-    {
-      key: 'liquidationHigh',
-      header: GRID_LABELS.liquidationHigh,
-      render: (row) => (
-        <LiquidationValueDisplay position={row} value={row.liquidationHigh} />
-      ),
-    },
-    {
       key: 'supplyAPY',
       header: GRID_LABELS.supplyAPY,
       sortable: true,
@@ -109,8 +95,6 @@ DexPositionTable.propTypes = {
       huskAPY: PropTypes.string.isRequired,
       tvl: PropTypes.string.isRequired,
       revenue24h: PropTypes.string.isRequired,
-      liquidationLow: PropTypes.string.isRequired,
-      liquidationHigh: PropTypes.string.isRequired,
       supplyAPY: PropTypes.string.isRequired,
       provideRisk: PropTypes.string.isRequired,
       liquiditySupplierAsset: PropTypes.string.isRequired,

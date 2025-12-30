@@ -55,30 +55,4 @@ TableActionButtons.propTypes = {
     onProvideClick: PropTypes.func.isRequired,
 }
 
-export function LiquidationValueDisplay({ position, value }) {
-    const { data: symbolResult } = useReadContracts({
-        contracts: [
-            {
-                address: position.liquiditySupplierAsset,
-                abi: ERC20_ABI,
-                functionName: 'symbol',
-                chainId: position.chainId,
-            },
-        ],
-        query: {
-            enabled: !!position.liquiditySupplierAsset,
-            staleTime: Infinity,
-        },
-    })
 
-    const rawSymbol = symbolResult?.[0]?.result || 'USDC'
-    const symbol = formatTokenSymbol(rawSymbol)
-    const decimals = getTokenDecimals(position.liquiditySupplierAsset)
-
-    return formatTokenAmount(value, decimals, symbol)
-}
-
-LiquidationValueDisplay.propTypes = {
-    position: PropTypes.object.isRequired,
-    value: PropTypes.string.isRequired,
-}
