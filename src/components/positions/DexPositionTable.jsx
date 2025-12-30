@@ -8,6 +8,7 @@ import {
   getQuotedTokenSymbol,
   getTokenDecimals,
 } from '../../utils/positionUtils'
+import { TableActionButtons, LiquidationValueDisplay } from './TableComponents'
 import GenericTable from '../common/GenericTable'
 
 export default function DexPositionTable({ positions, onSupplyClick, onProvideClick }) {
@@ -56,20 +57,16 @@ export default function DexPositionTable({ positions, onSupplyClick, onProvideCl
     {
       key: 'liquidationLow',
       header: GRID_LABELS.liquidationLow,
-      render: (row) => {
-        const quotedToken = getQuotedTokenSymbol(row, 'supply')
-        const quoteDecimals = getTokenDecimals(row.liquiditySupplierAsset)
-        return formatTokenAmount(row.liquidationLow, quoteDecimals, quotedToken)
-      },
+      render: (row) => (
+        <LiquidationValueDisplay position={row} value={row.liquidationLow} />
+      ),
     },
     {
       key: 'liquidationHigh',
       header: GRID_LABELS.liquidationHigh,
-      render: (row) => {
-        const quotedToken = getQuotedTokenSymbol(row, 'supply')
-        const quoteDecimals = getTokenDecimals(row.liquiditySupplierAsset)
-        return formatTokenAmount(row.liquidationHigh, quoteDecimals, quotedToken)
-      },
+      render: (row) => (
+        <LiquidationValueDisplay position={row} value={row.liquidationHigh} />
+      ),
     },
     {
       key: 'supplyAPY',
@@ -88,23 +85,13 @@ export default function DexPositionTable({ positions, onSupplyClick, onProvideCl
       header: '',
       className: 'actions-column',
       cellClassName: 'actions-cell',
-      render: (row) => {
-        const quotedToken = getQuotedTokenSymbol(row, 'supply')
-        return (
-          <div className="action-buttons">
-            <button type="button" onClick={() => onSupplyClick(row)}>
-              Supply
-              {' '}
-              {quotedToken}
-            </button>
-            <button type="button" className="provide-button" onClick={() => onProvideClick(row)}>
-              Provide
-              {' '}
-              {quotedToken}
-            </button>
-          </div>
-        )
-      },
+      render: (row) => (
+        <TableActionButtons
+          position={row}
+          onSupplyClick={onSupplyClick}
+          onProvideClick={onProvideClick}
+        />
+      ),
     },
   ]
 

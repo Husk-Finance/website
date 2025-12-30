@@ -8,6 +8,8 @@ import {
 import GenericTable from '../common/GenericTable'
 import Tag from '../common/Tag'
 
+import { TableActionButtons } from './TableComponents'
+
 export default function DeFiPositionTable({ positions, onSupplyClick, onProvideClick }) {
   const columns = [
     {
@@ -71,23 +73,13 @@ export default function DeFiPositionTable({ positions, onSupplyClick, onProvideC
       header: '',
       className: 'actions-column',
       cellClassName: 'actions-cell',
-      render: (row) => {
-        const quotedToken = getQuotedTokenSymbol(row, 'supply')
-        return (
-          <div className="action-buttons">
-            <button type="button" onClick={() => onSupplyClick(row)}>
-              Supply
-              {' '}
-              {quotedToken}
-            </button>
-            <button type="button" className="provide-button" onClick={() => onProvideClick(row)}>
-              Provide
-              {' '}
-              {quotedToken}
-            </button>
-          </div>
-        )
-      },
+      render: (row) => (
+        <TableActionButtons
+          position={row}
+          onSupplyClick={onSupplyClick}
+          onProvideClick={onProvideClick}
+        />
+      ),
     },
   ]
 

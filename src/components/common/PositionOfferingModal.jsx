@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useAccount } from 'wagmi'
 
 import {
-  formatDollar, formatPercent, formatTokenAmount, getTokenDecimals,
+  formatDollar, formatPercent, formatTokenAmount, getQuotedTokenSymbol, getTokenDecimals,
 } from '../../utils/positionUtils'
 import { formatTokenBalance } from '../../utils/tokenDisplayUtils'
 import { fetchTokenData } from '../../utils/tokenUtils'
@@ -294,7 +294,7 @@ function PositionOfferingModal({
                         {formatTokenAmount(
                           position.liquidationLow,
                           getTokenDecimals(position.liquiditySupplierAsset),
-                          actionTokenSymbol || 'USDC',
+                          getQuotedTokenSymbol(position),
                         )}
                       </p>
                     </div>
@@ -304,7 +304,7 @@ function PositionOfferingModal({
                         {formatTokenAmount(
                           position.liquidationHigh,
                           getTokenDecimals(position.liquiditySupplierAsset),
-                          actionTokenSymbol || 'USDC',
+                          getQuotedTokenSymbol(position),
                         )}
                       </p>
                     </div>

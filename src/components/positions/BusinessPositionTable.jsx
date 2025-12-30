@@ -5,6 +5,8 @@ import { formatCompactNumber, formatPercent } from '../../utils/positionUtils'
 import GenericTable from '../common/GenericTable'
 import Tag from '../common/Tag'
 
+import { TableActionButtons } from './TableComponents'
+
 export default function BusinessPositionTable({ positions, onSupplyClick, onProvideClick }) {
   const columns = [
     {
@@ -72,7 +74,7 @@ export default function BusinessPositionTable({ positions, onSupplyClick, onProv
     {
       key: 'participationRisk',
       header: GRID_LABELS.participationRisk,
-      render: (row) => row.participationRisk,
+      render: (row) => formatPercent(row.participationRisk),
     },
     {
       key: 'actions',
@@ -80,14 +82,11 @@ export default function BusinessPositionTable({ positions, onSupplyClick, onProv
       className: 'actions-column',
       cellClassName: 'actions-cell',
       render: (row) => (
-        <div className="action-buttons">
-          <button type="button" onClick={() => onSupplyClick(row)}>
-            Supply
-          </button>
-          <button type="button" className="provide-button" onClick={() => onProvideClick(row)}>
-            Provide
-          </button>
-        </div>
+        <TableActionButtons
+          position={row}
+          onSupplyClick={onSupplyClick}
+          onProvideClick={onProvideClick}
+        />
       ),
     },
   ]

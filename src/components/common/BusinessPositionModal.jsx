@@ -314,8 +314,8 @@ function BusinessPositionModal({
             <div className="business-description">
               <p>
                 {action === 'supply'
-                  ? 'Supply USDC to earn yield from real-world business revenue. Your capital will be used to fund operational expenses and growth initiatives.'
-                  : 'Provide USDC using your position as collateral. Interest rates are determined by the business performance and market conditions.'}
+                  ? `Supply ${actionTokenSymbol || 'USDC'} to earn yield from real-world business revenue. Your capital will be used to fund operational expenses and growth initiatives.`
+                  : `Provide ${actionTokenSymbol || 'USDC'} using your position as collateral. Interest rates are determined by the business performance and market conditions.`}
               </p>
             </div>
 
