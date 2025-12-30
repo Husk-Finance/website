@@ -45,9 +45,15 @@ export default function BusinessPositionTable({ positions, onSupplyClick, onProv
     },
     {
       key: 'tvl',
-      header: 'TVL / MCap',
+      header: 'TVL',
       sortable: true,
-      render: (row) => `$${formatCompactNumber(row.tvl)} / $${formatCompactNumber(row.mcap)}`,
+      render: (row) => `$${formatCompactNumber(row.tvl)}`,
+    },
+    {
+      key: 'mcap',
+      header: 'Market Cap',
+      sortable: true,
+      render: (row) => `$${formatCompactNumber(row.mcap)}`,
     },
     {
       key: 'revenue30d',
