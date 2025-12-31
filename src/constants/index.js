@@ -41,8 +41,8 @@ export const GRID_LABELS = {
   tvl: 'TVL',
   revenue24h: '24h rev.',
   supplyAPY: 'Supply APY',
-  provideRisk: 'Provide Risk',
-  participationRisk: 'Participation Risk',
+  provideAPY: 'Provide APY',
+
   huskAPY: 'Husk APY',
 }
 

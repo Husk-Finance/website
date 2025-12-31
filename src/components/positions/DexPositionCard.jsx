@@ -113,7 +113,7 @@ export default function DexPositionCard({ position, onSupplyClick = null, onProv
         <CardGridItem label="Supply Share" value={formatPercent(position.supplyShare)} />
         <CardGridItem label="Provide Share" value={formatPercent(position.provideShare)} />
         <CardGridItem label={GRID_LABELS.supplyAPY} value={formatPercent(position.supplyAPY)} />
-        <CardGridItem label={GRID_LABELS.provideRisk} value={formatPercent(position.provideRisk)} />
+        <CardGridItem label={GRID_LABELS.provideAPY} value={formatPercent(position.provideAPY)} />
         <CardButtons
           onSupply={onSupplyClick}
           onProvide={onProvideClick}
@@ -139,7 +139,7 @@ DexPositionCard.propTypes = {
     supplyShare: PropTypes.string.isRequired,
     provideShare: PropTypes.string.isRequired,
     supplyAPY: PropTypes.string.isRequired,
-    provideRisk: PropTypes.string.isRequired,
+    provideAPY: PropTypes.string.isRequired,
     liquiditySupplierAsset: PropTypes.string, // ERC20 token address
     liquidityProviderAsset: PropTypes.string, // ERC20 token address
     chainId: PropTypes.number,

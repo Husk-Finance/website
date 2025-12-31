@@ -61,10 +61,10 @@ export default function DexPositionTable({ positions, onSupplyClick, onProvideCl
       render: (row) => formatPercent(row.supplyAPY),
     },
     {
-      key: 'provideRisk',
-      header: GRID_LABELS.provideRisk,
+      key: 'provideAPY',
+      header: GRID_LABELS.provideAPY,
       sortable: true,
-      render: (row) => formatPercent(row.provideRisk),
+      render: (row) => formatPercent(row.provideAPY),
     },
     {
       key: 'actions',
@@ -96,7 +96,7 @@ DexPositionTable.propTypes = {
       tvl: PropTypes.string.isRequired,
       revenue24h: PropTypes.string.isRequired,
       supplyAPY: PropTypes.string.isRequired,
-      provideRisk: PropTypes.string.isRequired,
+      provideAPY: PropTypes.string.isRequired,
       liquiditySupplierAsset: PropTypes.string.isRequired,
     }),
   ).isRequired,

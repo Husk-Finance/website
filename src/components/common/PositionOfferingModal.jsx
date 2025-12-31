@@ -1,5 +1,6 @@
 import './PositionOfferingModal.scss'
 
+import { GRID_LABELS } from '../../constants'
 import PropTypes from 'prop-types'
 import { useCallback, useEffect, useState } from 'react'
 import { useAccount } from 'wagmi'
@@ -316,11 +317,9 @@ function PositionOfferingModal({
                   <p className="value">{formatPercent(position.supplyAPY)}</p>
                 </div>
                 <div className="info-item">
-                  <p className="label">{isDexPosition ? 'Provide Risk' : 'Participation Risk'}</p>
+                  <p className="label">{GRID_LABELS.provideAPY}</p>
                   <p className="value">
-                    {isDexPosition
-                      ? formatPercent(position.provideRisk)
-                      : formatPercent(position.participationRisk)}
+                    {formatPercent(position.provideAPY)}
                   </p>
                 </div>
               </div>
@@ -454,8 +453,8 @@ PositionOfferingModal.propTypes = {
     tvl: PropTypes.string,
     revenue24h: PropTypes.string,
     supplyAPY: PropTypes.string,
-    provideRisk: PropTypes.string,
-    participationRisk: PropTypes.string,
+    provideAPY: PropTypes.string,
+
     description: PropTypes.string,
     chainId: PropTypes.number,
     // Asset fields (token addresses)
