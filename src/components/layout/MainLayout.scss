@@ -1,0 +1,47 @@
+@use '../../styles/variables' as *;
+
+.main-layout {
+    position: relative;
+    background: $primary-bg;
+    min-height: 100vh;
+    color: $text-primary;
+    font-family: $font-family;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    display: flex;
+    flex-direction: column;
+
+    // Exact gradient background from Figma - three layered radial gradients
+    &::before {
+        content: '';
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        pointer-events: none;
+        background: $primary-bg;
+        background-image:
+            // Third gradient: Green tint, top-right side (more visible)
+            $bg-gradient-green-right,
+            // First gradient: Green tint, bottom-left area
+            $bg-gradient-green-left,
+            // Second gradient: Yellow/gold tint, top-center area  
+            $bg-gradient-gold-top;
+    }
+
+    // Ensure content is above background
+    >* {
+        position: relative;
+        z-index: 1;
+    }
+
+    .content {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+    }
+}

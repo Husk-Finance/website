@@ -1,4 +1,4 @@
-import './Homepage.scss'
+import './ExplorePage.scss'
 
 import { useState } from 'react'
 import { useAccount, useChainId } from 'wagmi'
@@ -6,8 +6,6 @@ import { useAccount, useChainId } from 'wagmi'
 import BusinessPositionModal from '../components/common/BusinessPositionModal'
 import PositionOfferingModal from '../components/common/PositionOfferingModal'
 import ViewToggle from '../components/common/ViewToggle'
-import Footer from '../components/layout/Footer'
-import Header from '../components/layout/Header'
 import { BusinessPositionCard, DexPositionCard } from '../components/positions'
 import BusinessPositionTable from '../components/positions/BusinessPositionTable'
 import DeFiPositionCard from '../components/positions/DeFiPositionCard'
@@ -28,7 +26,7 @@ import {
   processDexPositions,
 } from '../utils/positionUtils'
 
-export default function Homepage() {
+export default function ExplorePage() {
   // Get wallet connection status and chain ID
   const { isConnected } = useAccount()
   const walletChainId = useChainId()
@@ -114,8 +112,6 @@ export default function Homepage() {
 
   return (
     <div className="homepage">
-      <Header />
-
       <section className="hero-section">
         <h1>{HERO_CONTENT.title}</h1>
         <p>{HERO_CONTENT.subtitle}</p>
@@ -270,8 +266,6 @@ export default function Homepage() {
           </div>
         )}
       </section>
-
-      <Footer />
 
       <PositionOfferingModal
         isOpen={modalState.isOpen}

@@ -2,6 +2,7 @@ import '@rainbow-me/rainbowkit/styles.css'
 import './Header.scss'
 
 import { ConnectButton } from '@rainbow-me/rainbowkit'
+import { NavLink } from 'react-router-dom'
 
 import logoGradient from '../../assets/logo-gradient.svg'
 import { NAV_LINKS } from '../../constants'
@@ -19,11 +20,18 @@ export default function Header() {
           <span className="logo-text">Husk Finance</span>
         </div>
 
+
         <nav className="nav-links">
           {NAV_LINKS.map((link) => (
-            <a key={link.label} href={link.href}>
-              {link.label}
-            </a>
+            link.href.startsWith('http') ? (
+              <a key={link.label} href={link.href} target="_blank" rel="noopener noreferrer">
+                {link.label}
+              </a>
+            ) : (
+              <NavLink key={link.label} to={link.href}>
+                {link.label}
+              </NavLink>
+            )
           ))}
         </nav>
 

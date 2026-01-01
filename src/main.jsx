@@ -9,6 +9,7 @@ import ReactDOM from 'react-dom/client'
 import { http } from 'viem'
 import { WagmiProvider } from 'wagmi'
 import { base, mainnet, mantle } from 'wagmi/chains'
+import { BrowserRouter } from 'react-router-dom'
 
 import App from './App'
 import { hyperevm } from './constants/chains'
@@ -118,7 +119,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
     <WagmiProvider config={config}>
       <QueryClientProvider client={queryClient}>
         <RainbowKitProvider theme={myDarkTheme}>
-          <App />
+          <BrowserRouter>
+            <App />
+          </BrowserRouter>
         </RainbowKitProvider>
       </QueryClientProvider>
     </WagmiProvider>

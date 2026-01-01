@@ -1,11 +1,20 @@
 import './App.scss'
 
-import Homepage from './pages/Homepage'
+import { Route, Routes } from 'react-router-dom'
+
+import MainLayout from './components/layout/MainLayout'
+import DashboardPage from './pages/DashboardPage'
+import ExplorePage from './pages/ExplorePage'
 
 function App() {
   return (
     <div className="app">
-      <Homepage />
+      <Routes>
+        <Route element={<MainLayout />}>
+          <Route path="/" element={<DashboardPage />} />
+          <Route path="/explore" element={<ExplorePage />} />
+        </Route>
+      </Routes>
     </div>
   )
 }
