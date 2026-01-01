@@ -17,7 +17,9 @@ import {
   CardContainer, CardGrid, CardGridItem,
 } from '../common/CardBase'
 
-export default function DexPositionCard({ position, onSupplyClick = null, onProvideClick = null }) {
+export default function DexPositionCard({
+  position, onSupplyClick = null, onProvideClick = null, variant = 'default',
+}) {
   // Fetch token symbols for both assets
   const { data: symbols } = useReadContracts({
     contracts: [
@@ -110,10 +112,21 @@ export default function DexPositionCard({ position, onSupplyClick = null, onProv
       <CardGrid>
         <CardGridItem label={GRID_LABELS.tvl} value={formatDollar(position.tvl)} />
         <CardGridItem label={GRID_LABELS.revenue24h} value={formatDollar(position.revenue24h)} />
-        <CardGridItem label="Supply Share" value={formatPercent(position.supplyShare)} />
-        <CardGridItem label="Provide Share" value={formatPercent(position.provideShare)} />
-        <CardGridItem label={GRID_LABELS.supplyAPY} value={formatPercent(position.supplyAPY)} />
-        <CardGridItem label={GRID_LABELS.provideAPY} value={formatPercent(position.provideAPY)} />
+        {variant === 'dashboard' ? (
+          <>
+            <CardGridItem label="Type" value="Supply" />
+            <CardGridItem label="Pool Share" value={formatPercent(position.provideShare)} />
+            <CardGridItem label="My Reserves" value="$1,000" />
+            <CardGridItem label="Unclaimed Profit" value="$200" />
+          </>
+        ) : (
+          <>
+            <CardGridItem label="Supply Share" value={formatPercent(position.supplyShare)} />
+            <CardGridItem label="Provide Share" value={formatPercent(position.provideShare)} />
+            <CardGridItem label={GRID_LABELS.supplyAPY} value={formatPercent(position.supplyAPY)} />
+            <CardGridItem label={GRID_LABELS.provideAPY} value={formatPercent(position.provideAPY)} />
+          </>
+        )}
         <CardButtons
           onSupply={onSupplyClick}
           onProvide={onProvideClick}
@@ -146,4 +159,5 @@ DexPositionCard.propTypes = {
   }).isRequired,
   onSupplyClick: PropTypes.func,
   onProvideClick: PropTypes.func,
+  variant: PropTypes.string,
 }

@@ -51,6 +51,7 @@ const DashboardPage = () => {
                                 // Mock handlers for now
                                 onSupplyClick={() => { }}
                                 onProvideClick={() => { }}
+                                variant="dashboard"
                             />
                         ))}
                     </div>
