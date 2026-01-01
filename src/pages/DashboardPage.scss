@@ -1,0 +1,140 @@
+@use '../styles/variables' as *;
+
+.dashboard-page {
+
+    // Inherit layout styles from ExplorePage but allow for dashboard-specific tweaks
+    .hero-section {
+        max-width: 1920px;
+        margin: 0 auto;
+        padding: $spacing-lg $spacing-xl;
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-md;
+
+        h1 {
+            font-size: $font-size-lg;
+            font-weight: 400;
+            letter-spacing: $letter-spacing-lg;
+            line-height: 1.2;
+            max-width: 600px;
+            margin: 0;
+            color: $text-primary;
+        }
+    }
+
+    .stats-section {
+        max-width: 1920px;
+        margin: 0 auto;
+        padding: 0 $spacing-xl $spacing-lg;
+        display: flex;
+        flex-direction: column;
+        gap: $spacing-md;
+
+        .stat-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: $spacing-lg;
+
+            h3 {
+                font-size: $font-size-sm;
+                color: rgba(255, 255, 255, 0.6);
+                margin: 0 0 $spacing-sm 0;
+                font-weight: 400;
+                text-transform: uppercase;
+                letter-spacing: 0.05em;
+            }
+
+            .value {
+                font-size: 32px;
+                font-weight: 600;
+                color: $text-primary;
+                margin: 0;
+            }
+        }
+    }
+
+    .positions-section {
+        max-width: 1920px;
+        margin: 0 auto;
+        padding: $spacing-lg $spacing-xl;
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: $spacing-md;
+            gap: $spacing-md;
+            flex-wrap: wrap;
+        }
+
+        h2 {
+            font-size: $font-size-base;
+            font-weight: 400;
+            letter-spacing: $letter-spacing-tight;
+            margin: 0;
+            color: $text-primary;
+        }
+
+        .positions-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: $spacing-md;
+        }
+
+        .empty-state {
+            padding: $spacing-lg;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.6);
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+
+            p {
+                margin: 0 0 $spacing-sm 0;
+                font-size: $font-size-base;
+                letter-spacing: $letter-spacing-tight;
+
+                &:last-child {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 1200px) {
+    .dashboard-page {
+
+        .hero-section,
+        .stats-section,
+        .positions-section {
+            padding-left: 100px;
+            padding-right: 100px;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-page {
+
+        .hero-section,
+        .stats-section,
+        .positions-section {
+            padding: 40px 20px;
+        }
+
+        .stats-section {
+            flex-direction: column;
+            gap: $spacing-md;
+
+            .stat-card {
+                width: 100%;
+            }
+        }
+
+        .positions-section .positions-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+}
