@@ -14,7 +14,9 @@ import {
 } from '../common/CardBase'
 import Tag from '../common/Tag'
 
-export default function BusinessPositionCard({ position, onSupplyClick, onProvideClick }) {
+export default function BusinessPositionCard({
+  position, onSupplyClick, onProvideClick, variant = 'default',
+}) {
   // Fetch token symbols for both assets
   const { data: symbols } = useReadContracts({
     contracts: [
@@ -46,15 +48,17 @@ export default function BusinessPositionCard({ position, onSupplyClick, onProvid
 
   return (
     <CardContainer className="business-position-card">
-      <div className="business-image-container">
-        <img
-          src={position.businessImage}
-          alt={position.businessName}
-          className="business-image"
-          loading="lazy"
-        />
-        <div className="image-overlay" />
-      </div>
+      {variant !== 'dashboard' && (
+        <div className="business-image-container">
+          <img
+            src={position.businessImage}
+            alt={position.businessName}
+            className="business-image"
+            loading="lazy"
+          />
+          <div className="image-overlay" />
+        </div>
+      )}
 
       <div className="business-info">
         <div className="business-header">
@@ -83,10 +87,21 @@ export default function BusinessPositionCard({ position, onSupplyClick, onProvid
             label="30d rev."
             value={`$${formatCompactNumber(position.revenue30d)}`}
           />
-          <CardGridItem label="Distribution" value={position.distribution} />
-          <CardGridItem label="Next Distribution" value={position.nextDistribution} />
-          <CardGridItem label={GRID_LABELS.supplyAPY} value={formatPercent(position.supplyAPY)} />
-          <CardGridItem label={GRID_LABELS.participationRisk} value={formatPercent(position.participationRisk)} />
+          {variant === 'dashboard' ? (
+            <>
+              <CardGridItem label="Type" value="Supply" />
+              <CardGridItem label="Pool Share" value="45%" />
+              <CardGridItem label="My Reserves" value="$1,000" />
+              <CardGridItem label="Unclaimed Profit" value="$200" />
+            </>
+          ) : (
+            <>
+              <CardGridItem label="Distribution" value={position.distribution} />
+              <CardGridItem label="Next Distribution" value={position.nextDistribution} />
+              <CardGridItem label={GRID_LABELS.supplyAPY} value={formatPercent(position.supplyAPY)} />
+              <CardGridItem label={GRID_LABELS.participationRisk} value={formatPercent(position.participationRisk)} />
+            </>
+          )}
           <CardButtons
             onSupply={onSupplyClick}
             onProvide={onProvideClick}
@@ -125,4 +140,5 @@ BusinessPositionCard.propTypes = {
   }).isRequired,
   onSupplyClick: PropTypes.func.isRequired,
   onProvideClick: PropTypes.func.isRequired,
+  variant: PropTypes.string,
 }

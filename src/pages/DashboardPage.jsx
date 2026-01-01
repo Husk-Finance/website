@@ -3,8 +3,10 @@ import './DashboardPage.scss'
 import { useState } from 'react'
 
 import ViewToggle from '../components/common/ViewToggle'
-import { DexPositionCard } from '../components/positions'
+import { BusinessPositionCard, DeFiPositionCard, DexPositionCard } from '../components/positions'
 import DexPositionTable from '../components/positions/DexPositionTable'
+import { mockBusinessPositions } from '../data/mockBusinessPositions'
+import { mockDeFiPositions } from '../data/mockDeFiPositions'
 import { mockPositions } from '../data/mockPositions'
 
 const DashboardPage = () => {
@@ -17,7 +19,9 @@ const DashboardPage = () => {
     }
 
     // Use a subset of mock positions to simulate "My Positions"
-    const myPositions = mockPositions.slice(0, 3)
+    const myDexPositions = mockPositions.slice(0, 2)
+    const myDeFiPositions = mockDeFiPositions.slice(0, 2)
+    const myBusinessPositions = mockBusinessPositions.slice(0, 2)
 
     return (
         <div className="dashboard-page">
@@ -43,24 +47,61 @@ const DashboardPage = () => {
                 </div>
 
                 {view === 'grid' ? (
-                    <div className="positions-grid">
-                        {myPositions.map((position) => (
-                            <DexPositionCard
-                                key={position.id}
-                                position={position}
-                                // Mock handlers for now
-                                onSupplyClick={() => { }}
-                                onProvideClick={() => { }}
-                                variant="dashboard"
-                            />
-                        ))}
+                    <div className="positions-grid-container" style={{ display: 'flex', flexDirection: 'column', gap: '40px' }}>
+                        <div>
+                            <h3 style={{ fontSize: '18px', marginBottom: '16px', color: '#fff' }}>DEX Positions</h3>
+                            <div className="positions-grid">
+                                {myDexPositions.map((position) => (
+                                    <DexPositionCard
+                                        key={position.id}
+                                        position={position}
+                                        onSupplyClick={() => { }}
+                                        onProvideClick={() => { }}
+                                        variant="dashboard"
+                                    />
+                                ))}
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 style={{ fontSize: '18px', marginBottom: '16px', color: '#fff' }}>DeFi Positions</h3>
+                            <div className="positions-grid">
+                                {myDeFiPositions.map((position) => (
+                                    <DeFiPositionCard
+                                        key={position.id}
+                                        position={position}
+                                        onSupplyClick={() => { }}
+                                        onProvideClick={() => { }}
+                                        variant="dashboard"
+                                    />
+                                ))}
+                            </div>
+                        </div>
+
+                        <div>
+                            <h3 style={{ fontSize: '18px', marginBottom: '16px', color: '#fff' }}>Business Positions</h3>
+                            <div className="positions-grid">
+                                {myBusinessPositions.map((position) => (
+                                    <BusinessPositionCard
+                                        key={position.id}
+                                        position={position}
+                                        onSupplyClick={() => { }}
+                                        onProvideClick={() => { }}
+                                        variant="dashboard"
+                                    />
+                                ))}
+                            </div>
+                        </div>
                     </div>
                 ) : (
-                    <DexPositionTable
-                        positions={myPositions}
-                        onSupplyClick={() => { }}
-                        onProvideClick={() => { }}
-                    />
+                    <div className="table-view-placeholder">
+                        <p style={{ color: 'rgba(255,255,255,0.6)', textAlign: 'center' }}>Table view is only available for DEX positions currently.</p>
+                        <DexPositionTable
+                            positions={myDexPositions}
+                            onSupplyClick={() => { }}
+                            onProvideClick={() => { }}
+                        />
+                    </div>
                 )}
             </section>
         </div>
